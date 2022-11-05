@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "outfit_forecast",
+    "slug": "outfit_forecast",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "outfit_forecast"
+}
