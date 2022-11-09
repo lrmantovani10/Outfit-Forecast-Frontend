@@ -10,10 +10,18 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {/* <Text>Home Screen</Text> */}
+      {/* <Text>Camera Functionality</Text> */}
       <Button
         title="Go to Weather Functionality"
         onPress={() => navigation.navigate('Weather')}
+      />
+      <Button
+        title="Go to User Functionality"
+        onPress={() => navigation.navigate('User')}
+      />
+      <Button
+        title="Go to Camera Functionality"
+        onPress={() => navigation.navigate('Camera')}
       />
     </View>
   );
@@ -22,11 +30,26 @@ function HomeScreen({ navigation }) {
 function DetailsScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {/* <Text>Details Screen</Text> */}
-      <Button
-        title="Go to Home"
-        onPress={() => navigation.navigate('Home')}
-      />
+      {/* <Text>Fetching Weather Functionality</Text> */}
+      {environmentalData(41.795949748662835, -87.59187911021162)}
+    </View>
+  );
+}
+
+function WardrobeScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      {/* <Text>User Wardrobe Functionality</Text> */}
+      {User("leo")}
+    </View>
+  );
+}
+
+function CameraScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      {/* <Text>User Wardrobe Functionality</Text> */}
+      {ImagePickerFunction()}
     </View>
   );
 }
@@ -38,21 +61,12 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }}/>
-        <Stack.Screen name="Weather" component={DetailsScreen} />
+        <Stack.Screen name="Camera" component={CameraScreen} options={{ title: 'Camera' }}/>
+        <Stack.Screen name="Weather" component={DetailsScreen} options={{ title: 'Weather' }}/>
+        <Stack.Screen name="User" component={WardrobeScreen} options={{ title: 'User' }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 export default App;
-
-
-// export default function mainApp() {
-
-//   // <NavigationContainer>
-//   //   return createRootNavigator();
-//   // </NavigationContainer>
-//   // return environmentalData(41.795949748662835, -87.59187911021162);
-//   // return ImagePickerFunction();
-//   // return User("leo");
-// }
