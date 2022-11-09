@@ -116,6 +116,7 @@ test("dailyRecommender", () => {
 // we return a list of UIImage pictures using getPictures() and use this as input
 // 
 
+/*
 let pictures = frontend_functions.getPictures()
 
 test("upload", () => {
@@ -196,6 +197,7 @@ test("camera", () => {
     expect((imageData_x.getPictures[0]).toEqual(new_state3))
 })
 
+
 // *********** STORE SURVEY TESTS *********** //
 
 // Generate new dict of preferences for user
@@ -248,6 +250,7 @@ test("updatePrefPairs", () => {
         expect(user_x.Preferences.updatePair(testCase[0])).toEqual(testCase[1])
     }
 })
+*/
 
 
 
