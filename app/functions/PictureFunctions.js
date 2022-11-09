@@ -38,7 +38,12 @@ export default function ImagePickerFunction() {
       if (!result.cancelled) {
         update_image(result.uri);
       }
-    }
+  }
+  
+  const doSurvey = async () => {
+    console.log("This is a placeholder for the survey, which will be launched via\
+    a button in a similar manner.")
+  };
   
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

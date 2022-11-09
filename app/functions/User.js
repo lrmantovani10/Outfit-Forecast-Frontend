@@ -20,6 +20,7 @@ export default function User(username) {
     }
 
     useEffect(() => {
+        //Example
         dailyRecommender(60, 65, 63, "rain")
     }, [])
 
