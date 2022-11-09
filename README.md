@@ -7,7 +7,7 @@ Current class diagram
 
 Test suite used: Jest (https://jestjs.io/)
 
-Testing file: functions/frontend_functions_tests.js
+Testing file: app/functions/frontend_functions_tests.js
 
 How to compile: No need to compile!
 
@@ -24,14 +24,15 @@ React functions we made, when applicable. Some of the expected input / output pa
 Notes on testing:
  * The prefPairs class was moved to the backend, so we are no longer testing for it here
  * sendSurveyResponses was incorporated into classifyNew(), so it is no longer a separate function
- * The output of getWeather changed. It no longer outpouts a JSON object, but an array. Additionally, this function relies on an API key that Lucas made for his account and is not displayed here for security reasons.
- * "dailyRecommender" no longer passes the user's wardrobe as an argument. Tyhe wardrobe info will be stored in the backend.
+ * The output of getWeather changed. It no longer outputs a JSON object, but an array. Additionally, this function relies on an API key that Lucas made for his account and is not displayed here for security reasons.
+ * "dailyRecommender" no longer passes the user's wardrobe as an argument. The wardrobe info will be stored in the backend.
  * The image upload / selection tests are no longer useful because we are using a React Native library for such tasks, so the process is no longer hard-coded here
  * Because we will develop the fullsurvey on the second iteration, we won't be able to test it here
- * Furthermore, we changed how we are importing certain classes / functions because of React Native's syntax.
+ * Furthermore, we changed how we are importing certain classes / functions because of React Native's syntax. Instead of exporting functions through a class like in
+ Vanilla JavaScript, we are using default exports, which make a .jsx object be exported instead of a class object. 
 
 Implementation Description:
- * Inside /app, we can find the functions EnvironmentalData, PictureFunctions, User, and testing functions.
+ * Inside /app, we can find the functions EnvironmentalData, PictureFunctions, User, ImageData, and testing functions.
  * EnvironmentalData fetches the current weather.
  * PictureFunctions encompasses all functions related to image processing, such as taking a picture and choosing one from the gallery. 
  * User contains the getRecommender function, which sends a request to the backend for an outfit prediction based on sensitivity and the user's wardrobe.
@@ -39,6 +40,6 @@ Implementation Description:
 Work Distribution:
 * Lucas: EnvironmentalData and User functions
 * Luke Contreras: ImageData functions
-* Allie: UI Navigation and page functions
+* Allie: UI Navigation and consolidating functions in App.js
 * Luke Knutson: UserCamera functions
 
