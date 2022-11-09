@@ -38,7 +38,7 @@ Implementation Description:
  
 Work Distribution:
 * Lucas: EnvironmentalData and User functions
-* Luke Contreras: ImageData functions
+* Luke Contreras: uploadPicture in PictureFunctions and Firebase testing
 * Allie: UI Navigation and page functions
 * Luke Knutson: UserCamera functions
 
