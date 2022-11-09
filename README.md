@@ -38,7 +38,7 @@ Implementation Description:
  
 Work Distribution:
 * Lucas: EnvironmentalData and User functions
-* Luke Contreras: uploadImage within PictureFunctions.js
+* Luke Contreras: ImageData functions
 * Allie: UI Navigation and page functions
 * Luke Knutson: UserCamera functions
 
