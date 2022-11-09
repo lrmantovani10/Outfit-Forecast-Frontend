@@ -22,7 +22,7 @@ be displayed. Nonetheless, some parts of the testing file (app/functions/fronten
 React functions we made, when applicable. Some of the expected input / output pairs that can be verified by the TAs are in this file. 
 
 Notes on testing:
-
+ * The prefPairs class was moved to the backend, so we are no longer testing for it here
  * sendSurveyResponses was incorporated into classifyNew(), so it is no longer a separate function
  * The output of getWeather changed. It no longer outpouts a JSON object, but an array. Additionally, this function relies on an API key that Lucas made for his account and is not displayed here for security reasons.
  * "dailyRecommender" no longer passes the user's wardrobe as an argument. Tyhe wardrobe info will be stored in the backend.
