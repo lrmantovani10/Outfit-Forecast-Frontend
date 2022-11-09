@@ -12,10 +12,14 @@ Testing file: functions/frontend_functions_tests.js
 How to compile: No need to compile!
 
 How to run code:
-npm install (for dependencies)
-npx expo start
+- npm install (for dependencies)
+- npx expo start
 
 How to run the unit test cases:
+- Since we are using React Native, we can no longer test functions using the traditional approach of having a test file and 
+matching the observed output to the predicted one. Rather, we must check if the texts / images on the screen are aligned with what we expect to 
+be displayed. Nonetheless, the testing file (app/functions/frontend_function_tests.js) was modified to include tests that can be run inside the
+React functions we made 
 
 Notes on testing:
 
