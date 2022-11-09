@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { View, Text } from 'react-native';
+import { WEATHER_KEY } from "@env"
 
-const weather_key = "aff5f1c31e4c8c1873622a552db58d7c"
 export default function environmentalData(lat, lon) {
-    const weatherEndpoint = `https://api.openweathermap.org/data/2.5/weather?lat=${lat.toString()}&lon=${lon.toString()}&appid=${weather_key}`
+    const weatherEndpoint = `https://api.openweathermap.org/data/2.5/weather?lat=${lat.toString()}&lon=${lon.toString()}&appid=${WEATHER_KEY}`
     const [weather, setWeather] = useState([])
 
     const getWeather = async () => {
@@ -19,7 +19,7 @@ export default function environmentalData(lat, lon) {
             
         }).catch((error) => {
             console.log("Error", error)
-            setWeather([])
+            setWeather(["Error fetching the weather from the API"])
         })
     }
 
