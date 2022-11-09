@@ -20,11 +20,19 @@ How to run the unit test cases:
 Notes on testing:
 
  * sendSurveyResponses was incorporated into classifyNew(), so it is no longer a separate function
- * The output of getWeather changed. It no longer outpouts a JSON object, but an array
+ * The output of getWeather changed. It no longer outpouts a JSON object, but an array. Additionally, this function relies on an API key that Lucas made for his account and is not displayed here for security reasons.
  * "dailyRecommender" no longer passes the user's wardrobe as an argument. Tyhe wardrobe info will be stored in the backend.
- * Furthermore, we changed how we are importing certain classes / functions because of React Native's syntax 
+ * Furthermore, we changed how we are importing certain classes / functions because of React Native's syntax.
 
 Implementation Description:
-
+ * Inside /app, we can find the functions EnvironmentalData, PictureFunctions, User, and testing functions.
+ * EnvironmentalData fetches the current weather.
+ * PictureFunctions encompasses all functions related to image processing, such as taking a picture and choosing one from the gallery. 
+ * User contains the getRecommender function, which sends a request to the backend for an outfit prediction based on sensitivity and the user's wardrobe.
+ 
 Work Distribution:
+* Lucas: EnvironmentalData class
+* Luke Contreras: ImageData class
+* Allie: UI Navigation and page layouts 
+* Luke Knutson: UserCamera class
 
