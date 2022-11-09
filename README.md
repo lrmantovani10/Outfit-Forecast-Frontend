@@ -18,8 +18,8 @@ How to run code:
 How to run the unit test cases:
 - Since we are using React Native, we can no longer test functions using the traditional approach of having a test file and 
 matching the observed output to the predicted one. Rather, we must check if the texts / images on the screen are aligned with what we expect to 
-be displayed. Nonetheless, the testing file (app/functions/frontend_function_tests.js) was modified to include tests that can be run inside the
-React functions we made 
+be displayed. Nonetheless, some parts of the testing file (app/functions/frontend_function_tests.js) was modified to include tests that can be run inside the
+React functions we made, when applicable
 
 Notes on testing:
 
