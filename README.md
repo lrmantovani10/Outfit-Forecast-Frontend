@@ -26,6 +26,8 @@ Notes on testing:
  * sendSurveyResponses was incorporated into classifyNew(), so it is no longer a separate function
  * The output of getWeather changed. It no longer outpouts a JSON object, but an array. Additionally, this function relies on an API key that Lucas made for his account and is not displayed here for security reasons.
  * "dailyRecommender" no longer passes the user's wardrobe as an argument. Tyhe wardrobe info will be stored in the backend.
+ * The image upload / selection tests are no longer useful because we are using a React Native library for such tasks, so the process is no longer hard-coded here
+ * Because we will develop the fullsurvey on the second iteration, we won't be able to test it here
  * Furthermore, we changed how we are importing certain classes / functions because of React Native's syntax.
 
 Implementation Description:
@@ -35,8 +37,8 @@ Implementation Description:
  * User contains the getRecommender function, which sends a request to the backend for an outfit prediction based on sensitivity and the user's wardrobe.
  
 Work Distribution:
-* Lucas: EnvironmentalData class
-* Luke Contreras: ImageData class
-* Allie: UI Navigation and page layouts 
-* Luke Knutson: UserCamera class
+* Lucas: EnvironmentalData and User functions
+* Luke Contreras: ImageData functions
+* Allie: UI Navigation and page functions
+* Luke Knutson: UserCamera functions
 
