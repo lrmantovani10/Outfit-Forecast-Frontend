@@ -1,15 +1,11 @@
 import React, { useState} from 'react';
 import { Button,  View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import * as firebase from 'firebase'
 
 export default function ImagePickerFunction() {
     const [picture, update_image] = useState(null);
 
-    const doSurvey = async () => {
-      console.log("This is a placeholder for the survey, which will be launched via\
-      a button in a similar manner.")
-    };
-  
     const choosePicture = async () => {
       //  Launches the image gallery. We allow cropping/other editing
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -17,33 +13,49 @@ export default function ImagePickerFunction() {
         allowsEditing: true,
         quality: 1,
       });
-  
+
       //  Save the picture if they successfully choose one
       if (!result.cancelled) {
-        update_image(result.uri);
+            //upload to Firebase
+              uploadImage(result.uri, "IMAGE")
+                  .then(() => {
+                      Alert.alert("Uploaded");
+                  })
+                  .catch((error) => {
+                      Alert.alert("error");
+                  });
       }
     };
-  
+
     const takePicture = async () => {
       //  Asking the user for permission to use their camera
       const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
-      
+
       //  Exiting if they don't grant permission
       if (permissionResult.granted === false) {
         return;
       }
-      
+
       //  Waiting to see if user successfully takes picture. If they do, save it.
       const result = await ImagePicker.launchCameraAsync();
       if (!result.cancelled) {
-        update_image(result.uri);
+      //upload to Firebase
+        uploadImage(result.uri, "IMAGE")
+            .then(() => {
+                Alert.alert("Uploaded");
+            })
+            .catch((error) => {
+                Alert.alert("Failed");
+            });
       }
-  }
-  
-  const doSurvey = async () => {
-    console.log("This is a placeholder for the survey, which will be launched via\
-    a button in a similar manner.")
-  };
+    }
+
+    const uploadImage = async (uri, filename) => {
+        const response = await fetch(uri);
+        const blob = await response.blob();
+        var ref = firebase.storage().ref().child("images/" + filename);
+        return ref.put(blob);
+    }
   
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
