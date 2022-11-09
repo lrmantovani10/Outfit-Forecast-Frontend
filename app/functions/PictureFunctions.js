@@ -4,6 +4,11 @@ import * as ImagePicker from 'expo-image-picker';
 
 export default function ImagePickerFunction() {
     const [picture, update_image] = useState(null);
+
+    const doSurvey = async () => {
+      console.log("This is a placeholder for the survey, which will be launched via\
+      a button in a similar manner.")
+    };
   
     const choosePicture = async () => {
       //  Launches the image gallery. We allow cropping/other editing
