@@ -27,7 +27,7 @@ Notes on testing:
  * The output of getWeather changed. It no longer outpouts a JSON object, but an array. Additionally, this function relies on an API key that Lucas made for his account and is not displayed here for security reasons.
  * "dailyRecommender" no longer passes the user's wardrobe as an argument. Tyhe wardrobe info will be stored in the backend.
  * The image upload / selection tests are no longer useful because we are using a React Native library for such tasks, so the process is no longer hard-coded here
- * Because we will develop the fullsurvey on the second iteration, we won't be able to test it here
+ * Because we will develop the rest of the survey on the second iteration, we won't be able to test its entirety on the first iteration.
  * Furthermore, we changed how we are importing certain classes / functions because of React Native's syntax.
 
 Implementation Description:
