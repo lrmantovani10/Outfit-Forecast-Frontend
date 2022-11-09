@@ -19,12 +19,8 @@ export default function User(username) {
         })
     }
 
-    const doSurvey = async () => {
-        console.log("This is a placeholder for the survey, which will be launched via\
-        a button in a similar manner.")
-      };
-
     useEffect(() => {
+        //Example
         dailyRecommender(60, 65, 63, "rain")
     }, [])
 
