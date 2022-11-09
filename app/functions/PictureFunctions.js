@@ -5,12 +5,6 @@ import * as ImagePicker from 'expo-image-picker';
 export default function ImagePickerFunction() {
     const [picture, update_image] = useState(null);
   
-    const doSurvey = async () => {
-      console.log("This is a placeholder for the survey, which will be launched via\
-      a button in a similar manner. This function will likely be part of a seperate\
-      class or default function so don't expect to find it here in the final version.")
-    };
-  
     const choosePicture = async () => {
       //  Launches the image gallery. We allow cropping/other editing
       let result = await ImagePicker.launchImageLibraryAsync({
