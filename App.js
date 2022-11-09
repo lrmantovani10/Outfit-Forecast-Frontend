@@ -3,5 +3,5 @@ import environmentalData from './functions/EnvironmentalData';
 import ImagePickerFunction from './functions/PictureFunctions';
 
 export default function mainApp() {
-  return ImagePickerFunction();
+  return environmentalData(41.795949748662835, -87.59187911021162);
 }
