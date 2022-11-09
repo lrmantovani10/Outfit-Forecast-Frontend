@@ -33,6 +33,7 @@ Notes on testing:
 Implementation Description:
  * Inside /app, we can find the functions EnvironmentalData, PictureFunctions, User, and testing functions.
  * EnvironmentalData fetches the current weather.
+ * ApiKeys.demo.js -- testing the frontend's integration with Firebase (for image sorage)
  * PictureFunctions encompasses all functions related to image processing, such as taking a picture and choosing one from the gallery. 
  * User contains the getRecommender function, which sends a request to the backend for an outfit prediction based on sensitivity and the user's wardrobe.
  
