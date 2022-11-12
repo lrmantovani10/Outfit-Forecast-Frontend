@@ -3,7 +3,6 @@ import { Button, View, Text } from 'react-native';
 import environmentalData from './functions/EnvironmentalData';
 import ImagePickerFunction from './functions/PictureFunctions';
 import User from './functions/User';
-import createRootNavigator from './navigation';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 

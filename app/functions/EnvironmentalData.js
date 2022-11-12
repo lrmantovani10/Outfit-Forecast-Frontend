@@ -15,7 +15,6 @@ export default function environmentalData(lat, lon) {
                 mainParameters.feels_like, outcome.data.weather[0].main
             ]
             setWeather(interestingParameters)
-            console.log(interestingParameters)
             
         }).catch((error) => {
             console.log("Error", error)
