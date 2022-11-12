@@ -5,7 +5,7 @@ import { WEATHER_KEY } from "@env"
 import * as Location from "expo-location";
 
 export default function environmentalData() {
-    const [weather, setWeather] = useState([])
+    const [weather, setWeather] = useState(["Loading weather..."])
     const getWeather = async (lat, lon) => {
         const weatherEndpoint = `https://api.openweathermap.org/data/2.5/weather?lat=${lat.toString()}&lon=${lon.toString()}&appid=${WEATHER_KEY}`
         await axios.get(weatherEndpoint).then((outcome) => {
@@ -36,11 +36,30 @@ export default function environmentalData() {
         getLocation()
     }, [])
 
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ fontSize: 10 } } >
-                Weather: {weather.toString()}
-            </Text>
-        </View>
-    );
+    const weatherKeys = ["Minimum Temperature", "Maximum Temperature",
+        "Felt Temperature", "Atmosphere"]
+    
+    if (weather.length < 2) {
+        return (
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ fontSize: 10 } } >
+                    Weather: {weather.toString()}
+                </Text>
+            </View>
+        );
+    }
+    else {
+        return (
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+
+                {
+                    weather.map((value, index) => {
+                        <Text style={{ fontSize: 10 } } >
+                            {weatherKeys[index]}: {value.toString()}
+                        </Text>
+                    })
+                }
+            </View>
+        )
+    }
 }
