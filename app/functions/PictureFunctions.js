@@ -21,15 +21,18 @@ export default function ImagePickerFunction() {
             update_image(result.uri)
               uploadImage(result.uri, "IMAGE")
                   .then(() => {
-                      Alert.alert("Uploaded");
+                      console.log("Uploaded");
+                      //Alert.alert("Uploaded");
                   })
                   .catch((error) => {
-                      Alert.alert(error);
+                      console.log(error);
+                      //Alert.alert(error);
                   });
       }
     };
 
     const takePicture = async () => {
+      console.log("Successfully opened.");
       //  Asking the user for permission to use their camera
       const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
 
@@ -37,18 +40,24 @@ export default function ImagePickerFunction() {
       if (permissionResult.granted === false) {
         return;
       }
-
+      
       //  Waiting to see if user successfully takes picture. If they do, save it.
       const result = await ImagePicker.launchCameraAsync();
+      console.log("Successfully took picture");
       if (!result.cancelled) {
       //upload to Firebase
+        console.log("User didn't cancel");
         update_image(result.uri)
+        console.log("Image updated");
         uploadImage(result.uri, "IMAGE")
             .then(() => {
-                Alert.alert("Uploaded");
+                console.log("Image Uploaded");
+                //Alert.alert("Uploaded");
             })
             .catch((error) => {
-                Alert.alert(error);
+                console.log("Image NOT Uploaded");
+                console.log(error);
+                //Alert.alert(error);
             });
       }
     }
