@@ -1,11 +1,12 @@
 import React, { useState} from 'react';
-import { Button,  View } from 'react-native';
+import { Button,  View, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import * as firebase from 'firebase'
+import * as firebase from 'firebase/app';
+import 'firebase/storage';
 
 export default function ImagePickerFunction() {
     const [picture, update_image] = useState(null);
-
+    
     const choosePicture = async () => {
       //  Launches the image gallery. We allow cropping/other editing
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -22,7 +23,8 @@ export default function ImagePickerFunction() {
                       Alert.alert("Uploaded");
                   })
                   .catch((error) => {
-                      Alert.alert("error");
+                      console.log(error);
+                      Alert.alert("Failed");
                   });
       }
     };
@@ -45,6 +47,7 @@ export default function ImagePickerFunction() {
                 Alert.alert("Uploaded");
             })
             .catch((error) => {
+                console.log(error);
                 Alert.alert("Failed");
             });
       }
@@ -59,7 +62,6 @@ export default function ImagePickerFunction() {
   
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button title="Do Survey" onPress={doSurvey} />
         <Button title="Take Photo" onPress={takePicture} />
         <Button title="Choose from Gallery" onPress={choosePicture} />
       </View>
