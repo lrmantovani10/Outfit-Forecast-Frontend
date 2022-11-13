@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Button, View, Text } from 'react-native';
-import environmentalData from './functions/EnvironmentalData';
-import ImagePickerFunction from './functions/PictureFunctions';
-import User from './functions/User';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import environmentalData from './functions/EnvironmentalData';
+import wardrobeGallery from './functions/wardrobeGallery'
+import tempRanges from './functions/tempRanges'
+import ImagePickerFunction from './functions/PictureFunctions';
+import User from './functions/User';
+
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBV58C4jXRoly73vzSV_ZofgUycqCDsEAo",
@@ -21,31 +26,24 @@ const firebaseConfig = {
 
 if(!firebase.apps.length) {firebase.initializeApp(firebaseConfig)};
 
+
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {/* <Text>Camera Functionality</Text> */}
-      <Button
-        title="Go to Weather Functionality"
-        onPress={() => navigation.navigate('Weather')}
-      />
-      <Button
-        title="Go to User Functionality"
-        onPress={() => navigation.navigate('User')}
-      />
-      <Button
-        title="Go to Camera Functionality"
-        onPress={() => navigation.navigate('Camera')}
-      />
-    </View>
-  );
-}
 
-function DetailsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {/* <Text>Fetching Weather Functionality</Text> */}
-      {environmentalData(41.795949748662835, -87.59187911021162)}
+      {/* Weather Component */}
+      <environmentalData/>
+
+      {/* Recommended Clothing Component */}
+      <User/>
+
+      {/* NAVIGATION */}
+      <Button
+        title="Wardrobe"
+        onPress={() =>
+          navigation.navigate('Wardrobe')
+        }
+      />
     </View>
   );
 }
@@ -53,8 +51,27 @@ function DetailsScreen({ navigation }) {
 function WardrobeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {/* <Text>User Wardrobe Functionality</Text> */}
-      {User("leo")}
+
+      {/* Wardrobe Display Component */}
+      <wardrobeGallery/>
+      {/* Gallery component displaying images of clothes */}
+        {/* On click, full size overlay of clothes with temp range/sensitity info */}
+
+      {/* NAVIGATION */}
+      <Button
+        title="Add Items"
+        onPress={() =>
+          navigation.navigate('Camera')
+        }
+      />
+
+      <Button
+        title="Set Preferences"
+        onPress={() =>
+          navigation.navigate('Preferences')
+        }
+      />
+
     </View>
   );
 }
@@ -62,8 +79,31 @@ function WardrobeScreen({ navigation }) {
 function CameraScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {/* <Text>User Wardrobe Functionality</Text> */}
+      {/* Display Image Functionality */}
       {ImagePickerFunction()}
+    </View>
+  );
+}
+
+function Preferences({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+
+      {/* Add New Temp Ranges */}
+      <Button
+        title="Add New Temp Ranges"
+        onPress={() =>
+          <tempRanges newItem={true}/>
+        }
+      />
+
+      {/* Update Temp Ranges */}
+      <Button
+        title="Update Current Temp Ranges"
+        onPress={() =>
+          <tempRanges newItem={false}/>
+        }
+      />
     </View>
   );
 }
@@ -76,11 +116,11 @@ function App() {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }}/>
         <Stack.Screen name="Camera" component={CameraScreen} options={{ title: 'Camera' }}/>
-        <Stack.Screen name="Weather" component={DetailsScreen} options={{ title: 'Weather' }}/>
-        <Stack.Screen name="User" component={WardrobeScreen} options={{ title: 'User' }}/>
+        <Stack.Screen name="Wardrobe" component={WardrobeScreen} options={{ title: 'Wardrobe' }}/>
+        <Stack.Screen name="Preferences" component={Preferences} options={{ title: 'Set Preferences' }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-export default App;
+  export default App;
