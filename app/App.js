@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, View, Text, StyleSheet, Modal, TouchableHighlight, Pressable } from 'react-native';
+import { Button, View, Text, StyleSheet, Modal, TouchableHighlight, Pressable, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -9,6 +9,7 @@ import WardrobeGallery from './functions/wardrobeGallery'
 import {TempRanges} from './functions/tempRanges'
 import ImagePickerFunction from './functions/PictureFunctions';
 import User from './functions/User';
+import styles from './functions/style';
 
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
@@ -33,23 +34,25 @@ function HomeScreen({ navigation }) {
   const [weatherIcon, setWeatherIcon] = useState([""])
   const [wardrobe, setWardrobe] = useState(["Loading recommendation..."])
   return (
-    <View style={styles.screenContainer}>
+    <SafeAreaView style={styles.screenContainer}>
 
-      {/* Weather Component */}
-      <EnvironmentalData
-        weather={weather}
-        setWeather={setWeather}
-        location={location}
-        setLocation={setLocation}
-        weatherIcon={weatherIcon}
-        setWeatherIcon={setWeatherIcon} />
+      <View style={styles.weatherComponent}>
+        <EnvironmentalData
+          weather={weather}
+          setWeather={setWeather}
+          location={location}
+          setLocation={setLocation}
+          weatherIcon={weatherIcon}
+          setWeatherIcon={setWeatherIcon} />
+      </View>
 
-      {/* Recommended Clothing Component */}
-      <User
-        username="leo"
-        weather={weather}
-        wardrobe={wardrobe}
-        setWardrobe={setWardrobe} />
+      <View style={styles.userView}>
+        <User
+          username="leo"
+          weather={weather}
+          wardrobe={wardrobe}
+          setWardrobe={setWardrobe} />
+      </View>
       
       {/* NAVIGATION */}
       <CustomButton 
@@ -60,7 +63,7 @@ function HomeScreen({ navigation }) {
         }
       />
 
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -70,8 +73,6 @@ function WardrobeScreen({ navigation }) {
 
       {/* Wardrobe Display Component */}
       {/* <WardrobeGallery/> */}
-      {/* Gallery component displaying images of clothes */}
-        {/* On click, full size overlay of clothes with temp range/sensitity info */}
 
       {/* NAVIGATION */}
       <CustomButton
@@ -81,7 +82,7 @@ function WardrobeScreen({ navigation }) {
         }
       />
 
-      <View style={styles.separator}></View>
+      <View style={styles.fifteen_separator}></View>
 
       <CustomButton
         title="Set Preferences"
@@ -111,24 +112,15 @@ function Preferences({ navigation }) {
   );
 }
 
-const styles = StyleSheet.create({
-  screenContainer: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 16
-  },
-  separator: {
-    height: 15
-  }
-});
-
-
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          cardStyle: { backgroundColor: "#D6DDE0" }
+        }}>
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }}/>
         <Stack.Screen name="Camera" component={CameraScreen} options={{ title: 'Camera' }}/>
         <Stack.Screen name="Wardrobe" component={WardrobeScreen} options={{ title: 'Wardrobe' }}/>
