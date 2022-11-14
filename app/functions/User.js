@@ -3,31 +3,40 @@ import axios from 'axios';
 import { View, Text } from 'react-native';
 
 export default function User(props) {
-    const [wardrobe, setWardrobe] = useState([])
-    const dailyRecommender = async (tempMin, tempMax, sensation, atmosphere) => {
-        const recommenderEndpoint = `https://outfit-forecast.herokuapp.com/dailyRecommender/${props.username}/${tempMin.toString()}/${tempMax.toString()}/${sensation.toString()}/${atmosphere}`
+    const dailyRecommender = async (weather) => {
+        let recommenderEndpoint = `https://outfit-forecast.herokuapp.com/dailyRecommender/${props.username}/`
+        weather.forEach((element) => {
+            recommenderEndpoint += `${element.toString()}/`
+        })
         await axios.get(recommenderEndpoint).then((outcome) => {
-            let clothingArray = []
-            outcome.data.forEach(element => {
-                clothingArray.push(element.objectName)
-            });
-
-           setWardrobe(clothingArray)
+           props.setWardrobe(outcome)
         }).catch((error) => {
-            console.log("Error", error)
-            setWardrobe(["Error"])
+            props.setWardrobe(["Error", error])
         })
     }
 
     useEffect(() => {
-        //Example
-        dailyRecommender(60, 65, 63, "rain")
-    }, [])
+        if (props.weather.length == 4) {
+            dailyRecommender(props.weather)
+        }   
+        else {
+            props.setWardrobe(["Please reload the weather to get a recommendation"])
+        }
+    }, [,props.weather])
 
+    if (props.wardrobe.length <= 1) {
+        return (
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ fontSize: 10 } }>
+                Wardrobe: {props.wardrobe.toString()}
+                </Text>
+            </View>
+        )
+    }
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text style={{ fontSize: 10 } } >
-                Wardrobe: {wardrobe.toString()}
+                Wardrobe: {props.wardrobe.toString()}
             </Text>
         </View>
     );

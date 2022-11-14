@@ -13,8 +13,6 @@ export default function environmentalData(props) {
                 mainParameters.temp_min, mainParameters.temp_max,
                 mainParameters.feels_like, outcome.data.weather[0].main
             ]
-            console.log(outcome.data.weather[0])
-            console.log("Weather", interestingParameters)
             props.setWeather(interestingParameters)
             props.setLocation(outcome.data.name + ", " + outcome.data.sys.country)
             props.setWeatherIcon(outcome.data.weather[0].icon)
@@ -26,13 +24,11 @@ export default function environmentalData(props) {
 
     const getLocation = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
-        console.log("Location status", status)
         if (status !== 'granted') {
             props.setWeather(["Permission to access the device's location was denied. Check your location settings for Expo."]);
             return;
         }
         let location = await Location.getCurrentPositionAsync({});
-        console.log("Location coordinates:", location)
         await getWeather(location.coords.latitude, location.coords.longitude)
     }
 
