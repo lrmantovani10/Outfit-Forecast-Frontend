@@ -1,0 +1,44 @@
+ACCEPTANCE TESTS: OUTFIT FORECAST FRONTEND
+DATE: 11/14/2022
+
+<Functionality Name>
+
+Steps to Execute:
+1. 
+2. 
+3. 
+...
+
+Expected Result for Each Step:
+1. 
+2.
+3. 
+...
+
+Desired End Outcome:
+
+----------------------------TESTS BEGIN----------------------------
+
+******SCREENS******
+
+<Home Page View>
+
+<Wardrobe View>
+
+<Set Preferences View>
+
+<Camera View>
+
+******FUNCTIONALITY******
+
+<Execute DailyRecommender>
+    <Request Outfit>
+    <Request Additional Outfit>
+
+<Execute Add Items>
+    <Take Photo>
+    <Choose from Gallery>
+
+<Execute Add New Temp Ranges>
+
+
