@@ -27,14 +27,18 @@ const firebaseConfig = {
 
 if(!firebase.apps.length) {firebase.initializeApp(firebaseConfig)};
 
-
-
 function HomeScreen({ navigation }) {
+  const [weather, setWeather] = useState(["Loading weather..."])
+  const [location, setLocation] = useState([""])
   return (
     <View style={styles.screenContainer}>
 
       {/* Weather Component */}
-      {/* <EnvironmentalData/> */}
+      <EnvironmentalData
+        weather={weather}
+        setWeather={setWeather}
+        location={location}
+        setLocation={setLocation} />
 
       {/* NAVIGATION */}
       <CustomButton 
