@@ -31,6 +31,7 @@ function HomeScreen({ navigation }) {
   const [weather, setWeather] = useState(["Loading weather..."])
   const [location, setLocation] = useState([""])
   const [weatherIcon, setWeatherIcon] = useState([""])
+  const [wardrobe, setWardrobe] = useState(["Loading recommendation..."])
   return (
     <View style={styles.screenContainer}>
 
@@ -43,6 +44,13 @@ function HomeScreen({ navigation }) {
         weatherIcon={weatherIcon}
         setWeatherIcon={setWeatherIcon} />
 
+      {/* Recommended Clothing Component */}
+      <User
+        username="leo"
+        weather={weather}
+        wardrobe={wardrobe}
+        setWardrobe={setWardrobe} />
+      
       {/* NAVIGATION */}
       <CustomButton 
         title="Go to Wardrobe" 
@@ -51,9 +59,6 @@ function HomeScreen({ navigation }) {
           navigation.navigate('Wardrobe')
         }
       />
-
-      {/* Recommended Clothing Component */}
-      <User username = "leo"/>
 
     </View>
   );
