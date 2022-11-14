@@ -30,6 +30,7 @@ if(!firebase.apps.length) {firebase.initializeApp(firebaseConfig)};
 function HomeScreen({ navigation }) {
   const [weather, setWeather] = useState(["Loading weather..."])
   const [location, setLocation] = useState([""])
+  const [weatherIcon, setWeatherIcon] = useState([""])
   return (
     <View style={styles.screenContainer}>
 
@@ -38,7 +39,9 @@ function HomeScreen({ navigation }) {
         weather={weather}
         setWeather={setWeather}
         location={location}
-        setLocation={setLocation} />
+        setLocation={setLocation}
+        weatherIcon={weatherIcon}
+        setWeatherIcon={setWeatherIcon} />
 
       {/* NAVIGATION */}
       <CustomButton 
