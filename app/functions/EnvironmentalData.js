@@ -50,9 +50,25 @@ export default function environmentalData(props) {
     }
     else {
         return (
+            <View style={{flexDirection: "column",
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+            color: "grey",
+            width: "100%",
+            height:"40%"
+            }}>
+                <View style={{ height: "35%"}}>
+                <Text style={{
+                        alignItems: "center",
+                    textAlign:"center",
+                    fontSize: "20%",
+                    fontFamily: "Verdana",
+                    color: "blue",
+                        }}>{props.location}</Text>
+            </View>
             <View style={{
                 flexDirection: "row",
-                alignItems: 'flex-start',
+                alignItems: 'center',
                 justifyContent: 'center',
                 color: "grey",
                 width: "100%",
@@ -78,8 +94,9 @@ export default function environmentalData(props) {
                 </View>
                     {
                         <Image source={{ uri: "http://openweathermap.org/img/w/" + props.weatherIcon + ".png" }}
-                            style={{width: "40%", height: "60%"} } />
+                            style={{width: "40%", height: "100%", justifyContent:"center"} } />
                     }
+                </View>
             </View>
         )
     }
