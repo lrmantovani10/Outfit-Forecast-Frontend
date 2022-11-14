@@ -46,7 +46,7 @@ function HomeScreen({ navigation }) {
       />
 
       {/* Recommended Clothing Component */}
-      <User/>
+      <User username = "leo"/>
 
     </View>
   );
