@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
+import { Button, View, Text, StyleSheet, Modal, TouchableHighlight, Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -26,6 +26,7 @@ const firebaseConfig = {
 };
 
 if(!firebase.apps.length) {firebase.initializeApp(firebaseConfig)};
+
 
 
 function HomeScreen({ navigation }) {
@@ -91,17 +92,40 @@ function CameraScreen({ navigation }) {
 }
 
 function Preferences({ navigation }) {
+  state = {
+    modalVisible: false
+  };
+
+  setModalVisible = (visible) => {
+    this.setState({ modalVisible: visible });
+  }
+  const { modalVisible } = this.state;
   return (
     <View style={styles.screenContainer}>
-
-      {/* Add New Temp Ranges */}
-      <CustomButton
-        title="Add New Temp Ranges"
-        onPress={() =>
-          <TempRanges newItem={true}/>
-        }
-      />
-
+      <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            //Alert.alert("Modal has been closed.");
+            this.setModalVisible(!modalVisible);
+          }}>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>Hello World!</Text>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => this.setModalVisible(!modalVisible)}>
+                  <Text style={styles.textStyle}>Hide Modal</Text>
+                </Pressable>
+              </View>
+            </View>
+        </Modal>
+        <Pressable
+          style={[styles.button, styles.buttonOpen]}
+          onPress={() => this.setModalVisible(true)}>
+          <Text style={styles.textStyle}>Add New Temp Ranges</Text>
+        </Pressable>
       {/* Update Temp Ranges */}
       {/* <Button
         title="Update Current Temp Ranges"
@@ -121,6 +145,47 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 15
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
   }
 });
 
