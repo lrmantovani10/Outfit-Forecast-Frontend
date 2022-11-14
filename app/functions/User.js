@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { View, Text } from 'react-native';
 
-export default function User(username) {
+export default function User(props) {
     const [wardrobe, setWardrobe] = useState([])
     const dailyRecommender = async (tempMin, tempMax, sensation, atmosphere) => {
-        const recommenderEndpoint = `https://outfit-forecast.herokuapp.com/dailyRecommender/${username}/${tempMin.toString()}/${tempMax.toString()}/${sensation.toString()}/${atmosphere}`
+        const recommenderEndpoint = `https://outfit-forecast.herokuapp.com/dailyRecommender/${props.username}/${tempMin.toString()}/${tempMax.toString()}/${sensation.toString()}/${atmosphere}`
         await axios.get(recommenderEndpoint).then((outcome) => {
             let clothingArray = []
             outcome.data.forEach(element => {
