@@ -68,7 +68,6 @@ Desired End Outcome:
 
 <---Execute DailyRecommender--->
     <---Request Outfit---> 
-    (Unit Test: recommended outfit is temp appropriate and uses clothes from wardrobe)
 
     Steps to Execute:
     1. Open app to Home Screen
@@ -84,7 +83,6 @@ Desired End Outcome:
     * The "Get Outfit" button should still be visible to press again to request a new outfit 
 
     <---Request Additional Outfit--->
-    (Unit Test: recommended outfit is different from previous)
     Steps to Execute:
     1. Follow Steps from <Request Outfit>
     2. Click "Get Outfit" again
@@ -98,8 +96,6 @@ Desired End Outcome:
 
 <---Execute Add Items--->
     <---Take Photo--->
-    (Unit Test: The photo taken should create a clothing object which is rendered in Wardrobe Gallery)
-
     Steps to Execute:
     1. Open app to Home Screen
     2. Click "Go to Wardrobe"
@@ -121,8 +117,6 @@ Desired End Outcome:
     * When a photo is taken, the image should be added to the gallery in Wardrobe View
 
     <---Choose from Gallery--->
-    (Unit Test: The photo selected should create a clothing object which is rendered in Wardrobe Gallery)
-
     Steps to Execute:
     1. Open app to Home Screen
     2. Click "Go to Wardrobe"
@@ -144,7 +138,6 @@ Desired End Outcome:
     * When a photo is taken, the image should be added to the gallery in Wardrobe View
 
 <---Execute Add New Temp Ranges--->
-(Unit Test: Set temperature and get temperature for clothing item align)
 Steps to Execute:
 1. Open app to Home Screen
 2. Click "Go to Wardrobe"
