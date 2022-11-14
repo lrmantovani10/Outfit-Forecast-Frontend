@@ -21,24 +21,144 @@ Desired End Outcome:
 
 ******SCREENS******
 
-<Home Page View>
+<---Home Page View--->
+Steps to Execute:
+1. Open app to Home Screen
+2. Enable location
 
-<Wardrobe View>
+Desired End Outcome:
+* See weather display component with min/max, feels like, and atmosphere with 
+corresponding image
+* See suggested wardrobe based on clothing you have. See the button to suggest a 
+different outfit.
+* See the button to go to your wardrobe.
 
-<Set Preferences View>
+<---Wardrobe View--->
+Steps to Execute:
+1. Open app to Home Screen
+2. Click "Go to Wardrobe"
 
-<Camera View>
+Expected Result for Each Step:
+2. Takes you to wardrobe view
+
+Desired End Outcome:
+* See buttons to "Add Items" for wardrobe
+* See display of clothing items in wardrobe (gallery style with thumbnails)
+* See back button for Home
+
+<---Set Preferences View--->
+Currently has button to set preferences for clothing item. Eventually functionality will
+occur when you click items in the gallery from wardrobe view.
+
+<---Camera View--->
+Steps to Execute:
+1. Open app to Home Screen
+2. Click "Go to Wardrobe"
+3. Click "Add Items"
+
+Expected Result for Each Step:
+2. Takes you to Wardrobe View
+3. Takes you to Camera View 
+
+Desired End Outcome:
+* See buttons for adding clothing by "Take Photo" or "Choose from Gallery"
+* See back button for Wardrobe
 
 ******FUNCTIONALITY******
 
-<Execute DailyRecommender>
-    <Request Outfit>
-    <Request Additional Outfit>
+<---Execute DailyRecommender--->
+    <---Request Outfit---> 
+    (Unit Test: recommended outfit is temp appropriate and uses clothes from wardrobe)
 
-<Execute Add Items>
-    <Take Photo>
-    <Choose from Gallery>
+    Steps to Execute:
+    1. Open app to Home Screen
+    2. Click "Get Outfit" 
 
-<Execute Add New Temp Ranges>
+    Expected Result for Each Step:
+    1. Should see "Home Page View" 
+    2. DailyRecommender component should update
+
+    Desired End Outcome:
+    * Recommended outfit should update with a temperature appropriate outfit using clothes 
+    from your wardrobe
+    * The "Get Outfit" button should still be visible to press again to request a new outfit 
+
+    <---Request Additional Outfit--->
+    (Unit Test: recommended outfit is different from previous)
+    Steps to Execute:
+    1. Follow Steps from <Request Outfit>
+    2. Click "Get Outfit" again
+
+    Expected Result for Each Step:
+    2. Outfit component should update
+
+    Desired End Outcome:
+    * Updated outfit is temperature appropriate and different from the outfit generated in 
+    step 1
+
+<---Execute Add Items--->
+    <---Take Photo--->
+    (Unit Test: The photo taken should create a clothing object which is rendered in Wardrobe Gallery)
+
+    Steps to Execute:
+    1. Open app to Home Screen
+    2. Click "Go to Wardrobe"
+    3. Click "Add Items"
+    4. Click "Take Photo"
+    5. Enable camera access
+    6. Take a photo
+    7. Click "Save"
+
+    Expected Result for Each Step:
+    2. Opens Wardrobe View 
+    3. Opens Camera View 
+    4. Popup asks for camera permissions
+    5. Phone camera opens 
+    6. An image is captured
+    7. The image is saved to your wardobe
+
+    Desired End Outcome:
+    * When a photo is taken, the image should be added to the gallery in Wardrobe View
+
+    <---Choose from Gallery--->
+    (Unit Test: The photo selected should create a clothing object which is rendered in Wardrobe Gallery)
+
+    Steps to Execute:
+    1. Open app to Home Screen
+    2. Click "Go to Wardrobe"
+    3. Click "Add Items"
+    4. Click "Choose from Gallery"
+    5. Enable gallery access
+    6. Choose a photo
+    7. Click "Save"
+
+    Expected Result for Each Step:
+    2. Opens Wardrobe View 
+    3. Opens Camera View 
+    4. Popup asks for gallery permissions
+    5. Phone gallery opens 
+    6. An image is selected
+    7. The image is saved to your wardobe
+
+    Desired End Outcome:
+    * When a photo is taken, the image should be added to the gallery in Wardrobe View
+
+<---Execute Add New Temp Ranges--->
+(Unit Test: Set temperature and get temperature for clothing item align)
+Steps to Execute:
+1. Open app to Home Screen
+2. Click "Go to Wardrobe"
+3. Click a clothing image from the clothing displayed
+4. In the popup, select the temperature range for that clothing
+5. Click save
+
+Expected Result for Each Step:
+2. Wardrobe view opens 
+3. A popup prompting the user to set the temperature range for the item appears
+4. The slider updates the min/max for that item
+5. The temperature range is saved for the item
+
+Desired End Outcome:
+* The clothing item has an updated temperature range
 
 
