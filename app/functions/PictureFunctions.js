@@ -1,8 +1,17 @@
 import React, { useState} from 'react';
-import { Button,  View } from 'react-native';
+import { Button, Image, View, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import * as firebase from "firebase/app";
+
+import * as firebase from 'firebase/app';
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+
+
+/*import firebase from 'firebase/compat/app';
+
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 //import * as firebase2 from "firebase/storage"
+*/
 
 export default function ImagePickerFunction() {
     const [picture, update_image] = useState(null);
@@ -14,21 +23,22 @@ export default function ImagePickerFunction() {
         allowsEditing: true,
         quality: 1,
       });
-
       //  Save the picture if they successfully choose one
       if (!result.cancelled) {
-            //upload to Firebase
-            update_image(result.uri)
-              uploadImage(result.uri, "IMAGE")
-                  .then(() => {
-                      console.log("Uploaded");
-                      //Alert.alert("Uploaded");
-                  })
-                  .catch((error) => {
-                      console.log(error);
-                      //Alert.alert(error);
-                  });
+        //upload to Firebase
+        update_image(result.uri)
+        uploadImage(result.uri, "some-child")
+            .then(() => {
+                console.log("Image Uploaded");
+                //Alert.alert("Uploaded");
+            })
+            .catch((error) => {
+                console.log("Image NOT Uploaded");
+                console.log(error);
+                //Alert.alert(error);
+            });
       }
+      console.log("after upload selection");
     };
 
     const takePicture = async () => {
@@ -49,7 +59,9 @@ export default function ImagePickerFunction() {
         console.log("User didn't cancel");
         update_image(result.uri)
         console.log("Image updated");
-        uploadImage(result.uri, "IMAGE")
+        //const filename = "clothing/" + String(piture) + ".jpeg";
+        //console.log(result.uri)
+        uploadImage(result.uri, "image.jpeg")
             .then(() => {
                 console.log("Image Uploaded");
                 //Alert.alert("Uploaded");
@@ -63,10 +75,19 @@ export default function ImagePickerFunction() {
     }
 
     const uploadImage = async (uri, filename) => {
+      
         const response = await fetch(uri);
         const blob = await response.blob();
-        var ref = firebase.storage().ref().child("images/" + filename);
-        return ref.put(blob);
+
+        const storage = getStorage();
+        const storageRef = ref(storage, filename);
+
+        // 'file' comes from the Blob or File API
+        console.log("before UPLOAD")
+        uploadBytes(storageRef, blob).then((snapshot) => {
+          console.log('Uploaded a blob or file!');
+        });
+        console.log("past this part");
     }
 
     return (
