@@ -5,41 +5,38 @@ An app to generate outfit predictions based on one's wardrobe and current weathe
 Current class diagram
 ![Class Diagram](class-diagrams/updatedClassDiagram4.png)
 
-Test suite used: Jest (https://jestjs.io/)
-
-Testing file: functions/frontend_functions_tests.js
-
-How to compile: No need to compile!
+Testing file: testing/acceptance_tests.txt
 
 How to run code:
 - npm install (for dependencies)
 - npx expo start
 
-How to run the unit test cases:
-- Since we are using React Native, we can no longer test functions using the traditional approach of having a test file and 
-matching the observed output to the predicted one. Rather, we must check if the texts / images on the screen are aligned with what we expect to 
-be displayed. Nonetheless, some parts of the testing file (app/functions/frontend_function_tests.js) were modified to include tests that can be run inside the
-React functions we made, when applicable. Some of the expected input / output pairs that can be verified by the TAs are in this file. 
+How to run the test cases:
+- The majority of our testing is designed to be executed via acceptance testing. In the acceptance_tests.txt file, there are acceptance tests written for the features we have implemented in the frontend.
 
 Notes on testing:
- * The prefPairs class was moved to the backend, so we are no longer testing for it here
- * sendSurveyResponses was incorporated into classifyNew(), so it is no longer a separate function
- * The output of getWeather changed. It no longer outpouts a JSON object, but an array. Additionally, this function relies on an API key that Lucas made for his account and is not displayed here for security reasons.
- * "dailyRecommender" no longer passes the user's wardrobe as an argument. Tyhe wardrobe info will be stored in the backend.
- * The image upload / selection tests are no longer useful because we are using a React Native library for such tasks, so the process is no longer hard-coded here
- * Because we will develop the rest of the survey on the second iteration, we won't be able to test its entirety on the first iteration.
- * Furthermore, we changed how we are importing certain classes / functions because of React Native's syntax.
+ * 
+
+Code Directory Structure:
+ * All of our code resides within /app. Within /app, App.js has the bulk of the code for navigation and overall app styling, and /functions contains the various components we have written to be displayed across the different pages.
 
 Implementation Description:
- * Inside /app, we can find the functions EnvironmentalData, PictureFunctions, User, and testing functions.
- * EnvironmentalData fetches the current weather.
- * ApiKeys.demo.js -- testing the frontend's integration with Firebase (for image sorage)
+ * EnvironmentalData fetches the current weather and renders the view on the Home screen.
+ * ApiKeys.demo.js -- testing the frontend's integration with Firebase (for image storage)
  * PictureFunctions encompasses all functions related to image processing, such as taking a picture and choosing one from the gallery. 
  * User contains the getRecommender function, which sends a request to the backend for an outfit prediction based on sensitivity and the user's wardrobe.
+ * tempRanges provides the functionality for the user to set a temperature range in which they are comfortable wearing the item of clothing from their wardrobe.
+ * wardrobeGallery provides a view of all the items of clothing in a user's wardrobe, through a gallery format with image thumbnails. 
+
+Milestone 4.A:
+2nd Iteration Implementation Plan:
+For the second iteration, the main functionality we plan on implementing encompasses having a more comprehensive navigation UI that enables a user to navigate throughout the main functionality of the app (seeing recommended outfit, adding temp preferences for wardrobe, and uploading new clothes to the wardrobe). Within this, we will continue to refine the functionality, namely by building out the functionality to add temperature preferences for clothing, provide a view to see the clothing items of the user, and have functionality for a user to request and decline an outfit. To build off of functionality implemented in the first iteration, we will also restructure our functions to output views which we can render on the various screens of our app.
+For this milestone, what we originally had planned which we are no longer planning on implementing are adding logo and artwork, and when a user declines an outfit, recommending it less in the future. 
  
-Work Distribution:
+Work Distribution for 4.A:
 * Lucas: EnvironmentalData and User functions
 * Luke Contreras: uploadPicture in PictureFunctions and Firebase testing
-* Allie: UI Navigation and page functions
-* Luke Knutson: UserCamera functions
+* Allie: general navigation, HTML + CSS, UI direction, wardrobeGallery
+* Luke Knutson: tempRanges functionality
+* Everyone: Writing acceptance testing for their functionality
 
