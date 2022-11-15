@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { View, Text, Image, ScrollView } from 'react-native';
 import styles from "./style"
