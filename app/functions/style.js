@@ -93,5 +93,10 @@ export default StyleSheet.create({
     },
     userTextLower: {
         fontSize: 10
-    }
+    },
+    userButtons: {
+        flexDirection: "row",
+        width: "100%",
+        alignItems: "center"
+    },
 });

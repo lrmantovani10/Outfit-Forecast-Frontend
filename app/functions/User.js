@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, ScrollView, Button } from 'react-native';
 import styles from "./style"
 
 export default function User(props) {
@@ -58,6 +58,10 @@ export default function User(props) {
                     )
                 })
             }
+            <View style={styles.userButtons}>
+                <Button color="green" title="YES"/>
+                <Button color="red" title="NO" onPress={ () => dailyRecommender(props.weather) }/>
+            </View>
         </ScrollView>
     );
 }
