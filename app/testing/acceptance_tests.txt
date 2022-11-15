@@ -29,8 +29,8 @@ Steps to Execute:
 Desired End Outcome:
 * See weather display component with min/max, feels like, and atmosphere with 
 corresponding image
-* See suggested wardrobe based on clothing you have. See the button to suggest a 
-different outfit.
+* See suggested wardrobe based on clothing you have. See the yes/no buttons to accept 
+or decline the outfit.
 * See the button to go to your wardrobe.
 
 <---Wardrobe View--->
@@ -71,23 +71,23 @@ Desired End Outcome:
 
     Steps to Execute:
     1. Open app to Home Screen
-    2. Click "Get Outfit" 
+    2. Accept outfit
 
     Expected Result for Each Step:
-    1. Should see "Home Page View" 
-    2. DailyRecommender component should update
+    1. Should see "Home Page View" and initial suggested outfit.
+    2. Outfit should display as accepted.
 
     Desired End Outcome:
-    * Recommended outfit should update with a temperature appropriate outfit using clothes 
+    * Recommended outfit should be a temperature appropriate outfit using clothes 
     from your wardrobe
-    * The "Get Outfit" button should still be visible to press again to request a new outfit 
 
     <---Request Additional Outfit--->
     Steps to Execute:
-    1. Follow Steps from <Request Outfit>
-    2. Click "Get Outfit" again
+    1. Open app to Home Screen
+    2. Decline the outfit
 
     Expected Result for Each Step:
+    1. Should see "Home Page View" and initial suggested outfit.
     2. Outfit component should update
 
     Desired End Outcome:
