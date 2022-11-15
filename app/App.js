@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, SafeAreaView } from 'react-native';
+import { View, SafeAreaView, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -35,34 +35,34 @@ function HomeScreen({ navigation }) {
   const [outfit, setOutfit] = useState(["Loading recommendation..."])
   return (
     <SafeAreaView style={styles.screenContainer}>
+      <ScrollView>
+        <View style={styles.weatherComponent}>
+          <EnvironmentalData
+            weather={weather}
+            setWeather={setWeather}
+            location={location}
+            setLocation={setLocation}
+            weatherIcon={weatherIcon}
+            setWeatherIcon={setWeatherIcon} />
+        </View>
 
-      <View style={styles.weatherComponent}>
-        <EnvironmentalData
-          weather={weather}
-          setWeather={setWeather}
-          location={location}
-          setLocation={setLocation}
-          weatherIcon={weatherIcon}
-          setWeatherIcon={setWeatherIcon} />
-      </View>
-
-      <View style={styles.userView}>
-        <User
-          username="leo"
-          weather={weather}
-          outfit={outfit}
-          setOutfit={setOutfit} />
-      </View>
-      
-      {/* NAVIGATION */}
-      <CustomButton 
-        title="Go to Wardrobe" 
-        icon = "truck"
-        onPress={() =>
-          navigation.navigate('Wardrobe')
-        }
-      />
-
+        <View style={styles.userView}>
+          <User
+            username="leo"
+            weather={weather}
+            outfit={outfit}
+            setOutfit={setOutfit} />
+        </View>
+        
+        {/* NAVIGATION */}
+        <CustomButton 
+          title="Go to Wardrobe" 
+          icon = "truck"
+          onPress={() =>
+            navigation.navigate('Wardrobe')
+          }
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 }

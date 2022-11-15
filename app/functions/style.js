@@ -15,6 +15,12 @@ export default StyleSheet.create({
         color: "black", 
         fontFamily: 'Verdana'
     },
+    h2: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "black", 
+        fontFamily: 'Verdana'
+    },
     paragraph: {
         fontSize: 14, 
         color: "black", 
@@ -61,17 +67,18 @@ export default StyleSheet.create({
     },
 
     // User
-    userView: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width:"100%"
+    outfitComponent: {
+        width: "100%",
+        backgroundColor: "white",
+        padding: 5,
     },
-    userTitle: {
+    userh1: {
+        textAlign: "center",
+        fontSize: 20, 
         fontWeight: "bold",
-        textAlign:"center",
-        fontSize: "25%",
-        marginBottom: "20%"
+        color: "black", 
+        fontFamily: 'Verdana',
+        marginBottom: 10,
     },
     userCard: {
         textAlign: "center",
@@ -83,13 +90,8 @@ export default StyleSheet.create({
         paddingBottom:"10%"
     },  
     userImage: {
-        width: "100%",
-        height: 190
-    },
-    userText: {
-        fontSize: 20,
-        fontWeight: "bold",
-        marginBottom: "10%"
+        width: "60%",
+        height: 200
     },
     userTextLower: {
         fontSize: 10

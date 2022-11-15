@@ -35,21 +35,22 @@ export default function User(props) {
 
     if (props.outfit.length <= 1) {
         return (
-                <Text style={styles.userTextLower}>
-                    {props.outfit.toString()}
-                </Text>
+            <Text style={styles.userTextLower}>
+                {props.outfit.toString()}
+            </Text>
         )
     }
     return (
-        <ScrollView>
-        <Text style={styles.userTitle}>Today's Outfit</Text>
+        <View style={styles.outfitComponent}>
+            <Text style={styles.userh1}>Today's Outfit</Text>          
             {
                 props.outfit.map((element, index) => {
                     return (
                         <View style={styles.userCard} key={"clothingCard" + index.toString()}>
-                            <Text style={styles.userText}>
+                            <Text style={styles.paragraph}>
                                 {element.objectName[0].toUpperCase() + element.objectName.substring(1)}
                             </Text>
+
                             <Image
                                 style={styles.userImage}
                                 source={{ uri: element.imgURL }}
@@ -62,6 +63,6 @@ export default function User(props) {
                 <Button color="green" title="YES"/>
                 <Button color="red" title="NO" onPress={ () => dailyRecommender(props.weather) }/>
             </View>
-        </ScrollView>
+        </View>
     );
 }
