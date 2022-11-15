@@ -1,38 +1,22 @@
-import React, { useState } from 'react';
-import { View, SafeAreaView, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Button, View, Text, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import CustomButton from './functions/button';
 import EnvironmentalData from './functions/EnvironmentalData';
 import WardrobeGallery from './functions/wardrobeGallery'
-import {TempRanges} from './functions/tempRanges'
+import TempRanges from './functions/tempRanges'
 import ImagePickerFunction from './functions/PictureFunctions';
 import User from './functions/User';
-import styles from './functions/style';
 
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
-
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBV58C4jXRoly73vzSV_ZofgUycqCDsEAo",
-  authDomain: "outfit-forecast.firebaseapp.com",
-  projectId: "outfit-forecast",
-  storageBucket: "outfit-forecast.appspot.com",
-  messagingSenderId: "7778456220",
-  appId: "1:7778456220:web:1776026426a9bcdda85359",
-  measurementId: "G-45F0GJK4J0"
-};
-
-if(!firebase.apps.length) {firebase.initializeApp(firebaseConfig)};
+import "./functions/FirebaseInitialize";
 
 function HomeScreen({ navigation }) {
   const [weather, setWeather] = useState(["Loading weather..."])
   const [location, setLocation] = useState([""])
   const [weatherIcon, setWeatherIcon] = useState([""])
-  const [outfit, setOutfit] = useState(["Loading recommendation..."])
+  const [wardrobe, setWardrobe] = useState(["Loading recommendation..."])
   return (
     <SafeAreaView style={styles.screenContainer}>
 
@@ -56,13 +40,21 @@ function HomeScreen({ navigation }) {
             setWeatherIcon={setWeatherIcon} />
         </View>
 
-        <View style={styles.userView}>
-          <User
-            username="leo"
-            weather={weather}
-            outfit={outfit}
-            setOutfit={setOutfit} />
-        </View>
+      {/* Recommended Clothing Component */}
+      <User
+        username="leo"
+        weather={weather}
+        wardrobe={wardrobe}
+        setWardrobe={setWardrobe} />
+      
+      {/* NAVIGATION */}
+      <CustomButton 
+        title="Go to Wardrobe" 
+        icon = "truck"
+        onPress={() =>
+          navigation.navigate('Wardrobe')
+        }
+      />
       </ScrollView>
     </SafeAreaView>
   );
@@ -74,6 +66,8 @@ function WardrobeScreen({ navigation }) {
 
       {/* Wardrobe Display Component */}
       {/* <WardrobeGallery/> */}
+      {/* Gallery component displaying images of clothes */}
+        {/* On click, full size overlay of clothes with temp range/sensitity info */}
 
       {/* NAVIGATION */}
       <CustomButton
@@ -83,7 +77,7 @@ function WardrobeScreen({ navigation }) {
         }
       />
 
-      <View style={styles.fifteen_separator}></View>
+      <View style={styles.separator}></View>
 
       <CustomButton
         title="Set Preferences"
@@ -112,6 +106,18 @@ function Preferences({ navigation }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  screenContainer: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 16
+  },
+  separator: {
+    height: 15
+  }
+});
+
 
 const Stack = createNativeStackNavigator();
 
