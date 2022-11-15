@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Button, View, Text, StyleSheet, Modal, TouchableHighlight, Pressable, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { View, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -32,7 +32,7 @@ function HomeScreen({ navigation }) {
   const [weather, setWeather] = useState(["Loading weather..."])
   const [location, setLocation] = useState([""])
   const [weatherIcon, setWeatherIcon] = useState([""])
-  const [wardrobe, setWardrobe] = useState(["Loading recommendation..."])
+  const [outfit, setOutfit] = useState(["Loading recommendation..."])
   return (
     <SafeAreaView style={styles.screenContainer}>
 
@@ -50,8 +50,8 @@ function HomeScreen({ navigation }) {
         <User
           username="leo"
           weather={weather}
-          wardrobe={wardrobe}
-          setWardrobe={setWardrobe} />
+          outfit={outfit}
+          setOutfit={setOutfit} />
       </View>
       
       {/* NAVIGATION */}

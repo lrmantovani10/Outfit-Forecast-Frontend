@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { View, Text } from 'react-native';
+import { View, Text, Image, ScrollView } from 'react-native';
+import styles from "./style"
 
 export default function User(props) {
     const dailyRecommender = async (weather) => {
         let recommenderEndpoint = `https://outfit-forecast.herokuapp.com/dailyRecommender/${props.username}/`
-        weather.forEach((element) => {
-            recommenderEndpoint += `${element.toString()}/`
+        weather.forEach((element, index) => {
+            let additive;
+            if (index < 3) {
+                additive = element.toFixed().toString()
+            }
+            else {
+                additive = element
+            }
+            recommenderEndpoint += `${additive}/`
         })
-        console.log(recommenderEndpoint)
+        recommenderEndpoint = recommenderEndpoint.slice(0, recommenderEndpoint.length - 1)
         await axios.get(recommenderEndpoint).then((outcome) => {
-           props.setWardrobe(outcome)
+           props.setOutfit(outcome.data)
         }).catch((error) => {
-            props.setWardrobe(["Error", error])
+            props.setOutfit(["Error", error])
         })
     }
 
@@ -21,24 +29,35 @@ export default function User(props) {
             dailyRecommender(props.weather)
         }   
         else {
-            props.setWardrobe(["Please reload the weather to get a recommendation"])
+            props.setOutfit(["Waiting for weather to load before showing outfit recommendation..."])
         }
     }, [,props.weather])
 
-    if (props.wardrobe.length <= 1) {
+    if (props.outfit.length <= 1) {
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 10 } }>
-                Wardrobe: {props.wardrobe.toString()}
+                <Text style={styles.userTextLower}>
+                    {props.outfit.toString()}
                 </Text>
-            </View>
         )
     }
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ fontSize: 10 } } >
-                Wardrobe: {props.wardrobe.toString()}
-            </Text>
-        </View>
+        <ScrollView>
+        <Text style={styles.userTitle}>Today's Outfit</Text>
+            {
+                props.outfit.map((element, index) => {
+                    return (
+                        <View style={styles.userCard} key={"clothingCard" + index.toString()}>
+                            <Text style={styles.userText}>
+                                {element.objectName[0].toUpperCase() + element.objectName.substring(1)}
+                            </Text>
+                            <Image
+                                style={styles.userImage}
+                                source={{ uri: element.imgURL }}
+                            />
+                        </View>
+                    )
+                })
+            }
+        </ScrollView>
     );
 }

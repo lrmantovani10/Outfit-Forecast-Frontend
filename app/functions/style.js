@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { withOrientation } from 'react-navigation';
 
 export default StyleSheet.create({
 
@@ -59,5 +58,38 @@ export default StyleSheet.create({
     },
     weatherImage: {
         height: 100
+    },
+
+    // User
+    userView: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center' 
+    },
+    userTitle: {
+        fontWeight: "bold",
+        textAlign:"center",
+        fontSize: "25%",
+        marginBottom: "20%"
+    },
+    userCard: {
+        textAlign: "center",
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        width: "80%",
+        height: "40%",
+        paddingBottom:"10%"
+    },  
+    userImage: {
+        width: 100,
+        height:100
+    },
+    userText: {
+        fontSize: 20,
+        fontWeight: "bold"
+    },
+    userTextLower: {
+        fontSize: 10
     }
 });
