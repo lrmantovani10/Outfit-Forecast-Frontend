@@ -9,6 +9,7 @@
 import React, { Component, useCallback } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View, Image } from "react-native";
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import styleSheet from "./style"
 
 
 export class TempRanges extends Component {
@@ -55,21 +56,22 @@ export class TempRanges extends Component {
                     step={1}
                 />
                 {/* Just an example of how the variables are stored. Will be removed in the final version */}
-                <Text style={styles.text}>Temperature Min/Max:</Text>
-                <Text style={styles.text}>{this.state.PopupData.values[0]} °F</Text>
-                <Text style={styles.text}>{this.state.PopupData.values[1]} °F</Text>
-                <Pressable
-                style={[styles.button, styles.buttonClose]}
+                <Text style={styleSheet.h3}>Temperature Min/Max:</Text>
+                <Text style={styleSheet.paragraph}>{this.state.PopupData.values[0]} °F</Text>
+                <Text style={styleSheet.paragraph}>{this.state.PopupData.values[1]} °F</Text>
+                <View style={styleSheet.five_separator}></View>
+                <Pressable style={styleSheet.button}
+                // style={[styles.button, styles.buttonClose]}
                 onPress={() => this.setModalVisible(!modalVisible)}>
                 <Text style={styles.textStyle}>Save & Exit</Text>
                 </Pressable>
             </View>
           </View>
         </Modal>
-        <Pressable
-          style={[styles.button, styles.buttonOpen]}
+        <Pressable style={styleSheet.button}
+        //   style={[styleSheet.button, styleSheet.activeButton]}
           onPress={() => this.setModalVisible(true)}>
-          <Text style={styles.textStyle}>Add New Temp Ranges</Text>
+          <Text style={styleSheet.buttonText}>Add New Temp Ranges</Text>
         </Pressable>
         
       </View>

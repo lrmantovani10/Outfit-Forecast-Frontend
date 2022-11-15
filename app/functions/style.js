@@ -21,6 +21,12 @@ export default StyleSheet.create({
         color: "black", 
         fontFamily: 'Verdana'
     },
+    h3: {
+        fontSize: 14,
+        fontWeight: "bold",
+        color: "black", 
+        fontFamily: 'Verdana'
+    },
     paragraph: {
         fontSize: 14, 
         color: "black", 
@@ -28,6 +34,30 @@ export default StyleSheet.create({
     },
     background_color: {
         color: "#D6DDE0",
+    },
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 12,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: '#365E6F',
+        // margin: 10
+    },
+    buttonText: {
+        fontSize: 16,
+        lineHeight: 21,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: 'white',
+    },
+    activeButton: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 12,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: '#D6DDE0',
     },
 
     // App.js
@@ -52,7 +82,8 @@ export default StyleSheet.create({
         flexDirection: "row",
         backgroundColor: "white",
         padding: 5,
-        marginBottom: 15
+        marginBottom: 15,
+        borderRadius: 10
     },
     weatherInfo: {
         justifyContent: 'center'
@@ -71,6 +102,7 @@ export default StyleSheet.create({
         width: "100%",
         backgroundColor: "white",
         padding: 5,
+        borderRadius: 10
     },
     userh1: {
         textAlign: "center",
@@ -96,9 +128,25 @@ export default StyleSheet.create({
     userTextLower: {
         fontSize: 10
     },
-    userButtons: {
+    acceptance_button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 10,
+        borderRadius: 4,
+        // backgroundColor: 'white',
+        borderStyle: "solid",
+        borderColor: '#365E6F',
+        borderWidth: "2",
+        // margin: 10
+      },
+    twoAcrossButton: {
+        display: "flex",
         flexDirection: "row",
-        width: "100%",
-        alignItems: "center"
+        justifyContent: "center"
     },
+    userButtonText: {
+        fontSize: 14,
+        fontWeight: "bold",
+        color: "black"
+    }
 });

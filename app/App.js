@@ -35,6 +35,16 @@ function HomeScreen({ navigation }) {
   const [outfit, setOutfit] = useState(["Loading recommendation..."])
   return (
     <SafeAreaView style={styles.screenContainer}>
+
+      <CustomButton 
+        title="Go to Wardrobe" 
+        icon = "truck"
+        onPress={() =>
+          navigation.navigate('Wardrobe')
+        }
+      />
+      <View style={styles.fifteen_separator}></View>
+      
       <ScrollView>
         <View style={styles.weatherComponent}>
           <EnvironmentalData
@@ -53,15 +63,6 @@ function HomeScreen({ navigation }) {
             outfit={outfit}
             setOutfit={setOutfit} />
         </View>
-        
-        {/* NAVIGATION */}
-        <CustomButton 
-          title="Go to Wardrobe" 
-          icon = "truck"
-          onPress={() =>
-            navigation.navigate('Wardrobe')
-          }
-        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -119,7 +120,8 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          cardStyle: { backgroundColor: "#D6DDE0" }
+          contentStyle: { backgroundColor: "#D6DDE0" },
+          headerStyle: { backgroundColor: 'black' }
         }}>
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }}/>
         <Stack.Screen name="Camera" component={CameraScreen} options={{ title: 'Camera' }}/>

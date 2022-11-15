@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-import { View, Text, Image, ScrollView, Button } from 'react-native';
+import { View, Text, Image, ScrollView, Button, Pressable } from 'react-native';
 import styles from "./style"
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function User(props) {
     const dailyRecommender = async (weather) => {
@@ -42,7 +43,37 @@ export default function User(props) {
     }
     return (
         <View style={styles.outfitComponent}>
-            <Text style={styles.userh1}>Today's Outfit</Text>          
+            <Text style={styles.userh1}>Today's Outfit</Text>    
+            <View style={styles.twoAcrossButton}>
+                <Pressable
+                    style={({pressed}) => [
+                        {
+                            backgroundColor: pressed ? '#D6DDE0' : '#white',
+
+                        },
+                        styles.acceptance_button,
+                        ]}
+                >
+                    <Text style={styles.userButtonText}>Accept</Text>
+                </Pressable>
+
+                <View style={{width: 10}}></View>
+
+                <Pressable 
+                    style={({pressed}) => [
+                        {
+                            backgroundColor: pressed ? '#D6DDE0' : '#white',
+
+                        },
+                        styles.acceptance_button,
+                        ]}
+                        onPress={() => dailyRecommender(props.weather)}
+                >
+
+                    <Text style={styles.userButtonText}>Refresh</Text>
+                </Pressable>
+            </View>  
+            <View style={styles.fifteen_separator}></View>    
             {
                 props.outfit.map((element, index) => {
                     return (
@@ -59,10 +90,6 @@ export default function User(props) {
                     )
                 })
             }
-            <View style={styles.userButtons}>
-                <Button color="green" title="YES"/>
-                <Button color="red" title="NO" onPress={ () => dailyRecommender(props.weather) }/>
-            </View>
         </View>
     );
 }
