@@ -8,6 +8,7 @@ export default function User(props) {
         weather.forEach((element) => {
             recommenderEndpoint += `${element.toString()}/`
         })
+        console.log(recommenderEndpoint)
         await axios.get(recommenderEndpoint).then((outcome) => {
            props.setWardrobe(outcome)
         }).catch((error) => {
