@@ -1,34 +1,68 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
-import { View, Text } from 'react-native';
+import { View, Text, Image, ScrollView, Button } from 'react-native';
+import styles from "./style"
 
-export default function User(username) {
-    const [wardrobe, setWardrobe] = useState([])
-    const dailyRecommender = async (tempMin, tempMax, sensation, atmosphere) => {
-        const recommenderEndpoint = `https://outfit-forecast.herokuapp.com/dailyRecommender/${username}/${tempMin.toString()}/${tempMax.toString()}/${sensation.toString()}/${atmosphere}`
+export default function User(props) {
+    const dailyRecommender = async (weather) => {
+        let recommenderEndpoint = `https://outfit-forecast.herokuapp.com/dailyRecommender/${props.username}/`
+        weather.forEach((element, index) => {
+            let additive;
+            if (index < 3) {
+                additive = element.toFixed().toString()
+            }
+            else {
+                additive = element
+            }
+            recommenderEndpoint += `${additive}/`
+        })
+        recommenderEndpoint = recommenderEndpoint.slice(0, recommenderEndpoint.length - 1)
         await axios.get(recommenderEndpoint).then((outcome) => {
-            let clothingArray = []
-            outcome.data.forEach(element => {
-                clothingArray.push(element.objectName)
-            });
-
-           setWardrobe(clothingArray)
+           props.setOutfit(outcome.data)
         }).catch((error) => {
-            console.log("Error", error)
-            setWardrobe(["Error"])
+            props.setOutfit(["Error", error])
         })
     }
 
     useEffect(() => {
-        //Example
-        dailyRecommender(60, 65, 63, "rain")
-    }, [])
+        if (props.weather.length == 4) {
+            dailyRecommender(props.weather)
+        }   
+        else {
+            props.setOutfit(["Waiting for weather to load before showing outfit recommendation..."])
+        }
+    }, [,props.weather])
 
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ fontSize: 10 } } >
-                Wardrobe: {wardrobe.toString()}
+    if (props.outfit.length <= 1) {
+        return (
+            <Text style={styles.userTextLower}>
+                {props.outfit.toString()}
             </Text>
+        )
+    }
+    return (
+        <View style={styles.outfitComponent}>
+            <Text style={styles.userh1}>Today's Outfit</Text>          
+            {
+                props.outfit.map((element, index) => {
+                    return (
+                        <View style={styles.userCard} key={"clothingCard" + index.toString()}>
+                            <Text style={styles.paragraph}>
+                                {element.objectName[0].toUpperCase() + element.objectName.substring(1)}
+                            </Text>
+
+                            <Image
+                                style={styles.userImage}
+                                source={{ uri: element.imgURL }}
+                            />
+                        </View>
+                    )
+                })
+            }
+            <View style={styles.userButtons}>
+                <Button color="green" title="YES"/>
+                <Button color="red" title="NO" onPress={ () => dailyRecommender(props.weather) }/>
+            </View>
         </View>
     );
 }
