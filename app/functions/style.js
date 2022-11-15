@@ -49,12 +49,15 @@ export default StyleSheet.create({
         padding: 5,
         marginBottom: 15
     },
-    weatherIcon: {
-        justifyContent: 'left'
+    weatherInfo: {
+        justifyContent: 'center'
+    },
+    weatherImageComponent: {
+        width: "35%",
+        height: "30%",
+        marginLeft: "5%"
     },
     weatherImage: {
-        margin: 20,
-        marginLeft: 40,
-        width: "35%"
+        height: 100
     }
 });

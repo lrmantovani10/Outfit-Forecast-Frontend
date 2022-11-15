@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { View, Text, Image } from 'react-native';
 import { WEATHER_KEY } from "@env"
 import * as Location from "expo-location"
 import styles from './style';
-import style from './style';
 
 export default function environmentalData(props) {
     const getWeather = async (lat, lon) => {
@@ -53,7 +52,7 @@ export default function environmentalData(props) {
     else {
         return (
             <View style={styles.weatherComponent}>
-                <View style={styles.weatherIcon}>
+                <View style={styles.weatherInfo}>
                     <Text style={styles.h1}>{props.location}</Text>
                     <View style={styles.five_separator}></View>
                     {
@@ -67,10 +66,10 @@ export default function environmentalData(props) {
                     }
                 </View>
                 
-                <View style={styles.weatherImage}>
+                <View style={styles.weatherImageComponent}>
                     {
                         <Image source={{ uri: "http://openweathermap.org/img/w/" + props.weatherIcon + ".png" }}
-                            style={{height: 60} } />
+                        style = {styles.weatherImage}/>
                     }
                 </View>
             </View>
