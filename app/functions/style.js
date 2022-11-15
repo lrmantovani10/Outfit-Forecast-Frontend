@@ -64,7 +64,8 @@ export default StyleSheet.create({
     userView: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center' 
+        justifyContent: 'center',
+        width:"100%"
     },
     userTitle: {
         fontWeight: "bold",
@@ -77,17 +78,18 @@ export default StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        width: "80%",
-        height: "40%",
+        width: "100%",
+        height: "100%",
         paddingBottom:"10%"
     },  
     userImage: {
-        width: 100,
-        height:100
+        width: "100%",
+        height: 190
     },
     userText: {
         fontSize: 20,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        marginBottom: "10%"
     },
     userTextLower: {
         fontSize: 10
