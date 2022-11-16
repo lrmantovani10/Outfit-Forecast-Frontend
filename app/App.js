@@ -20,14 +20,15 @@ function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.screenContainer}>
 
-      <CustomButton 
-        title="Go to Wardrobe" 
-        icon = "truck"
-        onPress={() =>
-          navigation.navigate('Wardrobe')
-        }
-      />
-      <View style={styles.fifteen_separator}></View>
+      <View style={{padding: 15}}>
+        <CustomButton 
+          title="Go to Wardrobe" 
+          icon = "truck"
+          onPress={() =>
+            navigation.navigate('Wardrobe')
+          }
+        />
+      </View>
       
       <ScrollView>
         <View style={styles.weatherComponent}>
@@ -47,14 +48,6 @@ function HomeScreen({ navigation }) {
         outfit={outfit}
         setOutfit={setOutfit} />
       
-      {/* NAVIGATION */}
-      <CustomButton 
-        title="Go to Wardrobe" 
-        icon = "truck"
-        onPress={() =>
-          navigation.navigate('Wardrobe')
-        }
-      />
       </ScrollView>
     </SafeAreaView>
   );
