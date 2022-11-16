@@ -32,7 +32,7 @@ Implementation Description:
  * User contains the getRecommender function, which sends a request to the backend for an outfit prediction based on sensitivity and the user's wardrobe.
  * tempRanges provides the functionality for the user to set a temperature range in which they are comfortable wearing the item of clothing from their wardrobe.
  * wardrobeGallery provides a view of all the items of clothing in a user's wardrobe, through a gallery format with image thumbnails. 
- * We know it is unsafe, but we are adding the API key here so you may run our code: 
+ * We know it is unsafe, but we are adding the API key to .env so you can run our code
 
 Milestone 4.A:
 
