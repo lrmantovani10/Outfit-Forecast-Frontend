@@ -119,6 +119,7 @@ export default function unitTesting() {
 
         // 'file' comes from the Blob or File API
         console.log("before UPLOAD")
+        setUploadResult("Upload in progress...");
         uploadBytes(storageRef, blob).then((snapshot) => {
           console.log('Uploaded a blob or file!');
           setUploadResult("[PASS]");
