@@ -20,14 +20,25 @@ function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.screenContainer}>
 
-      <CustomButton 
-        title="Go to Wardrobe" 
-        icon = "truck"
-        onPress={() =>
-          navigation.navigate('Wardrobe')
-        }
-      />
-      <View style={styles.fifteen_separator}></View>
+      <View style={{padding: 15}}>
+        <CustomButton 
+          title="Go to Wardrobe" 
+          icon = "truck"
+          onPress={() =>
+            navigation.navigate('Wardrobe')
+          }
+        />
+      </View>
+
+      <View style={{padding: 15}}>
+        <CustomButton 
+          title="Unit Testing" 
+          icon = "truck"
+          onPress={() =>
+            navigation.navigate('Testing')
+          }
+        />
+      </View>
       
       <ScrollView>
         <View style={styles.weatherComponent}>
@@ -47,14 +58,6 @@ function HomeScreen({ navigation }) {
         outfit={outfit}
         setOutfit={setOutfit} />
       
-      {/* NAVIGATION */}
-      <CustomButton 
-        title="Go to Wardrobe" 
-        icon = "truck"
-        onPress={() =>
-          navigation.navigate('Wardrobe')
-        }
-      />
       </ScrollView>
     </SafeAreaView>
   );
@@ -107,6 +110,14 @@ function Preferences({ navigation }) {
   );
 }
 
+function UnitTesting({ navigation }) {
+  return (
+    <View style={styles.screenContainer}>
+
+    </View>
+  )
+}
+
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
@@ -133,6 +144,7 @@ function App() {
         <Stack.Screen name="Camera" component={CameraScreen} options={{ title: 'Camera' }}/>
         <Stack.Screen name="Wardrobe" component={WardrobeScreen} options={{ title: 'Wardrobe' }}/>
         <Stack.Screen name="Preferences" component={Preferences} options={{ title: 'Set Preferences' }}/>
+        <Stack.Screen name="Testing" component={UnitTesting} options={{ title: 'Unit Testing' }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -61,7 +61,9 @@ export default function ImagePickerFunction() {
         console.log("Image updated");
         //const filename = "clothing/" + String(piture) + ".jpeg";
         //console.log(result.uri)
-        uploadImage(result.uri, "image.jpeg")
+        console.log(result.fileSize);
+        const filename = "clothing/" + result.fileSize + ".jpeg";
+        uploadImage(result.uri, filename)
             .then(() => {
                 console.log("Image Uploaded");
                 //Alert.alert("Uploaded");
@@ -75,7 +77,7 @@ export default function ImagePickerFunction() {
     }
 
     const uploadImage = async (uri, filename) => {
-      
+
         const response = await fetch(uri);
         const blob = await response.blob();
 
@@ -86,6 +88,10 @@ export default function ImagePickerFunction() {
         console.log("before UPLOAD")
         uploadBytes(storageRef, blob).then((snapshot) => {
           console.log('Uploaded a blob or file!');
+        })
+        .catch((error) => {
+          console.log("blob or file NOT Uploaded");
+          console.log(error);
         });
         console.log("past this part");
     }
