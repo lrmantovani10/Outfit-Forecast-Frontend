@@ -92,6 +92,17 @@ export default StyleSheet.create({
         height: 100
     },
 
+    // Unit Testing
+    unitTesting: {
+        flex: 1,
+        flexDirection: "column",
+        textAlign: "left",
+        alignContent: "flex-start",
+    },
+    unitText: {
+        fontSize:15
+    },
+
     // User
     outfitComponent: {
         width: "100%",
