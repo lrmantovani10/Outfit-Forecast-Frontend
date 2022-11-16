@@ -7,6 +7,12 @@ import { useState, useEffect } from 'react';
 import * as Location from "expo-location"
 import axios from 'axios';
 
+import { Button, Image, View, Platform } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+
+import * as firebase from 'firebase/app';
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+
 export default function unitTesting() {
 
     // States used for testing
@@ -73,35 +79,83 @@ export default function unitTesting() {
         return message
     }
 
-    // Unit Testing getLocation
-    const getLocation = async (index) => {
-        let message = "[PASS]"
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') {
-            message = "[PASS]: Permission to access the device's location was denied."
+
+
+
+  
+    //Unit Testing Image Upload
+    const [picture, update_image] = useState(null);
+
+    const takePicture = async () => {
+        console.log("Successfully opened.");
+        //  Asking the user for permission to use their camera
+        UploadTests();
+        const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+  
+        //  Exiting if they don't grant permission
+        if (permissionResult.granted === false) {
+          return;
         }
-        else {
-            let location = await Location.getCurrentPositionAsync({});
-            try {
-                location = [location.coords.latitude, location.coords.longitude]     
-                if (typeof (location[0]) != "number" || typeof (location[1]) != "number") {
-                    message = "[FAIL]: Wrong type for at least one of the coordinates"
-                }
-            }
-            catch (error) {
-                message = "[FAIL]: " + error.toString()   
-            }
+        
+        //  Waiting to see if user successfully takes picture. If they do, save it.
+        const result = await ImagePicker.launchCameraAsync();
+        console.log("Successfully took picture");
+        if (!result.cancelled) {
+        //upload to Firebase
+          console.log("User didn't cancel");
+          update_image(result.uri)
+          console.log("Image updated");
+          console.log(result.fileSize);
+          const filename = "clothing/" + result.fileSize + ".jpeg";
+          uploadImage(result.uri, filename)
+              .then(() => {
+                  console.log("Image Uploaded");
+              })
+              .catch((error) => {
+                  console.log("Image NOT Uploaded");
+                  console.log(error);
+              });
         }
-            
-        let locationCopy = [...locationTest]
-        locationCopy[index] = message
-        setLocationTest(locationCopy);
+      }
+      const uploadImage = async (uri, filename) => {
+
+        const response = await fetch(uri);
+        const blob = await response.blob();
+
+        const storage = getStorage();
+        const storageRef = ref(storage, filename);
+
+        // 'file' comes from the Blob or File API
+        console.log("before UPLOAD")
+        setUploadResult("Upload in progress...");
+        uploadBytes(storageRef, blob).then((snapshot) => {
+          console.log('Uploaded a blob or file!');
+          setUploadResult("[PASS]");
+        })
+        .catch((error) => {
+          console.log("blob or file NOT Uploaded");
+          console.log(error);
+        });
+        console.log("past this part");
     }
 
-    // Unit Testing dailyRecommender
+    const [uploadResult, setUploadResult] = useState(null)
+
+    const UploadTests = function () {
+        let uplMsg = "Testing Upload Pictures..."
+        if (picture == null) {
+            setUploadResult(uplMsg)
+            return
+        }
+        else {
+            setUploadResult("[PASS]");
+        }
+    }
 
 
     useEffect((async () => {
+        // Testing camera
+        takePicture()
         // Inputs to getWeather
         // Two positive coordinates
         await getWeather(20, 30, 0)
@@ -114,6 +168,7 @@ export default function unitTesting() {
         // User accepts can accept or deny location access, but coordinates must 
         // remain as numbers
         await getLocation(0)
+    
 
     }), [])
 
@@ -137,6 +192,13 @@ export default function unitTesting() {
                     )
                 })
             }
+            
+            <Text style={styles.unitText}>Weather Test: {
+            weatherResult}
+            <Text style={styles.unitText}>Upload Test: {
+            uploadResult}
+            </Text>
+        </Text>  
         </View>
     )
 
