@@ -55,4 +55,4 @@ web-build/
 dist/
 
 # Environment Variables
-.env
+# Removing this from gitignore to allow testing: .env
