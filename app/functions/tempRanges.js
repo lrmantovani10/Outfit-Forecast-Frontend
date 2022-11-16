@@ -13,36 +13,39 @@ import styleSheet from "./style"
 
 
 export class TempRanges extends Component {
-  state = {
-    PopupData: {
-        modalVisible: false,
-        values: [50, 60]
-     }
-  };
-
-  setModalVisible = (visible) => {
-    this.setState({PopupData:{modalVisible: visible, values:this.state.PopupData.values}});
+  constructor(props) {
+    super(props);
+    this.tempInput = this.tempInput.bind(this);
+    this.state = {
+      PopupData: {
+          popupVisible: false,
+          values: [50, 60]
+       },
+    };
   }
 
-  multiSliderValuesChange = (values) => {
-    this.setState({PopupData:{modalVisible: this.state.PopupData.modalVisible, values:values}});
+  makePopupVisible = (visible) => {
+    this.setState({PopupData:{popupVisible: visible, values:this.state.PopupData.values}});
+  }
+
+  tempInput = (values) => {
+    this.setState({PopupData:{popupVisible: this.state.PopupData.popupVisible, values:values}});
   }
 
   render() {
-    const { modalVisible } = this.state.PopupData;
+    const { popupVisible: popupVisible } = this.state.PopupData;
     return (
-      <View style={styles.centeredView}>
+      <View style={styles.tempRangesView}>
         <Modal
           animationType="slide"
           transparent={true}
-          visible={modalVisible}
+          visible={popupVisible}
           onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            this.setModalVisible(!modalVisible);
+            this.makePopupVisible(!popupVisible);
           }}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-                <Text style={styles.modalText}>What temperature range would you wear this item in?</Text>
+          <View style={styles.tempRangesView}>
+            <View style={styles.popupView}>
+                <Text style={styles.popupText}>What temperature range would you wear this item in?</Text>
                 {/* Test image, will replace */}
                 <Image
                 style={{width: '75%', height: '50%'}}
@@ -50,7 +53,7 @@ export class TempRanges extends Component {
                 <MultiSlider
                     values={[this.state.PopupData.values[0], this.state.PopupData.values[1]]}
                     sliderLength={280}
-                    onValuesChange={this.multiSliderValuesChange}
+                    onValuesChange={this.tempInput}
                     min={-10}
                     max={100}
                     step={1}
@@ -62,16 +65,87 @@ export class TempRanges extends Component {
                 <View style={styleSheet.five_separator}></View>
                 <Pressable style={styleSheet.button}
                 // style={[styles.button, styles.buttonClose]}
-                onPress={() => this.setModalVisible(!modalVisible)}>
-                <Text style={styles.textStyle}>Save & Exit</Text>
+                onPress={() => this.makePopupVisible(!popupVisible)}>
+                <Text style={styles.tempRangeText}>Save & Exit</Text>
                 </Pressable>
             </View>
           </View>
         </Modal>
         <Pressable style={styleSheet.button}
         //   style={[styleSheet.button, styleSheet.activeButton]}
-          onPress={() => this.setModalVisible(true)}>
-          <Text style={styleSheet.buttonText}>Add New Temp Ranges</Text>
+          onPress={() => this.makePopupVisible(true)}>
+          <Text style={styles.tempRangeText}>Add New Temp Ranges</Text>
+        </Pressable>
+        
+      </View>
+    );
+  }
+}
+
+export class TempRangesTest extends Component {
+  constructor(props) {
+    super(props);
+    this.tempInput = this.tempInput.bind(this);
+    this.state = {
+      PopupData: {
+          popupVisible: false,
+          values: [50, 60]
+       },
+    };
+  }
+
+  makePopupVisible = (visible) => {
+    this.setState({PopupData:{popupVisible: visible, values:this.state.PopupData.values}});
+  }
+
+  tempInput = (values) => {
+    this.setState({PopupData:{popupVisible: this.state.PopupData.popupVisible, values:values}});
+  }
+
+  render() {
+    const { popupVisible: popupVisible } = this.state.PopupData;
+    return (
+      <View style={styles.tempRangesView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={popupVisible}
+          onRequestClose={() => {
+            this.makePopupVisible(!popupVisible);
+          }}>
+          <View style={styles.tempRangesView}>
+            <View style={styles.popupView}>
+                <Text style={styles.popupText}>For testing purposes, please set the temperature range for this shirt to be 10°F to 90°F.</Text>
+                {/* Test image, will replace */}
+                <Image
+                style={{width: '75%', height: '50%'}}
+                source={{uri:'https://cdn.pixabay.com/photo/2016/12/06/09/31/blank-1886008_960_720.png'}}/> 
+                <MultiSlider
+                    values={[this.state.PopupData.values[0], this.state.PopupData.values[1]]}
+                    sliderLength={280}
+                    onValuesChange={this.tempInput}
+                    min={-10}
+                    max={100}
+                    step={1}
+                />
+                {/* Just an example of how the variables are stored. Will be removed in the final version */}
+                <Text style={styleSheet.h3}>Temperature Min/Max:</Text>
+                <Text style={styleSheet.paragraph}>{this.state.PopupData.values[0]} °F</Text>
+                <Text style={styleSheet.paragraph}>{this.state.PopupData.values[1]} °F</Text>
+                <Text>{this.state.PopupData.values[0] === 10 && this.state.PopupData.values[1] === 90 ? 'Testing tempInput... [PASS]' : 'Testing tempInput... [FAIL]'}</Text>
+                <View style={styleSheet.five_separator}></View>
+                <Pressable style={styleSheet.button}
+                // style={[styles.button, styles.buttonClose]}
+                onPress={() => this.makePopupVisible(!popupVisible)}>
+                <Text style={styles.tempRangeText}>Save & Exit</Text>
+                </Pressable>
+            </View>
+          </View>
+        </Modal>
+        <Pressable style={styleSheet.button}
+        //   style={[styleSheet.button, styleSheet.activeButton]}
+          onPress={() => this.makePopupVisible(true)}>
+          <Text style={styleSheet.buttonText}>Test Temp Ranges</Text>
         </Pressable>
         
       </View>
@@ -80,7 +154,7 @@ export class TempRanges extends Component {
 }
 
 const styles = StyleSheet.create({
-    screenContainer: {
+  screenContainer: {
     flex: 1,
     justifyContent: "center",
     padding: 16
@@ -88,11 +162,11 @@ const styles = StyleSheet.create({
   separator: {
     height: 15
   },
-  centeredView: {
+  tempRangesView: {
     justifyContent: "center",
     margin: 20
   },
-  modalView: {
+  popupView: {
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
@@ -118,12 +192,12 @@ const styles = StyleSheet.create({
   buttonClose: {
     backgroundColor: "blue",
   },
-  textStyle: {
+  tempRangeText: {
     color: "white",
     fontWeight: "bold",
     textAlign: "center"
   },
-  modalText: {
+  popupText: {
     marginBottom: 15,
     textAlign: "center"
   }
