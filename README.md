@@ -6,7 +6,7 @@ Current class diagram
 ![Class Diagram](class-diagrams/updatedClassDiagram5.png)
 
 Acceptance tests file: testing/acceptance_tests.txt
-Unit testing file (run through app): testing/unitTesting.js
+Unit testing file (run through app): app/functions/unitTesting.js
 
 How to run code:
 - npm install (for dependencies)
