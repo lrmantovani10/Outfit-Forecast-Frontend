@@ -25,19 +25,10 @@ export default function ImagePickerFunction() {
       });
       //  Save the picture if they successfully choose one
       if (!result.cancelled) {
-        //upload to Firebase
-        update_image(result.uri)
-        uploadImage(result.uri, "some-child")
-            .then(() => {
-                console.log("Image Uploaded");
-                //Alert.alert("Uploaded");
-            })
-            .catch((error) => {
-                console.log("Image NOT Uploaded");
-                console.log(error);
-                //Alert.alert(error);
-            });
+        console.log("User didn't cancel");
+        update_image(result.uri);
       }
+      
       console.log("after upload selection");
     };
 
