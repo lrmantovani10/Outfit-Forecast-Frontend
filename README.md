@@ -5,7 +5,7 @@ An app to generate outfit predictions based on one's wardrobe and current weathe
 Current class diagram
 ![Class Diagram](class-diagrams/updatedClassDiagram5.png)
 
-Testing file: testing/acceptance_tests.txt
+Acceptance tests file: testing/acceptance_tests.txt
 
 How to run code:
 - npm install (for dependencies)
