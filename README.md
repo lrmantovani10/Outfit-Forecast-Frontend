@@ -14,8 +14,13 @@ How to run code:
 
 How to run the test cases:
 - The majority of our testing is designed to be executed via acceptance testing. In the acceptance_tests.txt file, there are acceptance tests written for the features we have implemented in the frontend.
-- The rest of the unit testing occurs via the "Testing" button on the home screen. The tests will run when the page is loaded, and the output from the tests will be displayed 
-on the testing screen.
+- The rest of the unit testing occurs via the "Testing" button on the home screen. The tests will run when the page is loaded, and the output from the tests will be displayed on the testing screen.
+
+When testing, note that:
+- DailyRecommender was moved to the backend to remove redundancy and will be used there instead. All tests have been removed from the frontend.
+- Some tests, like uploadPicture and takePicture were changed, these being combined into the Picture functions in unit testing, and others, like addPrefPair and updatePrefPair are no longer there, or appear in a different form. This is because, as we implemented our project, we changed around how certain functionalities would work and how certain classes and functions would be implemented. We also changed our class diagram to reflect this.
+- Some tests, like takePicture, uploadPicture, and tempInput require human input, and will need a user to take actions upon running the unit tests. We put in a lot of time and effort to find ways to automate these tests but unfortunately believe they cannot be done even with the mocking tools we see are available.
+- We are not using a standard unit testing framework because react native exports modules instead of isolated functions, meaning that it doesn't lend itself well to any framework that we know of.
 
 Code Directory Structure:
  * All of our code resides within /app. Within /app, App.js has the bulk of the code for navigation and overall app styling, and /functions contains the various components we have written to be displayed across the different pages.
