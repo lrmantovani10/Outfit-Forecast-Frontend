@@ -5,11 +5,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import CustomButton from './functions/button';
 import EnvironmentalData from './functions/EnvironmentalData';
-import WardrobeGallery from './functions/wardrobeGallery'
-import TempRanges from './functions/tempRanges'
+import WardrobeGallery from './functions/wardrobeGallery';
+import { TempRanges } from './functions/tempRanges';
 import ImagePickerFunction from './functions/PictureFunctions';
 import User from './functions/User';
 import unitTesting from './functions/unitTesting';
+import styles from './functions/style';
 
 import "./functions/FirebaseInitialize";
 
@@ -21,25 +22,27 @@ function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.screenContainer}>
 
-      <View style={{padding: 15}}>
-        <CustomButton 
-          title="Go to Wardrobe" 
-          icon = "truck"
-          onPress={() =>
-            navigation.navigate('Wardrobe')
-          }
-        />
-      </View>
 
-      <View style={{padding: 15}}>
-        <CustomButton 
-          title="Unit Testing" 
-          icon = "truck"
-          onPress={() =>
-            navigation.navigate('Testing')
-          }
-        />
-      </View>
+      <CustomButton 
+        title="Go to Wardrobe" 
+        icon = "truck"
+        onPress={() =>
+          navigation.navigate('Wardrobe')
+        }
+      />
+
+      <View style={styles.fifteen_separator}></View>
+
+      <CustomButton 
+        title="Unit Testing" 
+        icon = "truck"
+        onPress={() =>
+          navigation.navigate('Testing')
+        }
+      />
+
+      <View style={styles.fifteen_separator}></View>
+
       
       <ScrollView>
         <View style={styles.weatherComponent}>
@@ -64,6 +67,15 @@ function HomeScreen({ navigation }) {
   );
 }
 
+
+function Preferences({ navigation }) {
+  return (
+    <View style={styles.screenContainer}>
+      <TempRanges/>
+    </View>
+  );
+}
+
 function WardrobeScreen({ navigation }) {
   return (
     <View style={styles.screenContainer}>
@@ -81,7 +93,7 @@ function WardrobeScreen({ navigation }) {
         }
       />
 
-      <View style={styles.separator}></View>
+      <View style={styles.fifteen_separator}></View>
 
       <CustomButton
         title="Set Preferences"
@@ -103,14 +115,6 @@ function CameraScreen({ navigation }) {
   );
 }
 
-function Preferences({ navigation }) {
-  return (
-    <View>
-      <TempRanges/>
-    </View>
-  );
-}
-
 function UnitTesting({ navigation }) {
   return (
     <View style={styles.unitTesting}>
@@ -118,17 +122,6 @@ function UnitTesting({ navigation }) {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  screenContainer: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 16
-  },
-  separator: {
-    height: 15
-  }
-});
 
 
 const Stack = createNativeStackNavigator();
