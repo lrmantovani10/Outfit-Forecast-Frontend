@@ -5,6 +5,8 @@ import environmentalData from './EnvironmentalData';
 import { WEATHER_KEY } from "@env"
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { TempRangesTest } from './tempRanges';
+
 
 export default function unitTesting() {
 
@@ -70,12 +72,15 @@ export default function unitTesting() {
 
 
     // Unit Testing getLocation
-
     
-
     return (
         <Text style={styles.unitText}>Weather Test: {
             weatherResult}
+        {/* Unit Testing makePopupVisible and tempInput, both which require user interaction */}
+        <Text>{"\n"}{"\n"}Tap the button below to test our TempRanges class (this serves as a test for the
+         makePopupVisible and tempInput functions) Set the lower range to 10°F and the higher range to 90°F.
+         Once you do this, you should see Testing tempInput... [PASS] appear.{"\n"}{"\n"}</Text>
+        <TempRangesTest/>
         </Text>
     )
 

@@ -40,11 +40,14 @@ export default StyleSheet.create({
         // margin: 10
     },
     buttonText: {
+        alignItems: 'center',
+        justifyContent: 'center',
         fontSize: 16,
         lineHeight: 21,
         fontWeight: 'bold',
         letterSpacing: 0.25,
         color: 'white',
+        flexDirection: 'row'
     },
     activeButton: {
         alignItems: 'center',
