@@ -1,21 +1,51 @@
 
 import styles from './style';
-import { Text } from 'react-native';
-import environmentalData from './EnvironmentalData';
+import { Text, View, Button, Image, Platform } from 'react-native';
 import { WEATHER_KEY } from "@env"
 import { useState, useEffect } from 'react';
+import * as Location from "expo-location"
 import axios from 'axios';
 import { TempRangesTest } from './tempRanges';
 
+import * as ImagePicker from 'expo-image-picker';
+
+import * as firebase from 'firebase/app';
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 export default function unitTesting() {
 
+    // States used for testing
+    const [weatherResult1, setWeatherResult1] = useState("Running test 1...")
+    const [weatherResult2, setWeatherResult2] = useState("Running test 2...")
+    const [weatherResult3, setWeatherResult3] = useState("Running test 3...")
+    const [locationTest, setLocationTest] = useState("Running location test ...")
+
     // Unit Testing getWeather
-    const [weatherTest, setWeatherTest] = useState([])
-    const [testLocation, setLocationTest] = useState("")
-    const [testIcon, setTestIcon] = useState("")
-    const [weatherResult, setWeatherResult] = useState("Testing getWeather...")
-    const getWeather = async (lat, lon) => {
+
+    // Checking if API response meets exepceted requirements of length,
+    // data type, and format
+    const weatherTests = function (weather, location, icon) {
+        let message = "[PASS]"
+        if (weather.length != 4) {
+            message = "[FAIL] getWeather's response is not of the right size"
+        }
+        else {
+            if (icon.length == 0) {
+                return "[FAIL] Weather icon was not found"
+            }
+            if (location.length == 0) {
+                return "[FAIL] Location was not detected by weather API"
+            }
+            weather.forEach((element, index) => {
+                if (index < 3 && typeof (element) != "number") {
+                   return "[FAIL] getWeather's response with wrong data type for " + element.toString()
+                }
+            });
+        }
+        return message
+    }
+
+    const getWeather = async (lat, lon, index) => {
         const weatherEndpoint = `https://api.openweathermap.org/data/2.5/weather?units=imperial&lat=${lat.toString()}&lon=${lon.toString()}&appid=${WEATHER_KEY}`
         await axios.get(weatherEndpoint).then((outcome) => {
             const mainParameters = outcome.data.main
@@ -23,326 +53,156 @@ export default function unitTesting() {
                 mainParameters.temp_min, mainParameters.temp_max,
                 mainParameters.feels_like, outcome.data.weather[0].main
             ]
-            console.log(interestingParameters)
-            setWeatherTest(interestingParameters)
-            setLocationTest(outcome.data.name + ", " + outcome.data.sys.country)
-            setTestIcon(outcome.data.weather[0].icon)
-            weatherTests(weatherTest, testLocation, testIcon)
+            let location = outcome.data.name + ", " + outcome.data.sys.country
+            let icon = outcome.data.weather[0].icon
+            let weatherTest = weatherTests(interestingParameters, location, icon)
+            
+            if (index == 0) {
+                setWeatherResult1(weatherTest)
+            }
+            else if (index == 1) {
+                setWeatherResult2(weatherTest)
+            }
+            else {
+                setWeatherResult3(weatherTest)
+            }
+            return weatherTest
             
         }).catch((error) => {
-            setWeatherTest(["Error fetching the weather from the API:", error])
-            return ([weather, "", ""])
+            if (index == 2) {
+                setWeatherResult3("[PASS]")
+            }
+            else {
+                if (index == 0) {
+                   setWeatherResult1("Error fetching the weather from the API: " + error)
+                }
+                else {
+                    setWeatherResult2("Error fetching the weather from the API: " + error)
+                }
+            }
         })
     }
 
-    const weatherTests = function (weather, location, icon) {
-        let message = "Testing getWeather..."
-        if (weather.length == 0) {
-            setWeatherResult(message)
+
+    // Unit Testing getLocation
+    const getLocation = async () => {
+        let message = "[PASS]"
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+            message = "[PASS]: Permission to access the device's location was denied."
+        }
+        else {
+            let location = await Location.getCurrentPositionAsync({});
+            try {
+                location = [location.coords.latitude, location.coords.longitude]     
+                if (typeof (location[0]) != "number" || typeof (location[1]) != "number") {
+                    message = "[FAIL]: Wrong type for at least one of the coordinates"
+                }
+            }
+            catch (error) {
+                message = "[FAIL]: " + error.toString()   
+            }
+        }
+        setLocationTest(message)
+    }
+
+    // Unit Testing Image Upload
+    const [picture, update_image] = useState(null);
+
+    const takePicture = async () => {
+        console.log("Successfully opened.");
+        //  Asking the user for permission to use their camera
+        UploadTests();
+        const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+  
+        //  Exiting if they don't grant permission
+        if (permissionResult.granted === false) {
+          return;
+        }
+        
+        //  Waiting to see if user successfully takes picture. If they do, save it.
+        const result = await ImagePicker.launchCameraAsync();
+        console.log("Successfully took picture");
+        if (!result.cancelled) {
+        //upload to Firebase
+          console.log("User didn't cancel");
+          update_image(result.uri)
+          console.log("Image updated");
+          console.log(result.fileSize);
+          const filename = "clothing/" + result.fileSize + ".jpeg";
+          uploadImage(result.uri, filename)
+              .then(() => {
+                  console.log("Image Uploaded");
+              })
+              .catch((error) => {
+                  console.log("Image NOT Uploaded");
+                  console.log(error);
+              });
+        }
+      }
+      const uploadImage = async (uri, filename) => {
+
+        const response = await fetch(uri);
+        const blob = await response.blob();
+
+        const storage = getStorage();
+        const storageRef = ref(storage, filename);
+
+        // 'file' comes from the Blob or File API
+        console.log("before UPLOAD")
+        setUploadResult("Upload in progress...");
+        uploadBytes(storageRef, blob).then((snapshot) => {
+          console.log('Uploaded a blob or file!');
+          setUploadResult("[PASS]");
+        })
+        .catch((error) => {
+          console.log("blob or file NOT Uploaded");
+          console.log(error);
+        });
+        console.log("past this part");
+    }
+
+    const [uploadResult, setUploadResult] = useState(null)
+
+    const UploadTests = function () {
+        let uplMsg = "Testing Upload Pictures..."
+        if (picture == null) {
+            setUploadResult(uplMsg)
             return
         }
         else {
-            message = "[PASS]"
+            setUploadResult("[PASS]");
         }
-        if (weather.length != 4) {
-            message = "[FAIL] getWeather's response is not of the right size"
-        }
-        else {
-            if (icon.length == 0) {
-                setWeatherResult("[FAIL] Weather icon was not found")
-                return
-            }
-            if (location.length == 0) {
-                setWeatherResult("[FAIL] Location was not detected by weather API")
-                return
-            }
-            weather.forEach((element, index) => {
-                if (index < 3 && typeof (element) != "number") {
-                   setWeatherResult("[FAIL] getWeather's response with wrong data type for " + element.toString())
-                   return
-                }
-            });
-        }
-        setWeatherResult(message)
     }
 
+    // Running tests when page loads
     useEffect((() => {
-        getWeather(20, 30)   
+        // Testing camera
+        takePicture()
+        // Inputs to getWeather
+        // Two positive coordinates
+        getWeather(20, 30, 0)
+        // One of the coordinates is negative but valid
+        getWeather(-10, 20, 1)
+        // Invalid coordinates -- should fail
+        getWeather(-450, 100, 2)
+
+        // Location test
+        // User accepts can accept or deny location access, but coordinates must 
+        // remain as numbers
+        getLocation()
+
     }), [])
 
 
     // Unit Testing getLocation
+
     
+
     return (
         <Text style={styles.unitText}>Weather Test: {
             weatherResult}
-        {/* Unit Testing makePopupVisible and tempInput, both which require user interaction */}
-        <Text>{"\n"}{"\n"}Tap the button below to test our TempRanges class (this serves as a test for the
-         makePopupVisible and tempInput functions) Set the lower range to 10°F and the higher range to 90°F.
-         Once you do this, you should see Testing tempInput... [PASS] appear.{"\n"}{"\n"}</Text>
-        <TempRangesTest/>
         </Text>
     )
 
 }
-
-
-
-
-// import environmentalData from "./EnvironmentalData"
-// import User from "./User"
-
-// // environmental data object for testing
-// const envData = environmentalData(40, 40)
-
-// // user for testing
-// const user = User("leo")
-
-// // getWeather test //
-// // the format of the OpenWeather API's response can be seen here:
-// // https://rapidapi.com/blog/openweathermap-api-overview/javascript/
-
-// /*
-//     getWeather's response should be an object containing the 
-//     following keys (example):
-
-//     {
-//             "temp_min" : 50,
-//             "temp_max" : 65,
-//             "feels_like": 62,
-//             "atmosphere": "sunny"
-//     }
-// */
-// var response = envData.getWeather()
-// // Check that all the keys neeed for the app to generate predictions are in the
-// // API's response. This is not a value test like the one above, but a check of
-// // the response's format, since the actual response will differ by day
-
-// if (response.length != 4) {
-//     throw "getWeather's array response contains less than 4 elements"
-// }
-
-// response.map((element, index) => {
-//     if (index < 4 && typeof (element) != "number") {
-//         throw "getWeather's response with wrong data type for " + element.toString()
-//     }
-// })
-
-// // dailyRecommender tests //
-// // Generate outfit predictions based on weather, sensitivity, and wardrobe
-
-// // adding a wardrobe to illustrate testing. Each key in the wardrobe's
-// // nested objects is mapped to an array containing the lower and upper bounds in
-// // which the user would wear that piece of clothing
-// const dummyWardrobe = {
-//     "lowerBody": {
-//         "pants": [40, 85],
-//         "shorts": [80, 110]
-//     },
-//     "upperBody": {
-//         "tShirt": [60, 110],
-//         "longSleeve": [20, 60],
-//     },
-//     "jacket": {
-//         "leather": [-10, 40],
-//         "polyester": [41, 80]
-//     }
-// }
-
-// // Each element in "outfitTests" contains an input and an expected
-// // combination of lower body, upper body, and jacket selections.
-// // Each input is the current weather (which in the actual function's code
-// // will be envData.weather instead of a manually-entered JSON object)
-
-// // For the recommendations, we should determine what outfit to generate
-// // based on the "feels_like" parameter, but "temp_min" and "temp_max"
-// // are also used as tie-breakers in case a certain outfit has been \
-// // suggested before and we want to avoid repetition.
-// var outfitTests = [
-//     [
-        
-//         // "pants" is the only lowerBody item whose range contains the current
-//         // temperature, and so is "tShirt" for the upperBody. There is no 
-//         // ambiguity here. 
-//         [50, 65, 62, "cloudy"]
-//     , ["pants", "tShirt", "polyester"]],
-
-//     // Again, there is no ambiguity here. Notice how no jacket falls within the
-//     // constraints, so we output NULL for it.
-//     [
-//         [90, 100, 105,"sunny"]
-//     , ["shorts", "tShirt", NULL]],
-
-//     // Here, there is ambiguity between "tShirt" and "longSleeve", both of
-//     // which include 60F in their ranges. Since we already predicted 
-//     // tSHirt, we will no predict longSleeve. If we had many, many different
-//     // conflicting temperature ranges for different pieces of clothing, we 
-//     // would need to select the one that had been predicted the less, as long
-//     // as it fell within the temp_min / temp_max range. If not, we just
-//     // repeat one that did fall in that range or output NULL if none fall in that
-//     // range. Here, "polyester" is being repeated, but it is the only one that
-//     // falls within our range, so select it
-//     [
-//         [40, 70, 60, "cloudy"]
-//     , ["pants", "longSleeve", "polyester"]],
-
-//     // Here, only the jacket falls within the constraints, so we output
-//     // NULL for the other ones -- the user needs to go shopping or change their
-//     // preferences! This is fine -- we could even have all three NULL
-//     [
-//         [0, 10, 5, "snowy"]
-//     , [NULL, NULL, "leather"]]
-
-// ]
-
-// // iterate over the input / output pairs and check if we obtain what is expected
-// test("dailyRecommender", () => {
-//     for (const testCase of outfitTests) {
-//         expect(user.dailyReccomender(testCase[0])).toEqual(testCase[1])
-//     }
-// })
-
-// // *********** ImageData Tests *********** //
-// // imageData contains a set of pictures, which are returned using getPictures()
-// // we return a list of UIImage pictures using getPictures() and use this as input
-// // 
-
-// /*
-// let pictures = frontend_functions.getPictures()
-
-// test("upload", () => {
-//     //this will run the upload image on the returned pictures from the Image_Data object
-//     //if the size of the set is not 0, uploadImage() should return true
-//     //if the size of the set is 0, uploadImage() should return false
-    
-//     //below tests the above two cases, expecting true in the first case and false in the
-//     // second case
-//     if(size(pictures) > 0){ expect(frontend_functions.uploadImage(pictures)).toEqual(true) }
-//     else { expect(frontend_functions.uploadImage(pictures_empty)).toEqual(false) }
-// })
-
-
-// // camera tests //
-// // Take pictures, choose from gallery, and successfully store them for later retrieval
-
-// // imageData contains one instance of a class called userCamera.
-// // Within userCamera, we create an instance of React Native's "image-picker" class
-// let imageData_x = new frontend_functions.userCamera() 
-// // "image-picker" stores the current image, whether it be chosen from the gallery or
-// // taken by the camera, in resourcePath. This is be the initial state of that,
-// // which should be NULL or some null-identifying value.
-// let initial_state = imageData_x.userCamera.state.resourcePath.data
-
-// test("camera", () => {
-//     // This will actually open up the camera on the phone running this code, which
-//     // makes automatic testing rather difficult. The way I imagine it, when running
-//     // this test, the user has to take a photo, and the code will then automatically
-//     // test to see if that photo's data has been successfully stored.
-//     imageData_x.userCamera.takePicture();
-//     // Arbitrary nonsensical value that will only change if taking picture is successful
-//     let new_state = -1 
-//     if (imageData_x.userCamera.res.didCancel) {
-//         console.log('User pressed cancel button');
-//     } else if (imageData_x.userCamera.res.error) {
-//         console.log('takePicture Error: ', res.error);
-//     } else {
-//         new_state = imageData_x.userCamera.state.resourcePath.data
-//     }
-//     expect((initial_state).not.toEqual(new_state))
-
-//     // Similarly, auto-testing choosing from the gallery will be tricky because there
-//     // is no way around making the user actually having to choose an actual image
-//     // from their gallery to use the function. In this, I imagine the user selecting
-//     // an image, which then should be successfully stored, overwriting the last image
-//     imageData_x.userCamera.choosePicture();
-//     // Arbitrary nonsensical value that will only change if taking picture is successful
-//     let new_state2 = -1 
-//     if (imageData_x.userCamera.res.didCancel) {
-//         console.log('User pressed cancel button');
-//     } else if (imageData_x.userCamera.res.error) {
-//         console.log('choosePicture Error: ', res.error);
-//     } else {
-//         new_state2 = imageData_x.userCamera.state.resourcePath.data
-//     }
-//     expect((initial_state).not.toEqual(new_state2))
-//     expect((new_state).not.toEqual(new_state2))
-
-//     // At this point, we should assume that two images (one from taking a picture with
-//     // the camera, the other from choosing one from the gallery) should be added to 
-//     // imageData_x's 'pictures' variable. This will allow us to test it as such:
-
-//     expect((imageData_x.getPictures[0]).toEqual(new_state))
-//     expect((imageData_x.getPictures[1]).toEqual(new_state2))
-
-//     // Testing updateImage, which replaces a certain image in imageData's pictures field
-
-//     imageData_x.userCamera.takePicture();
-//     if (imageData_x.userCamera.res.didCancel) {
-//         console.log('User pressed cancel button');
-//     } else if (imageData_x.userCamera.res.error) {
-//         console.log('takePicture Error: ', res.error);
-//     } else {
-//         new_state3 = imageData_x.userCamera.state.resourcePath.data
-//     }
-//     imageData_x.updateImage(0, new_state3)
-//     expect((imageData_x.getPictures[0]).toEqual(new_state3))
-// })
-
-
-// // *********** STORE SURVEY TESTS *********** //
-
-// // Generate new dict of preferences for user
-// user_x.Preferences = {}
-
-// // inputs are clothing_ID, lower_bound, upper_bound
-// var add_prefPairs = [
-//     // NOTE: clothing_ID validation happens in Clothing class
-
-//     // valid
-//     [[0, 10, 25], true], 
-
-//     // invalid, lower bound below lowest allowed temp
-//     [[1, -20, 25], false],
-
-//     // invalid, upper bound above highest allowed temp
-//     [[2, 35, 145], false],
-
-//     // invalid, lower bound greater than upper bound
-//     [[3, 65, 25], false]
-// ]
-
-// test("addPrefPairs", () => {
-//     for (testCase of add_prefPairs) {
-//         expect(user_x.Preferences.addPair(testCase[0])).toEqual(testCase[1])
-//     }
-// })
-
-// user_x.Preferences.addPair(0, 10, 25);
-
-// // inputs are clothing_ID, lower_bound, upper_bound
-// var update_prefPairs = [
-//     // NOTE: clothing_ID validation happens in Clothing class
-
-//     // valid
-//     [[0, 10, 35], true], 
-
-//     // invalid, lower bound below lowest allowed temp
-//     [[0, -20, 25], false],
-
-//     // invalid, upper bound above highest allowed temp
-//     [[0, 35, 145], false],
-
-//     // invalid, lower bound greater than upper bound
-//     [[0, 65, 25], false]
-// ]
-
-// test("updatePrefPairs", () => {
-//     for (testCase of update_prefPairs) {
-//         expect(user_x.Preferences.updatePair(testCase[0])).toEqual(testCase[1])
-//     }
-// })
-// */
-
-
-
-
