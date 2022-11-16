@@ -6,6 +6,7 @@ Current class diagram
 ![Class Diagram](class-diagrams/updatedClassDiagram5.png)
 
 Acceptance tests file: testing/acceptance_tests.txt
+Unit testing file (run through app): testing/unitTesting.js
 
 How to run code:
 - npm install (for dependencies)
@@ -13,8 +14,8 @@ How to run code:
 
 How to run the test cases:
 - The majority of our testing is designed to be executed via acceptance testing. In the acceptance_tests.txt file, there are acceptance tests written for the features we have implemented in the frontend.
-
-Notes on testing:
+- The rest of the unit testing occurs via the "Testing" button on the home screen. The tests will run when the page is loaded, and the output from the tests will be displayed 
+on the testing screen.
 
 Code Directory Structure:
  * All of our code resides within /app. Within /app, App.js has the bulk of the code for navigation and overall app styling, and /functions contains the various components we have written to be displayed across the different pages.
@@ -33,9 +34,8 @@ For the second iteration, the main functionality we plan on implementing encompa
 For this milestone, what we originally had planned which we are no longer planning on implementing are adding logo and artwork, and when a user declines an outfit, recommending it less in the future. 
  
 Work Distribution for 4.A:
-* Lucas: EnvironmentalData and User functions
-* Luke Contreras: uploadPicture in PictureFunctions and Firebase testing
-* Allie: general navigation, HTML + CSS, UI direction, wardrobeGallery
-* Luke Knutson: tempRanges functionality
-* Everyone: Writing acceptance testing for their functionality
+* Lucas: EnvironmentalData and User functions, writing unit tests
+* Luke Contreras: uploadPicture in PictureFunctions and Firebase testing, writing unit tests
+* Allie: general navigation, HTML + CSS, UI direction, writing acceptance tests
+* Luke Knutson: tempRanges functionality, writing unit tests
 
