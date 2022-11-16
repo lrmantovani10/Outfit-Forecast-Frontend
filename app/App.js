@@ -113,7 +113,7 @@ function Preferences({ navigation }) {
 
 function UnitTesting({ navigation }) {
   return (
-    <View style={styles.screenContainer}>
+    <View style={styles.unitTesting}>
       {unitTesting()}
     </View>
   )
