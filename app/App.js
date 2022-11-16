@@ -9,6 +9,7 @@ import WardrobeGallery from './functions/wardrobeGallery'
 import TempRanges from './functions/tempRanges'
 import ImagePickerFunction from './functions/PictureFunctions';
 import User from './functions/User';
+import unitTesting from './functions/unitTesting';
 
 import "./functions/FirebaseInitialize";
 
@@ -113,7 +114,7 @@ function Preferences({ navigation }) {
 function UnitTesting({ navigation }) {
   return (
     <View style={styles.screenContainer}>
-
+      {unitTesting()}
     </View>
   )
 }
