@@ -6,31 +6,26 @@ export default StyleSheet.create({
     title: {
         fontSize: 28, 
         fontWeight: "bold",
-        color: "black", 
-        fontFamily: 'Verdana'
+        color: "black"
     },
     h1: {
         fontSize: 20, 
         fontWeight: "bold",
-        color: "black", 
-        fontFamily: 'Verdana'
+        color: "black"
     },
     h2: {
         fontSize: 18,
         fontWeight: "bold",
-        color: "black", 
-        fontFamily: 'Verdana'
+        color: "black"
     },
     h3: {
         fontSize: 14,
         fontWeight: "bold",
-        color: "black", 
-        fontFamily: 'Verdana'
+        color: "black"
     },
     paragraph: {
         fontSize: 14, 
-        color: "black", 
-        fontFamily: 'Verdana'
+        color: "black"
     },
     background_color: {
         color: "#D6DDE0",
@@ -108,8 +103,7 @@ export default StyleSheet.create({
         textAlign: "center",
         fontSize: 20, 
         fontWeight: "bold",
-        color: "black", 
-        fontFamily: 'Verdana',
+        color: "black",
         marginBottom: 10,
     },
     userCard: {
