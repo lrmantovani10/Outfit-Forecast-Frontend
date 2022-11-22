@@ -25,6 +25,17 @@ export default function User(props) {
         })
     }
 
+    const classifyNew = async (lower, upper) => {
+        const img_URL = "https://firebasestorage.googleapis.com/v0/b/outfit-forecast.appspot.com/o/clothing%2F325193.jpeg?alt=media&token=138e9b62-d27f-44e9-9888-171b84c9b6bf";
+        let classifyEndpoint = `https://outfit-forecast.herokuapp.com/classifyNew/${props.username}/${img_URL}/${lower}/${upper}`
+        await axios.post(classifyEndpoint).then(function (response) {
+            console.log(response);
+          })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
     useEffect(() => {
         if (props.weather.length == 4) {
             dailyRecommender(props.weather)
