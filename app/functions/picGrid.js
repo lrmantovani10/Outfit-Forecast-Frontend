@@ -22,7 +22,6 @@ export default function PicGrid() {
             <Text style={styles.h2}>
                 Click on an image to set wearable temperature range
             </Text>
-
             <GridImageView data={['https://loremflickr.com/360/360', 'https://loremflickr.com/640/360', 'https://loremflickr.com/640/360']}/>
         </View>
     );
