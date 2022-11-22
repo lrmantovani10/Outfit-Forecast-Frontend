@@ -17,7 +17,7 @@ export default function User(props) {
             }
             recommenderEndpoint += `${additive}/`
         })
-        recommenderEndpoint = recommenderEndpoint.slice(0, recommenderEndpoint.length - 1)
+        recommenderEndpoint += "new"
         await axios.get(recommenderEndpoint).then((outcome) => {
            props.setOutfit(outcome.data)
         }).catch((error) => {
@@ -30,7 +30,7 @@ export default function User(props) {
             dailyRecommender(props.weather)
         }   
         else {
-            props.setOutfit(["Waiting for weather to load before showing outfit recommendation..."])
+            props.setOutfit(["Waiting for the weather to load before showing outfit recommendation..."])
         }
     }, [,props.weather])
 
