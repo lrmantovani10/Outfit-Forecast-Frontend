@@ -156,5 +156,13 @@ export default StyleSheet.create({
         fontSize: 14,
         fontWeight: "bold",
         color: "black"
+    },
+
+    // picgrid
+    gridBackground: {
+        flex: 1,
+        padding: 10,
+        backgroundColor: 'white',
+        borderRadius: 10,
     }
 });

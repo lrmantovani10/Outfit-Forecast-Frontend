@@ -5,12 +5,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import CustomButton from './functions/button';
 import EnvironmentalData from './functions/EnvironmentalData';
-import WardrobeGallery from './functions/wardrobeGallery';
 import { TempRanges } from './functions/tempRanges';
 import ImagePickerFunction from './functions/PictureFunctions';
 import User from './functions/User';
 import unitTesting from './functions/unitTesting';
 import styles from './functions/style';
+import PicGrid from './functions/picGrid'
 
 import "./functions/FirebaseInitialize";
 
@@ -80,11 +80,6 @@ function WardrobeScreen({ navigation }) {
   return (
     <View style={styles.screenContainer}>
 
-      {/* Wardrobe Display Component */}
-      {/* <WardrobeGallery/> */}
-      {/* Gallery component displaying images of clothes */}
-        {/* On click, full size overlay of clothes with temp range/sensitity info */}
-
       {/* NAVIGATION */}
       <CustomButton
         title="Add Items"
@@ -101,6 +96,10 @@ function WardrobeScreen({ navigation }) {
           navigation.navigate('Preferences')
         }
       />
+
+      <View style={styles.fifteen_separator}></View>
+
+      {PicGrid()}
 
     </View>
   );
