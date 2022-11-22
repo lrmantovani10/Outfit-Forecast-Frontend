@@ -5,6 +5,8 @@ import * as ImagePicker from 'expo-image-picker';
 import * as firebase from 'firebase/app';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 
+import { TempRanges } from './tempRanges';
+
 
 /*import firebase from 'firebase/compat/app';
 
@@ -91,6 +93,8 @@ export default function ImagePickerFunction() {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Button title="Take Photo" onPress={takePicture} />
         <Button title="Choose from Gallery" onPress={choosePicture} />
+        {picture && <TempRanges uriInput={picture}/>} 
+        
       </View>
     );
     // You can access the currently chosen image at anytime by using the variable 'picture'.
