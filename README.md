@@ -16,6 +16,8 @@ Start the server with the command
 npx expo start
 ```
 
+Upon startup, if you haven't used the app before there will be no clothes associated with user ID. Take or upload some pictures of your clothes to build your wardrobe and get predictions!
+
 ## Class Diagram
 
 The folder containing all iterations of class diagrams for Outfit Forecast can be found at ```./class-diagrams```. The current class diagram in use can be found [here](class-diagrams/updatedClassDiagram6.png).
@@ -31,7 +33,6 @@ The folder containing all iterations of class diagrams for Outfit Forecast can b
 * ```button.js``` is the universal button used throughout the app to maintain uniformity in styling.
 * ```EnvironmentalData.js``` uses the location permission granted from the user to fetch the current weather and suggest an outfit from the user's wardrobe based on the weather.
 * ```FirebaseInitialize.js``` initializes the necessary configurations to utilize Firebase for storing user wardrobe images.
-* ```frontend_functions_tests.js``` a outdated testing file containing unit tests written in the first iteration.  
 * ```picGrid.js``` displays the clothing items that a user has uploaded to their Outfit Forecast wardrobe by fetching image URLs from Firebase.
 * ```PictureFunctions.js``` encompasses the app functionality relating to image processing, such as taking a photo, choosing one from the user's photo gallery, and uploading this image to Firebase.
 * ```style.js``` is the stylesheet for the app, defining app-wide text styling, color palette, and component styling.
