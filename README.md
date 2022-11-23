@@ -16,6 +16,8 @@ Start the server with the command
 npx expo start
 ```
 
+Upon startup, if you haven't used the app before there will be no clothes associated with user ID. Take or upload some pictures of your clothes to build your wardrobe and get predictions!
+
 ## Class Diagram
 
 The folder containing all iterations of class diagrams for Outfit Forecast can be found at ```./class-diagrams```. The current class diagram in use can be found [here](class-diagrams/updatedClassDiagram6.png).
@@ -31,7 +33,6 @@ The folder containing all iterations of class diagrams for Outfit Forecast can b
 * ```button.js``` is the universal button used throughout the app to maintain uniformity in styling.
 * ```EnvironmentalData.js``` uses the location permission granted from the user to fetch the current weather and suggest an outfit from the user's wardrobe based on the weather.
 * ```FirebaseInitialize.js``` initializes the necessary configurations to utilize Firebase for storing user wardrobe images.
-* ```frontend_functions_tests.js``` a outdated testing file containing unit tests written in the first iteration.  
 * ```picGrid.js``` displays the clothing items that a user has uploaded to their Outfit Forecast wardrobe by fetching image URLs from Firebase.
 * ```PictureFunctions.js``` encompasses the app functionality relating to image processing, such as taking a photo, choosing one from the user's photo gallery, and uploading this image to Firebase.
 * ```style.js``` is the stylesheet for the app, defining app-wide text styling, color palette, and component styling.
@@ -44,7 +45,9 @@ The folder containing all iterations of class diagrams for Outfit Forecast can b
 Frontend testing is divided between two types, acceptance testing and unit testing. Depending on the output of various components, we have written some combination of acceptance tests and unit tests. Acceptance tests can be found in ```./app/testing/acceptance_tests.txt``` and unit tests can be run in the Outfit Forecast app via a button titled "Unit Testing" on the home page. Further instructions for running unit tests can be found on this page. 
  
 ### Notes on Tests
-Although running tests through a screen in the app is an unconventional method, we have arrived at this solution for unit testing after exploring several other routes.
+* When using the app, you will have to upload images to your wardobe to see outfits recommended. 
+However, in ```User.js``, if you comment out line 32 and uncomment line 33, you can hardcode the 
+user as "Leo," which will show predictions based on clothes prepopulated for the user ID "Leo."
 * For functions which only have visual renderings or require human input to function (ie navigation, picGrid, takePicture), we have written acceptance tests to outline expected functionality.
 * We are not using a standard unit testing framework because due to the way React Native exports modules as opposed to isolated functions, traditional frameworks don't lend themselves well to this structure.
 * DailyRecommender tests were moved to the backend to streamline the testing process. As such, tests for this function are no longer included in the frontend tests. 

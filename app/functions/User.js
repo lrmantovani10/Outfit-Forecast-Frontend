@@ -30,6 +30,7 @@ export default function User(props) {
             await SecureStore.setItemAsync(deviceName, uniqueId)
         }
         const identifier = deviceName + uniqueId
+        // const identifier = "leo"
         const accountEndpoint = `https://outfit-forecast.herokuapp.com/createUser/${identifier}`
         await axios.get(accountEndpoint).then((outcome) => {
             const response = outcome.data
@@ -72,7 +73,8 @@ export default function User(props) {
         })
     }
 
-    const classifyNew = async (lower, upper, img_URL) => {
+    const classifyNew = async (lower, upper, imgu) => {
+        const img_URL = encodeURI(imgu);
         let classifyEndpoint = `https://outfit-forecast.herokuapp.com/classifyNew/${props.username}/${img_URL}/${lower}/${upper}`
         await axios.post(classifyEndpoint).then(function (response) {
             console.log(response);
