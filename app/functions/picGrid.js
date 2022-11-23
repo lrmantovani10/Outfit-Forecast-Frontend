@@ -9,13 +9,28 @@
 
 // Output: Gallery view of user's clothing 
 
-import React, { Component } from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import React, { Component, useState, useEffect } from 'react';
+import {View, StyleSheet, Text, Image, ImageEditor} from 'react-native';
 import GridImageView from 'react-native-grid-image-viewer'; // https://www.npmjs.com/package/react-native-grid-image-viewer
 import { TempRanges } from './tempRanges';
 import styles from "./style"
+import "./FirebaseInitialize";
+import { getStorage, ref, getDownloadURL, connectStorageEmulator } from "firebase/storage";
+import ImagePickerFunction from  "./PictureFunctions";
 
 export default function PicGrid() {
+    const[url, setUrl] = useState();
+    useEffect(() => {
+      const func = async (filename) => {
+        const storage = getStorage();
+        const reference = ref(storage, filename);
+        await getDownloadURL(reference).then((x) => {
+          setUrl(x);
+        })
+      }
+      func('/268020.jpeg');
+    }, []);
+          
     return (
         <View style={styles.gridBackground}>
             <Text style={styles.title}> Wardobe Pictures </Text>
@@ -23,7 +38,10 @@ export default function PicGrid() {
                 Click on an image to set wearable temperature range
             </Text>
 
-            <GridImageView data={['https://loremflickr.com/360/360', 'https://loremflickr.com/640/360', 'https://loremflickr.com/640/360']}/>
+            <Image
+            style = {{width: '30%', height: '30%'}}
+            source = {{uri : url}}
+            />
         </View>
     );
 }
