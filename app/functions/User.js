@@ -2,11 +2,51 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { View, Text, Image, ScrollView, Button, Pressable } from 'react-native';
 import styles from "./style"
-import Icon from 'react-native-vector-icons/FontAwesome';
+import * as Device from 'expo-device';
+import * as SecureStore from 'expo-secure-store';
 
 export default function User(props) {
-    const dailyRecommender = async (weather) => {
-        let recommenderEndpoint = `https://outfit-forecast.herokuapp.com/dailyRecommender/${props.username}/`
+
+    const generateRandomString = (stringLength) => {
+        let outputString = ""
+        for (let i = 0; i < stringLength; i++){
+            outputString += ((Math.floor(Math.random() * 10)).toString())
+        }
+        return outputString
+    }
+
+    const authenticate = async () => {
+        let deviceName = Device.deviceName
+        let stringLength = 10
+        let uniqueId
+        deviceName = deviceName.toLowerCase().replace(/[^a-z]/g, "").replace("’", "")
+        deviceName = deviceName.slice(0, (30 - stringLength))
+        let credentials = await SecureStore.getItemAsync(deviceName);
+        if (credentials) {
+            uniqueId = credentials
+        }
+        else {
+            uniqueId = generateRandomString(stringLength)
+            await SecureStore.setItemAsync(deviceName, uniqueId)
+        }
+        const identifier = deviceName + uniqueId
+        const accountEndpoint = `https://outfit-forecast.herokuapp.com/createUser/${identifier}`
+        await axios.get(accountEndpoint).then((outcome) => {
+            const response = outcome.data
+            if (response.includes("taken") || response.includes("created")) {
+                props.setUsername(identifier)
+                dailyRecommender(props.weather, identifier)   
+            }
+            else {
+                props.setOutfit(["Error authenticating: " + response])
+            }
+        }).catch((error) => {
+            props.setOutfit(["Error authenticating: " + error])
+        })   
+    }
+
+    const dailyRecommender = async (weather, identifier) => {
+        let recommenderEndpoint = `https://outfit-forecast.herokuapp.com/dailyRecommender/${identifier}/`
         weather.forEach((element, index) => {
             let additive;
             if (index < 3) {
@@ -18,10 +58,11 @@ export default function User(props) {
             recommenderEndpoint += `${additive}/`
         })
         recommenderEndpoint += "new"
+        console.log(recommenderEndpoint)
         await axios.get(recommenderEndpoint).then((outcome) => {
-           props.setOutfit(outcome.data)
+            props.setOutfit(outcome.data)
         }).catch((error) => {
-            props.setOutfit(["Error", error])
+            props.setOutfit(["Error fetching daily recommendation: " + error])
         })
     }
 
@@ -38,7 +79,7 @@ export default function User(props) {
 
     useEffect(() => {
         if (props.weather.length == 4) {
-            dailyRecommender(props.weather)
+            authenticate()
         }   
         else {
             props.setOutfit(["Waiting for the weather to load before showing outfit recommendation..."])
