@@ -19,6 +19,7 @@ function HomeScreen({ navigation }) {
   const [location, setLocation] = useState([""])
   const [weatherIcon, setWeatherIcon] = useState([""])
   const [outfit, setOutfit] = useState(["Loading recommendation..."])
+  const [username, setUsername] = useState("")
   return (
     <SafeAreaView style={styles.screenContainer}>
 
@@ -57,7 +58,8 @@ function HomeScreen({ navigation }) {
 
       {/* Recommended Clothing Component */}
       <User
-        username="leo"
+        username={username} 
+        setUsername={setUsername}  
         weather={weather}
         outfit={outfit}
         setOutfit={setOutfit} />

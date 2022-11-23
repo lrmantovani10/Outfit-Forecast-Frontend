@@ -19,7 +19,7 @@ export default function environmentalData(props) {
             props.setWeatherIcon(outcome.data.weather[0].icon)
             
         }).catch((error) => {
-            props.setWeather(["Error fetching the weather from the API:", error])
+            props.setWeather(["Error fetching the weather from the API: " + error])
         })
     }
 
