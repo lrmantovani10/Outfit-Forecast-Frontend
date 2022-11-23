@@ -47,6 +47,7 @@ export default function unitTesting() {
         return message
     }
 
+    // Function to test getWeather
     const getWeather = async (lat, lon, index) => {
         const weatherEndpoint = `https://api.openweathermap.org/data/2.5/weather?units=imperial&lat=${lat.toString()}&lon=${lon.toString()}&appid=${WEATHER_KEY}`
         await axios.get(weatherEndpoint).then((outcome) => {
@@ -165,7 +166,6 @@ export default function unitTesting() {
     }
 
     const [uploadResult, setUploadResult] = useState(null)
-
     const UploadTests = function () {
         let uplMsg = "Testing Upload Pictures..."
         if (picture == null) {
@@ -177,6 +177,7 @@ export default function unitTesting() {
         }
     }
 
+    // Test to generate random string
     const generateRandomString = (stringLength) => {
         let outputString = ""
         for (let i = 0; i < stringLength; i++){
@@ -195,6 +196,7 @@ export default function unitTesting() {
         }
     }
 
+    // Authenticate test
     const authenticate = async () => {
         let deviceName = Device.deviceName
         let stringLength = 10
@@ -241,9 +243,14 @@ export default function unitTesting() {
         getLocation()
 
         // Random string test
+        // Check if both strigs generated are different. The odds of 
+        // them being equal is infinitesimally small, so we can consider
+        // equal values as a test failure
         randomNumberTesting()
 
         // Authenticate test
+        // check if we are able to retrieve the user's username, which should
+        // already be created, since the User function has been called
         authenticate()
     }), [])
 
