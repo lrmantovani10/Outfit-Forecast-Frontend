@@ -5,7 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as firebase from 'firebase/app';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 
-import { TempRanges } from './tempRanges';
+import { TempRanges, TempRangesTest } from './tempRanges';
 
 
 /*import firebase from 'firebase/compat/app';
@@ -15,7 +15,7 @@ import 'firebase/compat/firestore';
 //import * as firebase2 from "firebase/storage"
 */
 
-export default function ImagePickerFunction() {
+export default function ImagePickerFunction(test) {
     const [picture, update_image] = useState(null);
 
     const choosePicture = async () => {
@@ -80,6 +80,7 @@ export default function ImagePickerFunction() {
         // 'file' comes from the Blob or File API
         console.log("before UPLOAD")
         uploadBytes(storageRef, blob).then((snapshot) => {
+          
           console.log('Uploaded a blob or file!');
         })
         .catch((error) => {
@@ -88,12 +89,15 @@ export default function ImagePickerFunction() {
         });
         console.log("past this part");
     }
-
+    
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button title="Take Photo" onPress={takePicture} />
-        <Button title="Choose from Gallery" onPress={choosePicture} />
-        {picture && <TempRanges uriInput={picture}/>} 
+        {!test && <Button title="Take Photo" onPress={takePicture} />}
+        {!test && <Button title="Choose from Gallery" onPress={choosePicture} />}
+        {test && <Button title="Test Take Photo" onPress={takePicture} />}
+        {test && <Button title="Test Choose from Gallery" onPress={choosePicture} />}
+        {picture && !test && <TempRanges uriInput={picture}/>} 
+        {picture && test && <TempRangesTest uriInput={picture}/>} 
         
       </View>
     );

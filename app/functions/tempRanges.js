@@ -10,7 +10,7 @@ import React, { Component, useCallback } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View, Image } from "react-native";
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import styleSheet from "./style"
-
+import classifyNew from "./User";
 
 export class TempRanges extends Component {
   constructor(props) {
@@ -51,7 +51,6 @@ export class TempRanges extends Component {
           <View style={styles.tempRangesView}>
             <View style={styles.popupView}>
                 <Text style={styles.popupText}>What temperature range would you wear this item in?</Text>
-                {/* Test image, will replace */}
                 <Image
                 style={{width: '75%', height: '50%'}}
                 source={{uri:this.state.PopupData.pictureURI}}/> 
@@ -93,18 +92,23 @@ export class TempRangesTest extends Component {
     this.tempInput = this.tempInput.bind(this);
     this.state = {
       PopupData: {
-          popupVisible: false,
-          values: [50, 60]
+          popupVisible: true,
+          values: [50, 60],
+          pictureURI: this.props.uriInput
        },
     };
   }
 
   makePopupVisible = (visible) => {
-    this.setState({PopupData:{popupVisible: visible, values:this.state.PopupData.values}});
+    this.setState({PopupData:{popupVisible: visible, values:this.state.PopupData.values, pictureURI: this.state.PopupData.pictureURI}});
   }
 
   tempInput = (values) => {
-    this.setState({PopupData:{popupVisible: this.state.PopupData.popupVisible, values:values}});
+    this.setState({PopupData:{popupVisible: this.state.PopupData.popupVisible, values:values, pictureURI: this.state.PopupData.pictureURI}});
+  }
+
+  updatePicture(uri) {
+    this.setState({PopupData:{popupVisible: visible, values:values, pictureURI: uri}});
   }
 
   render() {
@@ -120,11 +124,10 @@ export class TempRangesTest extends Component {
           }}>
           <View style={styles.tempRangesView}>
             <View style={styles.popupView}>
-                <Text style={styles.popupText}>For testing purposes, please set the temperature range for this shirt to be 10°F to 90°F.</Text>
-                {/* Test image, will replace */}
+                <Text style={styles.popupText}>For testing purposes, please set the temperature range for this picture to be 10°F to 90°F.</Text>
                 <Image
                 style={{width: '75%', height: '50%'}}
-                source={{uri:'https://cdn.pixabay.com/photo/2016/12/06/09/31/blank-1886008_960_720.png'}}/> 
+                source={{uri:this.state.PopupData.pictureURI}}/>
                 <MultiSlider
                     values={[this.state.PopupData.values[0], this.state.PopupData.values[1]]}
                     sliderLength={280}
@@ -141,7 +144,7 @@ export class TempRangesTest extends Component {
                 <View style={styleSheet.five_separator}></View>
                 <Pressable style={styleSheet.button}
                 // style={[styles.button, styles.buttonClose]}
-                onPress={() => this.makePopupVisible(!popupVisible)}>
+                onPress={() => classifyNew(this.state.PopupData.values[0], this.state.PopupData.values[1], this.PopupData.pictureURI)}>
                 <Text style={styles.tempRangeText}>Save & Exit</Text>
                 </Pressable>
             </View>
