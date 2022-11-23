@@ -10,7 +10,7 @@ import React, { Component, useCallback } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View, Image } from "react-native";
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import styleSheet from "./style"
-
+import classifyNew from "./User";
 
 export class TempRanges extends Component {
   constructor(props) {
@@ -141,7 +141,7 @@ export class TempRangesTest extends Component {
                 <View style={styleSheet.five_separator}></View>
                 <Pressable style={styleSheet.button}
                 // style={[styles.button, styles.buttonClose]}
-                onPress={() => this.makePopupVisible(!popupVisible)}>
+                onPress={() => classifyNew(this.state.PopupData.values[0], this.state.PopupData.values[1], this.PopupData.pictureURI)}>
                 <Text style={styles.tempRangeText}>Save & Exit</Text>
                 </Pressable>
             </View>
