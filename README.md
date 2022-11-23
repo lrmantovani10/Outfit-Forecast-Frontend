@@ -45,17 +45,17 @@ Work Distribution for 4.A:
 * Lucas: EnvironmentalData and User functions, writing unit tests
 * Luke Contreras: uploadPicture in PictureFunctions and Firebase testing, writing unit tests
 * Allie: general navigation, HTML + CSS, UI direction, writing acceptance tests
-* Luke Knutson: tempRanges functionality, writing unit tests, refactoring pictureFunctions, picGrid, and tempRanges for easy testing
+* Luke Knutson: tempRanges functionality, writing unit tests
 
 Milestone 4.B: 
 
-With this milestone, we aimed to add several new functionalities including the ability to authenticate oneself as a user, accept and reject outfits, and look at one’s wardrobe of clothes images. We also wanted to put heavy focus on streamlining, simplifying, and bug fixing our old work, hoping to reduce confusion and redundancy. Additionally, we strived to use actual images from the firebase backend instead of placeholder ones when displaying the user’s clothes.
+With this milestone, we aimed to add several new functionalities including the ability to authenticate oneself as a user, accept and reject outfits, and look at one’s 'wardrobe' of clothes images. We also wanted to put heavy focus on streamlining, simplifying, and bug fixing our old work, hoping to reduce confusion and redundancy. Additionally, we strived to use actual images from the firebase backend instead of placeholder ones when displaying the user’s clothes.
 
 Work Distribution for 4.B:
-* Lucas: EnvironmentalData and User functions, writing unit tests
-* Luke Contreras: uploadPicture in PictureFunctions and Firebase testing, writing unit tests
-* Allie: general navigation, HTML + CSS, UI direction, writing acceptance tests
-* Luke Knutson: tempRanges functionality, writing unit tests, refactoring pictureFunctions, picGrid, and tempRanges for easy testing
+* Lucas: Implement authentication, writing unit tests
+* Luke Contreras: Survey (with Luke K), make accept / decline button functional, writing unit tests
+* Allie: Wardrobe, writing acceptance tests
+* Luke Knutson: Wardrobe (with Allie), any pending survey clothing survey implementation
 
 Updated features:
 - Made the popup window for temperature range input appear immediately after taking or choosing a photo.
