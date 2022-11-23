@@ -111,7 +111,7 @@ function CameraScreen({ navigation }) {
   return (
     <View style={styles.screenContainer}>
       {/* Display Image Functionality */}
-      {ImagePickerFunction()}
+      {ImagePickerFunction(false)}
     </View>
   );
 }
