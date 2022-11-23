@@ -228,7 +228,8 @@ export default function unitTesting() {
 
     // Running tests when page loads
     useEffect((() => {
-
+        // Testing camera
+        takePicture()
 
         // Inputs to getWeather
         // Two positive coordinates
@@ -267,8 +268,8 @@ export default function unitTesting() {
             uploadResult}
             </Text> 
             <Text>{"\n"}Tap the button below to test our picture functions and TempRanges class (this serves as a test for the
-            makePopupVisible and tempInput functions as well as the functionality for taking/choosing photos and setting temperature
-            ranges as a whole).{"\n"}
+            makePopupVisible and tempInput functions as well as the functionality for choosing photos and setting temperature
+            ranges as a whole). Since take photo was just tested upon launch, we will test this by choosing from the gallery.{"\n"}
             After you take or choose your picture, set the lower range to 10°F and the higher range to 90°F.{"\n"}
             Once you do this, you should see Testing tempInput... [PASS] appear.{"\n"}</Text>
             {/* Test Image Functionality */}

@@ -94,7 +94,6 @@ export default function ImagePickerFunction(test) {
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
         {!test && <Button title="Take Photo" onPress={takePicture} />}
         {!test && <Button title="Choose from Gallery" onPress={choosePicture} />}
-        {test && <Button title="Test Take Photo" onPress={takePicture} />}
         {test && <Button title="Test Choose from Gallery" onPress={choosePicture} />}
         {picture && !test && <TempRanges uriInput={picture}/>} 
         {picture && test && <TempRangesTest uriInput={picture}/>} 
