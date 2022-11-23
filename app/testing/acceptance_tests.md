@@ -27,9 +27,33 @@
 ##### Desired End Outcome:
 * See weather display component with min/max, feels like, and atmosphere with 
 corresponding image
-* See suggested wardrobe based on clothing you have. See the yes/no buttons to accept 
-or decline the outfit.
-* See the button to go to your wardrobe.
+
+#### Daily Recommender (First Time User)
+##### Steps to Execute:
+1. Open app to Home Screen
+2. Enable location
+3. Go to "Wardrobe"
+4. Click "Add Items"
+5. Add 6-10 clothing items by taking a photo or choosing from gallery
+6. Navigate back to home page
+
+##### Expected Result for Each Step:
+3. Takes you to Wardrobe View
+4. Takes you to Camera View
+5. Populates the Wardrobe View gallery with the pictures you uploaded
+6. Takes you to Home Page View
+
+##### Desired End Outcome:
+You should see a temperature appropriate outfit recommended.
+
+#### Daily Recommender (Returning User)
+##### Steps to Execute:
+1. Open app to Home Screen
+2. Enable location
+
+##### Desired End Outcome:
+Result should be same as Home Page View but with the addition of Daily Recommender 
+component displaying weather appropriate outfit.
 
 #### Wardrobe View
 ##### Steps to Execute:
@@ -41,12 +65,8 @@ or decline the outfit.
 
 ##### Desired End Outcome:
 * See buttons to "Add Items" for wardrobe
-* See display of clothing items in wardrobe (gallery style with thumbnails)
+* See display of clothing items in wardrobe view
 * See back button for Home
-
-#### Set Preferences View
-Currently has button to set preferences for clothing item. Eventually functionality will
-occur when you click items in the gallery from wardrobe view.
 
 #### Camera View
 Steps to Execute:
@@ -97,14 +117,17 @@ Steps to Execute:
 5. Enable camera access
 6. Take a photo
 7. Click "Save"
+8. Set temperature range
 
 ##### Expected Result for Each Step:
 2. Opens Wardrobe View 
 3. Opens Camera View 
-4. Popup asks for camera permissions
+4. Popup asks for camera permissions (if the popup doesn't appear, you may need to go to your 
+phone Settings and enable camera access)
 5. Phone camera opens 
 6. An image is captured
 7. The image is saved to your wardrobe
+8. TempRange popup appears and asks you to set a min and max temp for the clothes
 
 ##### Desired End Outcome:
 * When a photo is taken, the image should be added to the gallery in Wardrobe View
@@ -118,6 +141,7 @@ Steps to Execute:
 5. Enable gallery access
 6. Choose a photo
 7. Click "Save"
+8. Set temperature range
 
 ##### Expected Result for Each Step:
 2. Opens Wardrobe View 
@@ -126,6 +150,7 @@ Steps to Execute:
 5. Phone gallery opens 
 6. An image is selected
 7. The image is saved to your wardobe
+8. TempRange popup appears and asks you to set a min and max temp for the clothes
 
 ##### Desired End Outcome:
 * When a photo is taken, the image should be added to the gallery in Wardrobe View

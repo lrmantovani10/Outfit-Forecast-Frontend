@@ -45,7 +45,9 @@ The folder containing all iterations of class diagrams for Outfit Forecast can b
 Frontend testing is divided between two types, acceptance testing and unit testing. Depending on the output of various components, we have written some combination of acceptance tests and unit tests. Acceptance tests can be found in ```./app/testing/acceptance_tests.txt``` and unit tests can be run in the Outfit Forecast app via a button titled "Unit Testing" on the home page. Further instructions for running unit tests can be found on this page. 
  
 ### Notes on Tests
-Although running tests through a screen in the app is an unconventional method, we have arrived at this solution for unit testing after exploring several other routes.
+* When using the app, you will have to upload images to your wardobe to see outfits recommended. 
+However, in ```User.js``, if you comment out line 32 and uncomment line 33, you can hardcode the 
+user as "Leo," which will show predictions based on clothes prepopulated for the user ID "Leo."
 * For functions which only have visual renderings or require human input to function (ie navigation, picGrid, takePicture), we have written acceptance tests to outline expected functionality.
 * We are not using a standard unit testing framework because due to the way React Native exports modules as opposed to isolated functions, traditional frameworks don't lend themselves well to this structure.
 * DailyRecommender tests were moved to the backend to streamline the testing process. As such, tests for this function are no longer included in the frontend tests. 

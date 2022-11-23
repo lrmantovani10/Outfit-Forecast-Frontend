@@ -30,6 +30,7 @@ export default function User(props) {
             await SecureStore.setItemAsync(deviceName, uniqueId)
         }
         const identifier = deviceName + uniqueId
+        // const identifier = "leo"
         const accountEndpoint = `https://outfit-forecast.herokuapp.com/createUser/${identifier}`
         await axios.get(accountEndpoint).then((outcome) => {
             const response = outcome.data

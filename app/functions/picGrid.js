@@ -33,10 +33,7 @@ export default function PicGrid() {
           
     return (
         <View style={styles.gridBackground}>
-            <Text style={styles.title}> Wardobe Pictures </Text>
-            <Text style={styles.h2}>
-                Click on an image to set wearable temperature range
-            </Text>
+            <Text style={styles.title}> Wardobe </Text>
 
             <Image
             style = {{width: '30%', height: '30%'}}
