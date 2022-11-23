@@ -1,47 +1,76 @@
-# Outfit-Forecast
+# Outfit Forecast
 
-An app to generate outfit predictions based on one's wardrobe and current weather.
+Outfit Forecast is an app designed to make choosing weather appropriate outfits easy. Using the user's location and images of their wardrobe, our app recommends outfits with the weather in mind.  
 
-Current class diagram
-![Class Diagram](class-diagrams/updatedClassDiagram6.png)
+## Running Outfit Forecast
 
-* Acceptance tests file: testing/acceptance_tests.txt
-* Unit testing file (run through app): app/functions/unitTesting.js
+Install dependencies locally with the command
 
-How to run code:
-- npm install (for dependencies)
-- npx expo start
+```bash
+npm install
+```
 
-How to run the test cases:
-- The majority of our testing is designed to be executed via acceptance testing. In the acceptance_tests.txt file, there are acceptance tests written for the features we have implemented in the frontend.
-- The rest of the unit testing occurs via the "Testing" button on the home screen. The tests will run when the page is loaded, and the output from the tests will be displayed on the testing screen.
+Start the server with the command 
 
-When testing, note that:
-- DailyRecommender was moved to the backend to remove redundancy and will be used there instead. All tests have been removed from the frontend.
-- Some tests, like uploadPicture and takePicture were changed, these being combined into the Picture functions in unit testing, and others, like addPrefPair and updatePrefPair are no longer there, or appear in a different form. This is because, as we implemented our project, we changed around how certain functionalities would work and how certain classes and functions would be implemented. We also changed our class diagram to reflect this.
-- Some tests, like takePicture, uploadPicture, and tempInput require human input, and will need a user to take actions upon running the unit tests. We put in a lot of time and effort to find ways to automate these tests but unfortunately believe they cannot be done even with the mocking tools we see are available.
-- We are not using a standard unit testing framework because react native exports modules instead of isolated functions, meaning that it doesn't lend itself well to any framework that we know of.
+```bash
+npx expo start
+```
 
-Code Directory Structure:
- * All of our code resides within /app. Within /app, App.js has the bulk of the code for navigation and overall app styling, and /functions contains the various components we have written to be displayed across the different pages.
+## Class Diagram
 
-Implementation Description:
- * EnvironmentalData fetches the current weather and renders the view on the Home screen.
- * ApiKeys.demo.js -- testing the frontend's integration with Firebase (for image storage)
- * PictureFunctions encompasses all functions related to image processing, such as taking a picture and choosing one from the gallery. 
- * User contains the getRecommender function, which sends a request to the backend for an outfit prediction based on sensitivity and the user's wardrobe.
- * tempRanges provides the functionality for the user to set a temperature range in which they are comfortable wearing the item of clothing from their wardrobe.
- * wardrobeGallery provides a view of all the items of clothing in a user's wardrobe, through a gallery format with image thumbnails. 
- * We know it is unsafe, but we are adding the API key for OpenWeather to .env so you can run our code
+The folder containing all iterations of class diagrams for Outfit Forecast can be found at ```./class-diagrams```. The current class diagram in use can be found [here](class-diagrams/updatedClassDiagram6.png).
 
-Milestone 4.A:
+## Folder Structure and Functionality
 
-For the second iteration, the main functionality we plan on implementing encompasses having a more comprehensive navigation UI that enables a user to navigate throughout the main functionality of the app (seeing recommended outfit, adding temp preferences for wardrobe, and uploading new clothes to the wardrobe). Within this, we will continue to refine the functionality, namely by building out the functionality to add temperature preferences for clothing, provide a view to see the clothing items of the user, and have functionality for a user to request and decline an outfit. To build off of functionality implemented in the first iteration, we will also restructure our functions to output views which we can render on the various screens of our app.
-For this milestone, what we originally had planned which we are no longer planning on implementing are adding logo and artwork, and when a user declines an outfit, recommending it less in the future. 
+* ```./app``` contains the code written for and implemented by the Outfit Forecast frontend team. 
+* ```./app/App.js``` contains the screen views for Outfit Forecast and the navigation connecting various pages throughout the app. 
+* ```./app/functions``` holds the components utilized in Outfit Forecast, the stylesheet, and the file for running unit tests. More on each individual function can be found below.
+* ```./app/testing``` contains the acceptance tests written for Outfit Forecast frontend.
+
+### Functions
+* ```button.js``` is the universal button used throughout the app to maintain uniformity in styling.
+* ```EnvironmentalData.js``` uses the location permission granted from the user to fetch the current weather and suggest an outfit from the user's wardrobe based on the weather.
+* ```FirebaseInitialize.js``` initializes the necessary configurations to utilize Firebase for storing user wardrobe images.
+* ```frontend_functions_tests.js``` a outdated testing file containing unit tests written in the first iteration.  
+* ```picGrid.js``` displays the clothing items that a user has uploaded to their Outfit Forecast wardrobe by fetching image URLs from Firebase.
+* ```PictureFunctions.js``` encompasses the app functionality relating to image processing, such as taking a photo, choosing one from the user's photo gallery, and uploading this image to Firebase.
+* ```style.js``` is the stylesheet for the app, defining app-wide text styling, color palette, and component styling.
+* ```tempRanges.js``` provides functionality for setting a temperature range for an item of clothing when uploaded to the user's app wardrobe.
+* ```unitTesting.js``` more on this can be found in the testing section below.
+* ```User.js``` encompasses functionality pertaining to user authentication and outfit recommendation. Authentication is performed by appending a randomly generated ten digit integer to the user's phone name to serve as a unique identifier when requesting user data from the backend. 
+
+## Testing
+### Running Tests
+Frontend testing is divided between two types, acceptance testing and unit testing. Depending on the output of various components, we have written some combination of acceptance tests and unit tests. Acceptance tests can be found in ```./app/testing/acceptance_tests.txt``` and unit tests can be run in the Outfit Forecast app via a button titled "Unit Testing" on the home page. Further instructions for running unit tests can be found on this page. 
  
-Work Distribution for 4.A:
-* Lucas: EnvironmentalData and User functions, writing unit tests
-* Luke Contreras: uploadPicture in PictureFunctions and Firebase testing, writing unit tests
-* Allie: general navigation, HTML + CSS, UI direction, writing acceptance tests
-* Luke Knutson: tempRanges functionality, writing unit tests
+### Notes on Tests
+Although running tests through a screen in the app is an unconventional method, we have arrived at this solution for unit testing after exploring several other routes.
+* For functions which only have visual renderings or require human input to function (ie navigation, picGrid, takePicture), we have written acceptance tests to outline expected functionality.
+* We are not using a standard unit testing framework because due to the way React Native exports modules as opposed to isolated functions, traditional frameworks don't lend themselves well to this structure.
+* DailyRecommender tests were moved to the backend to streamline the testing process. As such, tests for this function are no longer included in the frontend tests. 
 
+## Milestone 4.B
+From the planning phase of this milestone to completion, there have been several additions to features implemented, as well as completion of planned features. 
+### New Features
+#### Planned for Completion in Iteration 2
+* ```EnvironmentalData.js``` function to get the weather at the user's location.
+* ```dailyRecommeder()``` within ```User.js``` to recommend outfits to the user.
+* ```uploadPicture()``` and associated picture functions to store and access images stored in Firebase.
+* Adding a stylesheet to created a unified feel across the app. 
+ 
+#### Unplanned but Completed in Iteration 2
+* Added an authenticate method to ```User.js``` to fetch data related to a specific user from the database
+* Implemented ```picGrid``` which displays the gallery of clothes a user has uploaded and expands the image when clicked.
+* Added functionality to the accept and reject outfit buttons. 
+* Tests for ```RandomString()```, ```authenticate()```, wardrobe, ```getDownloadURL()```
+* Creating a testing page within the app for unit testing
+#### Planned but Not Completed in Iteration 2
+* Logo for Outfit Forecast
+* Recommending an outfit less in the future when a user declines the outfit.
+* Enabling the user to edit the temperature range for a clothing item after it is initially set in upload. 
+
+### Work Distribution
+* Lucas: adding user authentication and backend requests associated with a unique user, writing associated tests
+* Luke C: pulling the wardrobe images associated with a user from Firebase, adding functionality to outfit accept and reject buttons, writing associated tests
+* Luke K: adapting image upload functions to have the user set tempRanges after upload
+* Allie: add wardrobe view (picGrid), writing acceptance tests for all functionality, general styling smoothing, updating ReadMe

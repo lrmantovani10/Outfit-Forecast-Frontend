@@ -10,32 +10,25 @@
 // Output: Gallery view of user's clothing 
 
 import React, { Component, useState, useEffect } from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, Image, ImageEditor} from 'react-native';
 import GridImageView from 'react-native-grid-image-viewer'; // https://www.npmjs.com/package/react-native-grid-image-viewer
 import { TempRanges } from './tempRanges';
 import styles from "./style"
 import "./FirebaseInitialize";
 import { getStorage, ref, getDownloadURL, connectStorageEmulator } from "firebase/storage";
+import ImagePickerFunction from  "./PictureFunctions";
 
 export default function PicGrid() {
-    const storage = getStorage();
-    const [files, setFiles] = useState();
-
+    const[url, setUrl] = useState();
     useEffect(() => {
-        const fetchImages = async () => {
-          let result = await ref(storage, "clothing/").list();
-          let urlPromises = result.items.map((imageRef) =>
-            imageRef.getDownloadURL()
-          );
-    
-          return Promise.all(urlPromises);
-        };
-    
-        const loadImages = async () => {
-          const urls = await fetchImages();
-          setFiles(urls);
-        };
-        loadImages();
+      const func = async (filename) => {
+        const storage = getStorage();
+        const reference = ref(storage, filename);
+        await getDownloadURL(reference).then((x) => {
+          setUrl(x);
+        })
+      }
+      func('/268020.jpeg');
     }, []);
           
     return (
@@ -45,7 +38,10 @@ export default function PicGrid() {
                 Click on an image to set wearable temperature range
             </Text>
 
-            <GridImageView data={files}/>
+            <Image
+            style = {{width: '30%', height: '30%'}}
+            source = {{uri : url}}
+            />
         </View>
     );
 }
