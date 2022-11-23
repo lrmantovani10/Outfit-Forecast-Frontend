@@ -58,9 +58,15 @@ export default function User(props) {
             recommenderEndpoint += `${additive}/`
         })
         recommenderEndpoint += "new"
-        console.log(recommenderEndpoint)
         await axios.get(recommenderEndpoint).then((outcome) => {
-            props.setOutfit(outcome.data)
+            const result = outcome.data
+            let finalList = []
+            result.forEach((element, index) => {
+                if (element) {
+                    finalList.push(element)
+                }
+            })
+            props.setOutfit(finalList)
         }).catch((error) => {
             props.setOutfit(["Error fetching daily recommendation: " + error])
         })
