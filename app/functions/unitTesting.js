@@ -7,6 +7,8 @@ import * as Location from "expo-location"
 import axios from 'axios';
 import * as ImagePicker from 'expo-image-picker';
 import { TempRangesTest } from './tempRanges';
+import PicGrid from './picGrid';
+import ImagePickerFunction from './PictureFunctions';
 
 import * as firebase from 'firebase/app';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
@@ -176,8 +178,6 @@ export default function unitTesting() {
 
     // Running tests when page loads
     useEffect((() => {
-        // Testing camera
-        takePicture()
         // Inputs to getWeather
         // Two positive coordinates
         getWeather(20, 30, 0)
@@ -194,7 +194,7 @@ export default function unitTesting() {
     }), [])
 
     return (
-        <View>
+        <View style={styles.screenContainer}>
             <Text style={styles.unitText}>Weather Test 1: {weatherResult1.toString()}</Text>
             <Text style={styles.unitText}>Weather Test 2: {weatherResult2.toString()}</Text>
             <Text style={styles.unitText}>Weather Test 3: {weatherResult3.toString()}</Text>
@@ -202,10 +202,13 @@ export default function unitTesting() {
             <Text style={styles.unitText}>Upload Test: {
             uploadResult}
             </Text> 
-            <Text>{"\n"}{"\n"}Tap the button below to test our TempRanges class (this serves as a test for the
-            makePopupVisible and tempInput functions) Set the lower range to 10°F and the higher range to 90°F.
+            <Text>{"\n"}{"\n"}Tap the button below to test our picture functions and TempRanges class (this serves as a test for the
+            makePopupVisible and tempInput functions as well as the functionality for taking/choosing photos and setting temperature
+            ranges as a whole).{"\n"}{"\n"}
+            After you take or choose your picture, set the lower range to 10°F and the higher range to 90°F.{"\n"}
             Once you do this, you should see Testing tempInput... [PASS] appear.{"\n"}{"\n"}</Text>
-            <TempRangesTest/>
+            {/* Test Image Functionality */}
+            {ImagePickerFunction(true)}
         </View>
     )
 
