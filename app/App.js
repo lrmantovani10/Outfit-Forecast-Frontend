@@ -69,7 +69,13 @@ function HomeScreen({ navigation }) {
   );
 }
 
-
+// This function has been made redundant due to the changes we made.
+// Now, temp range input is accessed immediately after taking/choosing a picture,
+// and in fact needs a currently selected picture to display one in the popup.
+// Having a seperate place to choose the temp range (when its possible you don't
+// even have a currently selected image, is now redundant.
+// We will comment out these functions to keep them around just in case though.
+/*
 function Preferences({ navigation }) {
   return (
     <View style={styles.screenContainer}>
@@ -77,6 +83,7 @@ function Preferences({ navigation }) {
     </View>
   );
 }
+*/
 
 function WardrobeScreen({ navigation }) {
   return (
@@ -91,14 +98,12 @@ function WardrobeScreen({ navigation }) {
       />
 
       <View style={styles.fifteen_separator}></View>
-
-      <CustomButton
-        title="Set Preferences"
-        onPress={() =>
-          navigation.navigate('Preferences')
-        }
-      />
-
+      {/*<CustomButton
+      title="Set Preferences"
+      onPress={() =>
+        navigation.navigate('Preferences')
+      }
+      />*/}
       <View style={styles.fifteen_separator}></View>
 
       {PicGrid(false)}
@@ -138,7 +143,7 @@ function App() {
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }}/>
         <Stack.Screen name="Camera" component={CameraScreen} options={{ title: 'Camera' }}/>
         <Stack.Screen name="Wardrobe" component={WardrobeScreen} options={{ title: 'Wardrobe' }}/>
-        <Stack.Screen name="Preferences" component={Preferences} options={{ title: 'Set Preferences' }}/>
+        {/*<Stack.Screen name="Preferences" component={Preferences} options={{ title: 'Set Preferences' }}/>*/}
         <Stack.Screen name="Testing" component={UnitTesting} options={{ title: 'Unit Testing' }}/>
       </Stack.Navigator>
     </NavigationContainer>

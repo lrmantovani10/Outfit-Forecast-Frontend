@@ -143,8 +143,9 @@ export class TempRangesTest extends Component {
                 <Text>{this.state.PopupData.values[0] === 10 && this.state.PopupData.values[1] === 90 ? 'Testing tempInput... [PASS]' : 'Testing tempInput... [FAIL]'}</Text>
                 <View style={styleSheet.five_separator}></View>
                 <Pressable style={styleSheet.button}
-                // style={[styles.button, styles.buttonClose]}
-                onPress={() => classifyNew(this.state.PopupData.values[0], this.state.PopupData.values[1], this.PopupData.pictureURI)}>
+                /*style={[styles.button, styles.buttonClose]}
+        onPress={() => classifyNew(this.state.PopupData.values[0], this.state.PopupData.values[1], this.state.PopupData.pictureURI)}>*/
+                onPress={() => this.makePopupVisible(!popupVisible)}>
                 <Text style={styles.tempRangeText}>Save & Exit</Text>
                 </Pressable>
             </View>
