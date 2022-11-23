@@ -66,6 +66,12 @@ export default StyleSheet.create({
         margin: 20
     },
 
+    screenContainer2: {
+        color: "#D6DDE0",
+        // justifyContent: "center",
+        padding: 20
+    },
+
     fifteen_separator: {
         height: 15
     },

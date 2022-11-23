@@ -101,7 +101,7 @@ function WardrobeScreen({ navigation }) {
 
       <View style={styles.fifteen_separator}></View>
 
-      {PicGrid()}
+      {PicGrid(false)}
 
     </View>
   );

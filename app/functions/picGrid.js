@@ -18,7 +18,7 @@ import "./FirebaseInitialize";
 import { getStorage, ref, getDownloadURL, connectStorageEmulator } from "firebase/storage";
 import ImagePickerFunction from  "./PictureFunctions";
 
-export default function PicGrid() {
+export default function PicGrid(test) {
     const[url, setUrl] = useState();
     useEffect(() => {
       const func = async (filename) => {
@@ -32,14 +32,12 @@ export default function PicGrid() {
     }, []);
           
     return (
-        <View style={styles.gridBackground}>
-            <Text style={styles.title}> Wardobe Pictures </Text>
-            <Text style={styles.h2}>
-                Click on an image to set wearable temperature range
-            </Text>
+        <View style={!test && styles.gridBackground}>
+            {!test && <Text style={styles.title}> Wardobe Pictures </Text>}
+            {test && <Text style={styles.title}> Test Wardobe Pictures </Text>}
 
             <Image
-            style = {{width: '30%', height: '30%'}}
+            style = {!test && {width: '30%', height: '30%'} || test && {width: '50%', height: '40%'} }
             source = {{uri : url}}
             />
         </View>

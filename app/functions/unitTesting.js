@@ -256,7 +256,7 @@ export default function unitTesting() {
     }), [])
 
     return (
-        <View style={styles.screenContainer}>
+        <View style={styles.screenContainer2}>
             <Text style={styles.unitText}>Weather Test 1: {weatherResult1.toString()}</Text>
             <Text style={styles.unitText}>Weather Test 2: {weatherResult2.toString()}</Text>
             <Text style={styles.unitText}>Weather Test 3: {weatherResult3.toString()}</Text>
@@ -266,13 +266,14 @@ export default function unitTesting() {
             <Text style={styles.unitText}>Upload Test: {
             uploadResult}
             </Text> 
-            <Text>{"\n"}{"\n"}Tap the button below to test our picture functions and TempRanges class (this serves as a test for the
+            <Text>{"\n"}Tap the button below to test our picture functions and TempRanges class (this serves as a test for the
             makePopupVisible and tempInput functions as well as the functionality for taking/choosing photos and setting temperature
-            ranges as a whole).{"\n"}{"\n"}
+            ranges as a whole).{"\n"}
             After you take or choose your picture, set the lower range to 10°F and the higher range to 90°F.{"\n"}
-            Once you do this, you should see Testing tempInput... [PASS] appear.{"\n"}{"\n"}</Text>
+            Once you do this, you should see Testing tempInput... [PASS] appear.{"\n"}</Text>
             {/* Test Image Functionality */}
             {ImagePickerFunction(true)}
+            {PicGrid(true)}
         </View>
     )
 

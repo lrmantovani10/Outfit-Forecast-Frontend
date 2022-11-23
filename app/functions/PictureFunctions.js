@@ -89,9 +89,9 @@ export default function ImagePickerFunction(test) {
         });
         console.log("past this part");
     }
-    
+
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
         {!test && <Button title="Take Photo" onPress={takePicture} />}
         {!test && <Button title="Choose from Gallery" onPress={choosePicture} />}
         {test && <Button title="Test Take Photo" onPress={takePicture} />}
