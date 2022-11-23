@@ -53,7 +53,7 @@ With this milestone, we aimed to add several new functionalities including the a
 
 Work Distribution for 4.B:
 * Lucas: Implement authentication, writing unit tests
-* Luke Contreras: Survey (with Luke K), make accept / decline button functional, writing unit tests
+* Luke Contreras: Survey (with Luke K), writing unit tests, image display
 * Allie: Wardrobe, writing acceptance tests
 * Luke Knutson: Wardrobe (with Allie), any pending survey clothing survey implementation
 
@@ -67,7 +67,6 @@ New features (that we hadn’t considered when planning for this iteration):
 - Added functionality to the accept / reject outfit buttons
 - Tests for generateRandomString() and authenticate()
 - Test for picGrid (wardrobe)
-- Test for getDownloadURL
 - Testing page for unitTests 
 
 Completed features (that we had already planned for):
