@@ -72,7 +72,8 @@ export default function User(props) {
         })
     }
 
-    const classifyNew = async (lower, upper, img_URL) => {
+    const classifyNew = async (lower, upper, imgu) => {
+        const img_URL = encodeURI(imgu);
         let classifyEndpoint = `https://outfit-forecast.herokuapp.com/classifyNew/${props.username}/${img_URL}/${lower}/${upper}`
         await axios.post(classifyEndpoint).then(function (response) {
             console.log(response);
