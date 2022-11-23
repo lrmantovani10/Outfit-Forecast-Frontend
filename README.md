@@ -71,7 +71,7 @@ From the planning phase of this milestone to completion, there have been several
 * Enabling the user to edit the temperature range for a clothing item after it is initially set in upload. 
 
 ### Work Distribution
-* Lucas: adding user authentication and backend requests associated with a unique user, adding functionality to outfit accept and reject buttons, writing associated tests
-* Luke C: pulling the wardrobe images associated with a user from Firebase
+* Lucas: adding user authentication and backend requests associated with a unique user, writing associated tests
+* Luke C: pulling the wardrobe images associated with a user from Firebase, adding functionality to outfit accept and reject buttons, writing associated tests
 * Luke K: adapting image upload functions to have the user set tempRanges after upload
 * Allie: add wardrobe view (picGrid), writing acceptance tests for all functionality, general styling smoothing, updating ReadMe
