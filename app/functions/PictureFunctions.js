@@ -15,8 +15,10 @@ import 'firebase/compat/firestore';
 //import * as firebase2 from "firebase/storage"
 */
 
-export default function ImagePickerFunction(test) {
+export default function ImagePickerFunction(test, username) {
+    console.log("ImagePickerFunction username: ", username)
     const [picture, update_image] = useState(null);
+    const [allImages, setImages] = useState([]);
 
     const choosePicture = async () => {
       //  Launches the image gallery. We allow cropping/other editing
@@ -87,7 +89,10 @@ export default function ImagePickerFunction(test) {
           console.log("blob or file NOT Uploaded");
           console.log(error);
         });
+        console.log(filename);
         console.log("past this part");
+        setImages([...allImages, filename]);
+        console.log(allImages);
     }
 
     return (

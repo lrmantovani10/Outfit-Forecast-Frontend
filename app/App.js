@@ -3,6 +3,9 @@ import { Button, View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import * as Device from 'expo-device';
+import * as SecureStore from 'expo-secure-store';
+
 import CustomButton from './functions/button';
 import EnvironmentalData from './functions/EnvironmentalData';
 import { TempRanges } from './functions/tempRanges';
@@ -13,14 +16,15 @@ import styles from './functions/style';
 import PicGrid from './functions/picGrid'
 
 import "./functions/FirebaseInitialize";
-
-const [weather, setWeather] = useState(["Loading weather..."])
-const [location, setLocation] = useState([""])
-const [weatherIcon, setWeatherIcon] = useState([""])
-const [outfit, setOutfit] = useState(["Loading recommendation..."])
-const [username, setUsername] = useState("")
   
 function HomeScreen({ navigation }) {
+  const [username, setUsername] = useState("")
+  const [weather, setWeather] = useState(["Loading weather..."])
+  const [location, setLocation] = useState([""])
+  const [weatherIcon, setWeatherIcon] = useState([""])
+  const [outfit, setOutfit] = useState(["Loading recommendation..."])
+  console.log("Homescreen username: ", username)
+
   return (
     <SafeAreaView style={styles.screenContainer}>
 
@@ -29,7 +33,7 @@ function HomeScreen({ navigation }) {
         title="Go to Wardrobe" 
         icon = "truck"
         onPress={() =>
-          navigation.navigate('Wardrobe')
+          navigation.navigate('Wardrobe', {username})
         }
       />
 
@@ -86,7 +90,9 @@ function Preferences({ navigation }) {
 }
 */
 
-function WardrobeScreen({ navigation }) {
+function WardrobeScreen({ navigation, username }) {
+
+  console.log("Wardrobe Screen username: ", username)
   return (
     <View style={styles.screenContainer}>
 
@@ -94,7 +100,7 @@ function WardrobeScreen({ navigation }) {
       <CustomButton
         title="Add Items"
         onPress={() =>
-          navigation.navigate('Camera')
+          navigation.navigate('Camera', {username: username})
         }
       />
 
@@ -107,17 +113,17 @@ function WardrobeScreen({ navigation }) {
       />*/}
       <View style={styles.fifteen_separator}></View>
 
-      {PicGrid(false)}
+      {PicGrid(false, username)}
 
     </View>
   );
 }
 
-function CameraScreen({ navigation }) {
+function CameraScreen({ navigation, username }) {
   return (
     <View style={styles.screenContainer}>
       {/* Display Image Functionality */}
-      {ImagePickerFunction(false)}
+      {ImagePickerFunction(false, username)}
     </View>
   );
 }
@@ -134,6 +140,7 @@ function UnitTesting({ navigation }) {
 const Stack = createNativeStackNavigator();
 
 function App() {
+
   return (
     <NavigationContainer>
       <Stack.Navigator

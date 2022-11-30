@@ -18,17 +18,20 @@ import "./FirebaseInitialize";
 import { getStorage, ref, getDownloadURL, connectStorageEmulator } from "firebase/storage";
 import ImagePickerFunction from  "./PictureFunctions";
 
-export default function PicGrid(test) {
-    const[url, setUrl] = useState();
+export default function PicGrid(test, username) {
+    console.log("PicGrid username: ", username)
+    const[url, setUrl] = useState([]);
+
     useEffect(() => {
-      const func = async (filename) => {
+      const getImgURL = async (filename) => {
         const storage = getStorage();
         const reference = ref(storage, filename);
         await getDownloadURL(reference).then((x) => {
-          setUrl(x);
+            setUrl([...url, x]);
         })
       }
-      func('/268020.jpeg');
+
+      getImgURL('clothing/225469.jpeg');
     }, []);
           
     return (
@@ -38,7 +41,7 @@ export default function PicGrid(test) {
 
             <Image
             style = {!test && {width: '30%', height: '30%'} || test && {width: '50%', height: '40%'} }
-            source = {{uri : url}}
+            source = {{uri : url[0]}}
             />
         </View>
     );
