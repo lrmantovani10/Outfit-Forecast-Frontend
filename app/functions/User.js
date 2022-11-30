@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-import { View, Text, Image, ScrollView, Button, Pressable } from 'react-native';
+import { View, Text, Image, ScrollView, Button, Pressable, Share } from 'react-native';
 import styles from "./style"
 import * as Device from 'expo-device';
 import * as SecureStore from 'expo-secure-store';
@@ -80,6 +80,24 @@ export default function User(props) {
         })
     }
 
+    const shareData = async () => {
+        try {
+            let shareMessage = "Check out my outfit for the day: "
+            props.outfit.forEach((clothing) => {
+                if (clothing) {
+                    shareMessage += (clothing + ", ")   
+                }
+            })
+            shareMessage = shareMessage.slice(0, -2)
+            await Share.share({
+                message:
+                    shareMessage,
+            });
+        } catch (error) {
+            props.setOutfit(["An error has occured while trying to share the outfit."])
+        }
+    };
+
     const classifyNew = async (lower, upper, imgu) => {
         const img_URL = encodeURI(imgu);
         let classifyEndpoint = `https://outfit-forecast.herokuapp.com/classifyNew/${props.username}/${img_URL}/${lower}/${upper}`
@@ -118,9 +136,10 @@ export default function User(props) {
 
                         },
                         styles.acceptance_button,
-                        ]}
+                    ]}
+                    onPress={shareData}
                 >
-                    <Text style={styles.userButtonText}>Accept</Text>
+                    <Text style={styles.userButtonText}>Share</Text>
                 </Pressable>
 
                 <View style={{width: 10}}></View>
