@@ -14,12 +14,13 @@ import PicGrid from './functions/picGrid'
 
 import "./functions/FirebaseInitialize";
 
+const [weather, setWeather] = useState(["Loading weather..."])
+const [location, setLocation] = useState([""])
+const [weatherIcon, setWeatherIcon] = useState([""])
+const [outfit, setOutfit] = useState(["Loading recommendation..."])
+const [username, setUsername] = useState("")
+  
 function HomeScreen({ navigation }) {
-  const [weather, setWeather] = useState(["Loading weather..."])
-  const [location, setLocation] = useState([""])
-  const [weatherIcon, setWeatherIcon] = useState([""])
-  const [outfit, setOutfit] = useState(["Loading recommendation..."])
-  const [username, setUsername] = useState("")
   return (
     <SafeAreaView style={styles.screenContainer}>
 
