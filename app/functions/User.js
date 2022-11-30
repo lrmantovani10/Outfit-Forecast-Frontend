@@ -62,12 +62,19 @@ export default function User(props) {
         await axios.get(recommenderEndpoint).then((outcome) => {
             const result = outcome.data
             let finalList = []
-            result.forEach((element, index) => {
-                if (element) {
-                    finalList.push(element)
-                }
-            })
-            props.setOutfit(finalList)
+            if (result) {
+                result.forEach((element, index) => {
+                    if (element) {
+                        finalList.push(element)
+                    }
+                })
+                if (finalList.length > 0) {
+                    props.setOutfit(finalList)     
+                } 
+            }
+            if (!result || finalList.length == 0) {
+                props.setOutfit(["No clothes are currently available for this user. Add more through the app!"])
+            }
         }).catch((error) => {
             props.setOutfit(["Error fetching daily recommendation: " + error])
         })
