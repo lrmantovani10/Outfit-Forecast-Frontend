@@ -10,6 +10,19 @@ import React, { Component, useCallback } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View, Image } from "react-native";
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import styleSheet from "./style"
+import axios from 'axios';
+
+const classifyNew = async (lower, upper, imgu) => {
+  console.log("testing classify new...")
+  const img_URL = encodeURI(imgu);
+  let classifyEndpoint = `https://outfit-forecast.herokuapp.com/classifyNew/${global.username_global}/${img_URL}/${lower}/${upper}`
+  await axios.post(classifyEndpoint).then(function (response) {
+      console.log(response);
+    })
+  .catch(function (error) {
+      console.log(error);
+  });
+}
 
 export class TempRanges extends Component {
   constructor(props) {
@@ -23,8 +36,10 @@ export class TempRanges extends Component {
        },
     };
   }
-
+  
   makePopupVisible = (visible) => {
+    // console.log("Global username2: ", global.username_global);
+    classifyNew(this.state.PopupData.values[0], this.state.PopupData.values[1], this.state.PopupData.pictureURI);
     this.setState({PopupData:{popupVisible: visible, values:this.state.PopupData.values, pictureURI: this.state.PopupData.pictureURI}});
   }
 

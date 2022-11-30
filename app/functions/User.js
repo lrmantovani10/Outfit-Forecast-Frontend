@@ -29,10 +29,11 @@ export default function User(props) {
             uniqueId = generateRandomString(stringLength)
             await SecureStore.setItemAsync(deviceName, uniqueId)
         }
-        const identifier = deviceName + uniqueId
-        console.log("User.js username: ", identifier)
+        const identifier = deviceName + uniqueId;
+        console.log("User.js username: ", identifier);
+        global.username_global = identifier;
         // const identifier = "leo"
-        const accountEndpoint = `https://outfit-forecast.herokuapp.com/createUser/${identifier}`
+        const accountEndpoint = `https://outfit-forecast.herokuapp.com/createUser/${identifier}`;
         await axios.get(accountEndpoint).then((outcome) => {
             const response = outcome.data
             if (response.includes("taken") || response.includes("created")) {

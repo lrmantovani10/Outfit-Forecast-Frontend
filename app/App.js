@@ -23,7 +23,7 @@ function HomeScreen({ navigation }) {
   const [location, setLocation] = useState([""])
   const [weatherIcon, setWeatherIcon] = useState([""])
   const [outfit, setOutfit] = useState(["Loading recommendation..."])
-  console.log("Homescreen username: ", username)
+  console.log("Homescreen username: ", username);
 
   return (
     <SafeAreaView style={styles.screenContainer}>
@@ -33,7 +33,7 @@ function HomeScreen({ navigation }) {
         title="Go to Wardrobe" 
         icon = "truck"
         onPress={() =>
-          navigation.navigate('Wardrobe', {username})
+          navigation.navigate('Wardrobe')
         }
       />
 
@@ -90,9 +90,9 @@ function Preferences({ navigation }) {
 }
 */
 
-function WardrobeScreen({ navigation, username }) {
+function WardrobeScreen({ navigation }) {
 
-  console.log("Wardrobe Screen username: ", username)
+  // console.log("Wardrobe Screen username: ", username)
   return (
     <View style={styles.screenContainer}>
 
@@ -100,7 +100,7 @@ function WardrobeScreen({ navigation, username }) {
       <CustomButton
         title="Add Items"
         onPress={() =>
-          navigation.navigate('Camera', {username: username})
+          navigation.navigate('Camera')
         }
       />
 
@@ -113,17 +113,17 @@ function WardrobeScreen({ navigation, username }) {
       />*/}
       <View style={styles.fifteen_separator}></View>
 
-      {PicGrid(false, username)}
+      {PicGrid(false)}
 
     </View>
   );
 }
 
-function CameraScreen({ navigation, username }) {
+function CameraScreen({ navigation }) {
   return (
     <View style={styles.screenContainer}>
       {/* Display Image Functionality */}
-      {ImagePickerFunction(false, username)}
+      {ImagePickerFunction(false)}
     </View>
   );
 }

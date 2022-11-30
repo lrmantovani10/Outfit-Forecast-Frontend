@@ -18,8 +18,8 @@ import "./FirebaseInitialize";
 import { getStorage, ref, getDownloadURL, connectStorageEmulator } from "firebase/storage";
 import ImagePickerFunction from  "./PictureFunctions";
 
-export default function PicGrid(test, username) {
-    console.log("PicGrid username: ", username)
+export default function PicGrid(test) {
+    console.log("PicGrid username: ", global.username_global)
     const[url, setUrl] = useState([]);
 
     useEffect(() => {

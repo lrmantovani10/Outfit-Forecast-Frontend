@@ -15,8 +15,8 @@ import 'firebase/compat/firestore';
 //import * as firebase2 from "firebase/storage"
 */
 
-export default function ImagePickerFunction(test, username) {
-    console.log("ImagePickerFunction username: ", username)
+export default function ImagePickerFunction(test) {
+    console.log("ImagePickerFunction username: ", global.username_global)
     const [picture, update_image] = useState(null);
     const [allImages, setImages] = useState([]);
 
