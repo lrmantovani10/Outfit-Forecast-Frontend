@@ -36,7 +36,7 @@ export default function User(props) {
             const response = outcome.data
             if (response.includes("taken") || response.includes("created")) {
                 props.setUsername(identifier)
-                dailyRecommender(props.weather, identifier)   
+                dailyRecommender(props.weather, identifier, "new")   
             }
             else {
                 props.setOutfit(["Error authenticating: " + response])
@@ -46,7 +46,7 @@ export default function User(props) {
         })   
     }
 
-    const dailyRecommender = async (weather, identifier) => {
+    const dailyRecommender = async (weather, identifier, callStatus) => {
         let recommenderEndpoint = `https://outfit-forecast.herokuapp.com/dailyRecommender/${identifier}/`
         weather.forEach((element, index) => {
             let additive;
@@ -58,7 +58,7 @@ export default function User(props) {
             }
             recommenderEndpoint += `${additive}/`
         })
-        recommenderEndpoint += "new"
+        recommenderEndpoint += callStatus
         await axios.get(recommenderEndpoint).then((outcome) => {
             const result = outcome.data
             let finalList = []
@@ -133,7 +133,10 @@ export default function User(props) {
                         },
                         styles.acceptance_button,
                         ]}
-                        onPress={() => dailyRecommender(props.weather)}
+                    onPress={() => {
+                            props.setOutfit(["Fetching new outfit..."])
+                            dailyRecommender(props.weather, props.username, "reject")
+                        }}
                 >
 
                     <Text style={styles.userButtonText}>Refresh</Text>
