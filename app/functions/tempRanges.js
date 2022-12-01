@@ -12,9 +12,10 @@ import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import styleSheet from "./style"
 import axios from 'axios';
 
-const classifyNew = async (lower, upper, imgu) => {
+const classifyNew = async (lower, upper, img_URL) => {
   console.log("testing classify new...")
-  const img_URL = encodeURI(imgu);
+  //const img_URL = encodeURI(imgu);
+  console.log(img_URL);
   let classifyEndpoint = `https://outfit-forecast.herokuapp.com/classifyNew`
   let requestBody = {
     "username": global.username_global,
@@ -22,10 +23,12 @@ const classifyNew = async (lower, upper, imgu) => {
     "upper": upper, 
     "url": img_URL
   }
+  console.log(requestBody);
   await axios.post(classifyEndpoint,
     JSON.stringify(requestBody),
     { headers: { "Content-Type": "application/json" } }).then(function (response) {
       console.log("classifyNew status", response.status);
+      console.log("response", response);
     })
     .catch(function (error) {
       console.log("error ", error)
@@ -48,7 +51,7 @@ export class TempRanges extends Component {
   
   makePopupVisible = (visible) => {
     // console.log("Global username2: ", global.username_global);
-    classifyNew(this.state.PopupData.values[0], this.state.PopupData.values[1], this.state.PopupData.pictureURI);
+    classifyNew(this.state.PopupData.values[0], this.state.PopupData.values[1], this.props.url);
     this.setState({PopupData:{popupVisible: visible, values:this.state.PopupData.values, pictureURI: this.state.PopupData.pictureURI}});
   }
 

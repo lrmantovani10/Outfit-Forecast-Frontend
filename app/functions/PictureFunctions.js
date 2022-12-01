@@ -3,7 +3,7 @@ import { Button, Image, View, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 import * as firebase from 'firebase/app';
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 import { TempRanges, TempRangesTest } from './tempRanges';
 
@@ -20,6 +20,7 @@ export default function ImagePickerFunction(test) {
     const username = global.username_global;
     const [picture, update_image] = useState(null);
     const [allImages, setImages] = useState([]);
+    const [url, update_url] = useState(null);
 
     const choosePicture = async () => {
       //  Launches the image gallery. We allow cropping/other editing
@@ -75,6 +76,7 @@ export default function ImagePickerFunction(test) {
     const uploadImage = async (uri, filename) => {
 
         const response = await fetch(uri);
+        //console.log("response is", response)
         const blob = await response.blob();
 
         const storage = getStorage();
@@ -83,13 +85,19 @@ export default function ImagePickerFunction(test) {
         // 'file' comes from the Blob or File API
         console.log("before UPLOAD")
         uploadBytes(storageRef, blob).then((snapshot) => {
-          
+          //console.log("snapshot is", snapshot)
           console.log('Uploaded a blob or file!');
         })
         .catch((error) => {
           console.log("blob or file NOT Uploaded");
           console.log(error);
         });
+        getDownloadURL(ref(storage, filename))
+        .then((url_test) => {
+          console.log(url_test)
+          update_url(url_test);
+          // `url` is the download URL for 'images/stars.jpg'
+        })
         console.log(filename);
         console.log("past this part");
         setImages([...allImages, filename]);
@@ -101,7 +109,7 @@ export default function ImagePickerFunction(test) {
         {!test && <Button title="Take Photo" onPress={takePicture} />}
         {!test && <Button title="Choose from Gallery" onPress={choosePicture} />}
         {test && <Button title="Test Choose from Gallery" onPress={choosePicture} />}
-        {picture && !test && <TempRanges uriInput={picture}/>} 
+        {picture && !test && <TempRanges uriInput={picture} url={url}/>} 
         {picture && test && <TempRangesTest uriInput={picture}/>} 
         
       </View>
