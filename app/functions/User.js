@@ -31,7 +31,7 @@ export default function User(props) {
             await SecureStore.setItemAsync(deviceName, uniqueId)
         }
         const identifier = deviceName + uniqueId;
-        console.log("User.js username: ", identifier);
+        //console.log("User.js username: ", identifier);
         global.username_global = identifier;
         // const identifier = "leo"
         const accountEndpoint = `https://outfit-forecast.herokuapp.com/createUser/${identifier}`;
@@ -65,14 +65,12 @@ export default function User(props) {
         await axios.get(recommenderEndpoint).then((outcome) => {
             const result = outcome.data
             let finalList = []
-            console.log("dailyRecommender results: ", result)
+            //console.log("dailyRecommender results: ", result)
             if (result) {
                 result.forEach((element, index) => {
                     if (element) {
-                        
-                        console.log("ele", element.imgURL);
                         update_recent_image(element.imgURL);
-                        console.log("recent_image", recent_image);
+                        //console.log("recent_image", recent_image);
                         finalList.push(element);
                     }
                 })
@@ -125,12 +123,12 @@ export default function User(props) {
         else {
             props.setOutfit(["Waiting for the weather to load before showing outfit recommendation..."])
         }
-    }, [recent_image, props.weather])
+    }, [ recent_image, props.weather])
 
     if (props.outfit.length <= 1) {
         return (
             <View>
-            <Image source={{uri: recent_image}} style={{ width: 300, height: 300 }}/>
+            {recent_image && <Image source={{uri: recent_image}} style={{ width: 300, height: 300 }}/>}
             </View>
         )
     }
