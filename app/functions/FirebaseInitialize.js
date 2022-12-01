@@ -1,21 +1,20 @@
-/*
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
-import 'firebase/storage'; 
-*/
-import * as firebase from 'firebase/app';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getStorage } from "firebase/storage";
+import { ref } from "firebase/storage";
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBV58C4jXRoly73vzSV_ZofgUycqCDsEAo",
-    authDomain: "outfit-forecast.firebaseapp.com",
-    projectId: "outfit-forecast",
-    storageBucket: "outfit-forecast.appspot.com",
-    messagingSenderId: "7778456220",
-    appId: "1:7778456220:web:1776026426a9bcdda85359",
-    measurementId: "G-45F0GJK4J0"
-  };
+  apiKey: "AIzaSyAJ7ieEe5CNNFGllIHtzy4MZYOYWy0quNw",
+  authDomain: "outfit-forecast-2.firebaseapp.com",
+  projectId: "outfit-forecast-2",
+  storageBucket: "outfit-forecast-2.appspot.com",
+  messagingSenderId: "1069861698773",
+  appId: "1:1069861698773:web:55128813e7f32a2a3bf65c"
+};
 
-firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+export const storage = getStorage(app)
 
 export { firebase };
