@@ -1,77 +1,74 @@
-# Outfit-Forecast
+# Outfit Forecast
 
-An app to generate outfit predictions based on one's wardrobe and current weather.
+Outfit Forecast is an app designed to make choosing weather appropriate outfits easy. Using the user's location and images of their wardrobe, our app recommends outfits with the weather in mind.  
 
-Current class diagram
-![Class Diagram](class-diagrams/updatedClassDiagram6.png)
+## Running Outfit Forecast
 
-* Acceptance tests file: testing/acceptance_tests.txt
-* Unit testing file (run through app): app/functions/unitTesting.js
+1. Clone the repo locally
 
-How to run code:
-- npm install (for dependencies)
-- npx expo start
+```git clone https://github.com/LukeKnutson9/Outfit-Forecast-Frontend.git ```
 
-How to run the test cases:
-- The majority of our testing is designed to be executed via acceptance testing. In the acceptance_tests.txt file, there are acceptance tests written for the features we have implemented in the frontend.
-- The rest of the unit testing occurs via the "Testing" button on the home screen. The tests will run when the page is loaded, and the output from the tests will be displayed on the testing screen.
+2. Download ***Expo Go*** on your mobile device.
+3. In the root folder ```Outfit-Forecast-Frontend``` run:
+* ```npm install``` to install dependencies
+* ```npx expo start``` to start the server
+4. You can either scan the QR code that appears in the terminal window, or open Expo Go and select ```Outfit-Forecast-Frontend```
+5. With Expo Go running Outfit Forecast, you can start using the app. If you haven't used the app before, there will be no clothes associated with your userID. Take or upload some pictures of your clothes to build your wardrobe and get predictions!
 
-When testing, note that:
-- DailyRecommender was moved to the backend to remove redundancy and will be used there instead. All tests have been removed from the frontend.
-- Some tests, like uploadPicture and takePicture were changed, these being combined into the Picture functions in unit testing, and others, like addPrefPair and updatePrefPair are no longer there, or appear in a different form. This is because, as we implemented our project, we changed around how certain functionalities would work and how certain classes and functions would be implemented. We also changed our class diagram to reflect this.
-- Some tests, like takePicture, uploadPicture, and tempInput require human input, and will need a user to take actions upon running the unit tests. We put in a lot of time and effort to find ways to automate these tests but unfortunately believe they cannot be done even with the mocking tools we see are available. Some, like picGrid, can only be tested visually.
-- We are not using a standard unit testing framework because react native exports modules instead of isolated functions, meaning that it doesn't lend itself well to any framework that we know of.
+## Functionality
 
-Code Directory Structure:
-* All of our code resides within /app. Within /app, App.js has the bulk of the code for navigation and overall app styling, and /functions contains the various components we have written to be displayed across the different pages.
+At its core, Outfit Forecast is designed to take the guesswork out of what you should wear every day. Using the weather at your location and images of your wardrobe, Outfit Forecast will recommend temperature appropriate outfits for you to wear.
+ 
+To begin using the app, go to your Wardrobe and take pictures of a variety of clothes from your wardrobe. Try to use pictures taken against a blank background with good lighting. We recommend uploading 8-10 articles of clothing to start—if you decline an outfit, the app will recommend a completely new outfit, so it's good to have multiples of clothing types (ie three shirts, two jackets, 3 pairs of pants, etc). From there, you can set temperature ranges for the clothes you have uploaded, and get recommendations! 
 
-Implementation Description:
-* EnvironmentalData fetches the current weather and renders the view on the Home screen.
-* ApiKeys.demo.js -- testing the frontend's integration with Firebase (for image storage)
-* PictureFunctions encompasses all functions related to image processing, such as taking a picture and choosing one from the gallery.
-* User contains the getRecommender function, which sends a request to the backend for an outfit prediction based on sensitivity and the user's wardrobe. 
-* User also contains the authenticate function which checks if there is a username saved in the device, which is used for authentication. This username is a combination of the device’s name (for example, “Lucas’s iPhone”) and a random sequence of ten integers. When calling functions like dailyRecommender, we now pass this username to get predictions for that corresponding user. 
-* tempRanges provides the functionality for the user to set a temperature range in which they are comfortable wearing the item of clothing from their wardrobe.
-* picGrid provides a view of all the items of clothing in a user's wardrobe, through a gallery format with image thumbnails; does so by fetching image URLS from the Firebase.
-* We know it is unsafe, but we are adding the API key for OpenWeather to .env so you can run our code.
+## Example Features
+Below are a few acceptance tests from our test suite to get started with. To see the rest of the features with acceptance tests, go to our [testing](/app/testing/acceptance_tests.md) file.
 
+#### Take Photo
+##### Steps to Execute:
+1. Open app to Home Screen
+2. Click "Go to Wardrobe"
+3. Click "Add Items"
+4. Click "Take Photo"
+5. Enable camera access
+6. Take a photo
+7. Click "Save"
+8. Set temperature range
 
+##### Expected Result for Each Step:
+2. Opens Wardrobe View 
+3. Opens Camera View 
+4. Popup asks for camera permissions (if the popup doesn't appear, you may need to go to your 
+phone Settings and enable camera access)
+5. Phone camera opens 
+6. An image is captured
+7. The image is saved to your wardrobe
+8. TempRange popup appears and asks you to set a min and max temp for the clothes
 
-Milestone 4.A:
+##### Desired End Outcome:
+* When a photo is taken, the image should be added to the gallery in Wardrobe View
+#
+#### Share Outfit
+##### Steps to Execute:
+1. After adding clothing to the wardrobe, navigate to the HomeScreen
+2. Share outfit
 
-For the second iteration, the main functionality we plan on implementing encompasses having a more comprehensive navigation UI that enables a user to navigate throughout the main functionality of the app (seeing recommended outfit, adding temp preferences for wardrobe, and uploading new clothes to the wardrobe). Within this, we will continue to refine the functionality, namely by building out the functionality to add temperature preferences for clothing, provide a view to see the clothing items of the user, and have functionality for a user to request and decline an outfit. To build off of functionality implemented in the first iteration, we will also restructure our functions to output views which we can render on the various screens of our app.
-For this milestone, what we originally had planned which we are no longer planning on implementing are adding logo and artwork, and when a user declines an outfit, recommending it less in the future. 
-Work Distribution for 4.A:
-* Lucas: EnvironmentalData and User functions, writing unit tests
-* Luke Contreras: uploadPicture in PictureFunctions and Firebase testing, writing unit tests
-* Allie: general navigation, HTML + CSS, UI direction, writing acceptance tests
-* Luke Knutson: tempRanges functionality, writing unit tests
+##### Expected Result for Each Step:
+1. Should see "Home Page View" and suggested outfit.
+2. Popup to share outfit should appear
 
-Milestone 4.B: 
+##### Desired End Outcome:
+* Recommended outfit should be a temperature appropriate outfit using clothes from your wardrobe
 
-With this milestone, we aimed to add several new functionalities including the ability to authenticate oneself as a user, accept and reject outfits, and look at one’s 'wardrobe' of clothes images. We also wanted to put heavy focus on streamlining, simplifying, and bug fixing our old work, hoping to reduce confusion and redundancy. Additionally, we strived to use actual images from the firebase backend instead of placeholder ones when displaying the user’s clothes.
+## Support
+If you run into any issues, feel free to message any of us on Messenger, or send an email!
 
-Work Distribution for 4.B:
-* Lucas: Implement authentication, writing unit tests
-* Luke Contreras: Survey (with Luke K), writing unit tests, image display
-* Allie: Wardrobe, writing acceptance tests
-* Luke Knutson: Wardrobe (with Allie), any pending survey clothing survey implementation
-
-Updated features:
-- Made the popup window for temperature range input appear immediately after taking or choosing a photo.
-- Ensured the display image when choosing a temperature range is the photo the user just took or chose instead of a placeholder image.
-
-New features (that we hadn’t considered when planning for this iteration):
-- Authenticate method within User to fetch data specific to a user from the database
-- Implemented wardrobe, which displays a gallery of clothes photos a specific user has taken or chosen. Clicking on them enlarges the photo.
-- Added functionality to the accept / reject outfit buttons
-- Tests for generateRandomString() and authenticate()
-- Test for picGrid (wardrobe)
-- Testing page for unitTests 
-
-Completed features (that we had already planned for):
-- EnvironmentalData function 
-- User function, including dailyRecommender
-- uploadPicture and PictureFunctions
-- More cohesive ui/ux
-
+### Team 
+Lucas Mantovani\
+Perene Wang\
+Luke Knutson\
+Leo Shestakov\
+Gautam Kapoor\
+Luke Contreras\
+Allie Chu\
+Daniel Gilbert
