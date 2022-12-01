@@ -21,14 +21,14 @@ import ImagePickerFunction from  "./PictureFunctions";
 var imageNames = [];
 var urls = [];
 export default function PicGrid(test) {
-
+    const username = global.username_global; 
     // Create a reference under which you want to list
     console.log("BEFORE");
     const storage = getStorage();
 
 
     // Create a reference under which you want to list
-    const listRef = ref(storage, '/LC');
+    const listRef = ref(storage, "/" + username);
     listAll(listRef)
       .then((res) => {
         res.prefixes.forEach((folderRef) => {

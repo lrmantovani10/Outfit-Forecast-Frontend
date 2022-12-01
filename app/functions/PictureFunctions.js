@@ -17,6 +17,7 @@ import 'firebase/compat/firestore';
 
 export default function ImagePickerFunction(test) {
     console.log("ImagePickerFunction username: ", global.username_global)
+    const username = global.username_global;
     const [picture, update_image] = useState(null);
     const [allImages, setImages] = useState([]);
 
@@ -57,7 +58,7 @@ export default function ImagePickerFunction(test) {
         //const filename = "clothing/" + String(piture) + ".jpeg";
         //console.log(result.uri)
         console.log(result.fileSize);
-        const filename = "clothing/" + result.fileSize + ".jpeg";
+        const filename = username + "/" + result.fileSize + ".jpeg";
         uploadImage(result.uri, filename)
             .then(() => {
                 console.log("Image Uploaded");
