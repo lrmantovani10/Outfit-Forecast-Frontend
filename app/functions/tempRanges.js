@@ -23,9 +23,10 @@ const classifyNew = async (lower, upper, imgu) => {
     "url": img_URL
   }
   await axios.post(classifyEndpoint, requestBody).then(function (response) {
-      console.log(response.data);
+      console.log("classifyNew status", response.status);
     })
-  .catch(function (error) {
+    .catch(function (error) {
+      console.log("error ", error)
       console.log(error);
   });
 }
