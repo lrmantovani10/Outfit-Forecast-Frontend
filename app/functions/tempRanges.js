@@ -22,7 +22,9 @@ const classifyNew = async (lower, upper, imgu) => {
     "upper": upper, 
     "url": img_URL
   }
-  await axios.post(classifyEndpoint, requestBody).then(function (response) {
+  await axios.post(classifyEndpoint,
+    JSON.stringify(requestBody),
+    { headers: { "Content-Type": "application/json" } }).then(function (response) {
       console.log("classifyNew status", response.status);
     })
     .catch(function (error) {
