@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { View, Text, Image, ScrollView, Button, Pressable, Share } from 'react-native';
 import styles from "./style"
@@ -6,6 +6,7 @@ import * as Device from 'expo-device';
 import * as SecureStore from 'expo-secure-store';
 
 export default function User(props) {
+    const [recent_image, update_recent_image] = useState(null);
 
     const generateRandomString = (stringLength) => {
         let outputString = ""
@@ -68,7 +69,11 @@ export default function User(props) {
             if (result) {
                 result.forEach((element, index) => {
                     if (element) {
-                        finalList.push(element)
+                        
+                        console.log("ele", element.imgURL);
+                        update_recent_image(element.imgURL);
+                        console.log("recent_image", recent_image);
+                        finalList.push(element);
                     }
                 })
                 if (finalList.length > 0) {
@@ -100,7 +105,7 @@ export default function User(props) {
             props.setOutfit(["An error has occured while trying to share the outfit."])
         }
     };
-
+    /*
     const classifyNew = async (lower, upper, imgu) => {
         const img_URL = encodeURI(imgu);
         let classifyEndpoint = `https://outfit-forecast.herokuapp.com/classifyNew/${props.username}/${img_URL}/${lower}/${upper}`
@@ -111,6 +116,7 @@ export default function User(props) {
             console.log(error);
         });
     }
+    */
 
     useEffect(() => {
         if (props.weather.length == 4) {
@@ -119,13 +125,13 @@ export default function User(props) {
         else {
             props.setOutfit(["Waiting for the weather to load before showing outfit recommendation..."])
         }
-    }, [,props.weather])
+    }, [recent_image, props.weather])
 
     if (props.outfit.length <= 1) {
         return (
-            <Text style={styles.userTextLower}>
-                {props.outfit.toString()}
-            </Text>
+            <View>
+            <Image source={{uri: recent_image}} style={{ width: 300, height: 300 }}/>
+            </View>
         )
     }
     return (

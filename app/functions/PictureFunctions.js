@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { Button, Image, View, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -96,7 +96,6 @@ export default function ImagePickerFunction(test) {
         .then((url_test) => {
           console.log(url_test)
           update_url(url_test);
-          // `url` is the download URL for 'images/stars.jpg'
         })
         console.log(filename);
         console.log("past this part");
