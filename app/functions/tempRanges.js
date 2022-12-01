@@ -15,9 +15,15 @@ import axios from 'axios';
 const classifyNew = async (lower, upper, imgu) => {
   console.log("testing classify new...")
   const img_URL = encodeURI(imgu);
-  let classifyEndpoint = `https://outfit-forecast.herokuapp.com/classifyNew/${global.username_global}/${img_URL}/${lower}/${upper}`
-  await axios.post(classifyEndpoint).then(function (response) {
-      console.log(response);
+  let classifyEndpoint = `https://outfit-forecast.herokuapp.com/classifyNew`
+  let requestBody = {
+    "username": global.username_global,
+    "lower": lower, 
+    "upper": upper, 
+    "url": img_URL
+  }
+  await axios.post(classifyEndpoint, requestBody).then(function (response) {
+      console.log(response.data);
     })
   .catch(function (error) {
       console.log(error);
