@@ -64,6 +64,7 @@ export default function User(props) {
         await axios.get(recommenderEndpoint).then((outcome) => {
             const result = outcome.data
             let finalList = []
+            console.log("dailyRecommender results: ", result)
             if (result) {
                 result.forEach((element, index) => {
                     if (element) {
