@@ -64,7 +64,10 @@ phone Settings and enable camera access)
 If you run into any issues, feel free to message any of us on Messenger, or send an email!
 
 ### Team 
-Lucas Mantovani\
+Lucas Mantovani (front end)\
+ * dailyRecommender
+ * authenticate
+ * environmentalData class and all weather modules
 Perene Wang\
 Luke Knutson\
 Leo Shestakov\
