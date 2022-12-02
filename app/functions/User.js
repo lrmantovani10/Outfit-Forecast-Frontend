@@ -123,12 +123,12 @@ export default function User(props) {
         else {
             props.setOutfit(["Waiting for the weather to load before showing outfit recommendation..."])
         }
-    }, [ recent_image, props.weather])
+    }, [ props.weather])
 
     if (props.outfit.length <= 1) {
         return (
-            <View>
-            {recent_image && <Image source={{uri: recent_image}} style={{ width: 300, height: 300 }}/>}
+            <View style={styles.userTextLower}>
+            <Text>{props.outfit.toString()}</Text>
             </View>
         )
     }
@@ -137,35 +137,22 @@ export default function User(props) {
             <Text style={styles.userh1}>Today's Outfit</Text>    
             <View style={styles.twoAcrossButton}>
                 <Pressable
-                    style={({pressed}) => [
-                        {
-                            backgroundColor: pressed ? '#D6DDE0' : '#white',
-
-                        },
-                        styles.acceptance_button,
-                    ]}
+                    style={styles.button}
                     onPress={shareData}
                 >
-                    <Text style={styles.userButtonText}>Share</Text>
+                    <Text style={styles.buttonText}>Share</Text>
                 </Pressable>
 
                 <View style={{width: 10}}></View>
 
                 <Pressable 
-                    style={({pressed}) => [
-                        {
-                            backgroundColor: pressed ? '#D6DDE0' : '#white',
-
-                        },
-                        styles.acceptance_button,
-                        ]}
+                    style={styles.button}
                     onPress={() => {
                             props.setOutfit(["Fetching new outfit..."])
                             dailyRecommender(props.weather, props.username, "reject")
                         }}
                 >
-
-                    <Text style={styles.userButtonText}>Refresh</Text>
+                    <Text style={styles.buttonText}>Refresh</Text>
                 </Pressable>
             </View>  
             <View style={styles.fifteen_separator}></View>    
