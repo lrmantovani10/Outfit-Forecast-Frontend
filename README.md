@@ -64,15 +64,11 @@ phone Settings and enable camera access)
 If you run into any issues, feel free to message any of us on Messenger, or send an email!
 
 ### Team 
-1. Lucas Mantovani (front end)
- * dailyRecommender
- * authenticate
- * environmentalData class and all weather modules
- * Bug fixing 
-2. Perene Wang
-3. Luke Knutson
-4. Leo Shestakov
-5. Gautam Kapoor
-6. Luke Contreras
-7. Allie Chu
-8. Daniel Gilbert
+- Lucas Mantovani 
+- Perene Wang
+- Luke Knutson
+- Leo Shestakov
+- Gautam Kapoor
+- Luke Contreras
+- Allie Chu
+- Daniel Gilbert
