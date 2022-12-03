@@ -116,7 +116,6 @@ export default function unitTesting() {
     const [picture, update_image] = useState(null);
 
     const takePicture = async () => {
-        console.log("Successfully opened.");
         //  Asking the user for permission to use their camera
         UploadTests();
         const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
@@ -128,17 +127,13 @@ export default function unitTesting() {
         
         //  Waiting to see if user successfully takes picture. If they do, save it.
         const result = await ImagePicker.launchCameraAsync();
-        console.log("Successfully took picture");
         if (!result.cancelled) {
         //upload to Firebase
-          console.log("User didn't cancel");
           update_image(result.uri)
-          console.log("Image updated");
           console.log(result.fileSize);
           const filename = "clothing/" + result.fileSize + ".jpeg";
           uploadImage(result.uri, filename)
               .then(() => {
-                  console.log("Image Uploaded");
               })
               .catch((error) => {
                   console.log("Image NOT Uploaded");
@@ -155,17 +150,14 @@ export default function unitTesting() {
         const storageRef = ref(storage, filename);
 
         // 'file' comes from the Blob or File API
-        console.log("before UPLOAD")
         setUploadResult("Upload in progress...");
         uploadBytes(storageRef, blob).then((snapshot) => {
-          console.log('Uploaded a blob or file!');
           setUploadResult("[PASS]");
         })
         .catch((error) => {
           console.log("blob or file NOT Uploaded");
           console.log(error);
-        });
-        console.log("past this part");
+        }); 
     }
 
     const [uploadResult, setUploadResult] = useState(null)
