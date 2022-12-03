@@ -31,9 +31,7 @@ export default function User(props) {
             await SecureStore.setItemAsync(deviceName, uniqueId)
         }
         const identifier = deviceName + uniqueId;
-        //console.log("User.js username: ", identifier);
         global.username_global = identifier;
-        // const identifier = "leo"
         const accountEndpoint = `https://outfit-forecast.herokuapp.com/createUser/${identifier}`;
         await axios.get(accountEndpoint).then((outcome) => {
             const response = outcome.data
@@ -65,12 +63,10 @@ export default function User(props) {
         await axios.get(recommenderEndpoint).then((outcome) => {
             const result = outcome.data
             let finalList = []
-            //console.log("dailyRecommender results: ", result)
             if (result) {
                 result.forEach((element, index) => {
                     if (element) {
                         update_recent_image(element.imgURL);
-                        //console.log("recent_image", recent_image);
                         finalList.push(element);
                     }
                 })

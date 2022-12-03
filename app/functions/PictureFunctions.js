@@ -16,7 +16,6 @@ import 'firebase/compat/firestore';
 */
 
 export default function ImagePickerFunction(test) {
-    console.log("ImagePickerFunction username: ", global.username_global)
     const username = global.username_global;
     const [picture, update_image] = useState(null);
     const [allImages, setImages] = useState([]);
@@ -31,15 +30,11 @@ export default function ImagePickerFunction(test) {
       });
       //  Save the picture if they successfully choose one
       if (!result.cancelled) {
-        console.log("User didn't cancel");
         update_image(result.uri);
       }
-      
-      console.log("after upload selection");
     };
 
     const takePicture = async () => {
-      console.log("Successfully opened.");
       //  Asking the user for permission to use their camera
       const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
 
@@ -50,20 +45,12 @@ export default function ImagePickerFunction(test) {
       
       //  Waiting to see if user successfully takes picture. If they do, save it.
       const result = await ImagePicker.launchCameraAsync();
-      console.log("Successfully took picture");
       if (!result.cancelled) {
       //upload to Firebase
-        console.log("User didn't cancel");
         update_image(result.uri)
-        console.log("Image updated");
-        //const filename = "clothing/" + String(piture) + ".jpeg";
-        //console.log(result.uri)
-        console.log(result.fileSize);
         const filename = username + "/" + result.fileSize + ".jpeg";
         uploadImage(result.uri, filename)
             .then(() => {
-                console.log("Image Uploaded");
-                //Alert.alert("Uploaded");
             })
             .catch((error) => {
                 console.log("Image NOT Uploaded");
@@ -76,28 +63,20 @@ export default function ImagePickerFunction(test) {
     const uploadImage = async (uri, filename) => {
 
         const response = await fetch(uri);
-        //console.log("response is", response)
         const blob = await response.blob();
 
         const storage = getStorage();
         const storageRef = ref(storage, filename);
 
         // 'file' comes from the Blob or File API
-        console.log("before UPLOAD")
         uploadBytes(storageRef, blob).then((snapshot) => {
-          //console.log("snapshot is", snapshot)
-          console.log('Uploaded a blob or file!');
           getDownloadURL(ref(storage, filename))
           .then((url_test) => {
-            console.log("url_test", url_test)
             update_url(url_test);
           }).catch((error) => {
             console.log("getDownloadURLError", error)
           })
-          console.log(filename);
-          console.log("past this part");
           setImages([...allImages, filename]);
-          console.log(allImages);
         })
         .catch((error) => {
           console.log("blob or file NOT Uploaded");
@@ -110,7 +89,7 @@ export default function ImagePickerFunction(test) {
         {!test && <Button title="Take Photo" onPress={takePicture} />}
         {!test && <Button title="Choose from Gallery" onPress={choosePicture} />}
         {test && <Button title="Test Choose from Gallery" onPress={choosePicture} />}
-        {picture && !test && <TempRanges uriInput={picture} url={url}/>} 
+        {picture && !test && url && <TempRanges uriInput={picture} url={url}/>} 
         {picture && test && <TempRangesTest uriInput={picture}/>} 
         
       </View>

@@ -51,7 +51,6 @@ export default function PicGrid(test) {
     let imageNames = [];
     const username = global.username_global; 
     // Create a reference under which you want to list
-    console.log("BEFORE");
     const storage = getStorage();
 
     // Create a reference under which you want to list
@@ -59,10 +58,8 @@ export default function PicGrid(test) {
     listAll(listRef)
       .then((res) => {
         res.prefixes.forEach((folderRef) => {
-          console.log(folderRef.fullPath);
         });
         res.items.forEach((itemRef) => {
-          console.log(itemRef.fullPath);
           if(!(imageNames.includes(itemRef.fullPath)))
           {
             imageNames.push(itemRef.fullPath);
@@ -72,8 +69,6 @@ export default function PicGrid(test) {
       }).catch((error) => {
         console.log(error)
       });
-
-    console.log("OVER");
     
     }, []);
           

@@ -23,7 +23,6 @@ function HomeScreen({ navigation }) {
   const [location, setLocation] = useState([""])
   const [weatherIcon, setWeatherIcon] = useState([""])
   const [outfit, setOutfit] = useState(["Loading recommendation..."])
-  //console.log("Homescreen username: ", username);
 
   return (
     <SafeAreaView style={styles.screenContainer}>
@@ -92,7 +91,6 @@ function Preferences({ navigation }) {
 
 function WardrobeScreen({ navigation }) {
 
-  // console.log("Wardrobe Screen username: ", username)
   return (
     <View style={styles.screenContainer}>
 
