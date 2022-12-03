@@ -18,14 +18,41 @@ import "./FirebaseInitialize";
 import { getStorage, ref, getDownloadURL, connectStorageEmulator, listAll } from "firebase/storage";
 import ImagePickerFunction from  "./PictureFunctions";
 
-var imageNames = [];
-var urls = [];
 export default function PicGrid(test) {
+  const [url_list, setUrls] = useState([])
+
+  // Find all the prefixes and items.
+    
+  const getImgURL = async (filename, urls) => {
+    const storage = getStorage();
+    const reference = ref(storage, filename);
+    let newUrl = await getDownloadURL(reference).then((x) => {
+      return x
+    })
+    return newUrl
+  }
+
+  const getImageUrls = async (imageNames) => {
+    let finalUrls = []
+    let newUrl
+    for(var i = 0; i < imageNames.length; i++)
+      {
+      newUrl = await getImgURL(imageNames[i]).then((newUrl) => {
+        finalUrls.push(newUrl)
+      })
+        .catch((error) => {
+          console.log("getImage Error", error)
+        });
+    }
+    setUrls(finalUrls)
+  }
+
+  useEffect(() => {
+    let imageNames = [];
     const username = global.username_global; 
     // Create a reference under which you want to list
     console.log("BEFORE");
     const storage = getStorage();
-
 
     // Create a reference under which you want to list
     const listRef = ref(storage, "/" + username);
@@ -41,41 +68,20 @@ export default function PicGrid(test) {
             imageNames.push(itemRef.fullPath);
           }
         });
+        getImageUrls(imageNames)
       }).catch((error) => {
         console.log(error)
       });
 
-    // Find all the prefixes and items.
-   
-    const[url, setUrl] = useState();
-
-    useEffect(() => {
-      const getImgURL = async (filename) => {
-        const storage = getStorage();
-        const reference = ref(storage, filename);
-        await getDownloadURL(reference).then((x) => {
-          if(!(urls.includes(x)))
-          {
-            urls.push(x);
-          }
-        })
-      }
     console.log("OVER");
     
-    for(var i = 0; i < imageNames.length; i++)
-    {
-      getImgURL(imageNames[i]);
-    }
-    
     }, []);
-    console.log("LAST ONE");
-    console.log(imageNames);
           
     return (
         <View style={!test && styles.gridBackground}>
             {!test && <Text style={styles.title}> Wardobe Pictures </Text>}
             {test && <Text style={styles.title}> Test Wardobe Pictures </Text>}
-            <GridImageView data={urls} />
+            <GridImageView data={url_list} />
         </View>
     );
 }
