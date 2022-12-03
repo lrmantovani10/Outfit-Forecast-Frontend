@@ -23,7 +23,7 @@ To begin using the app, go to your Wardrobe and take pictures of a variety of cl
 
 ## General Tips
 - If trying to identify shoes, try to take a photo of a pair of shoes instead of just one
-- Try not to be weaing the clothing you photograph
+- Try not to be wearing the clothing you photograph
 - Try to take photos over a plain/white background to prevent other objects from interfering with classification
 
 ## Example Features
