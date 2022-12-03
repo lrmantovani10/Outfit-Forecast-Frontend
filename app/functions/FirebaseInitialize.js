@@ -5,12 +5,12 @@ import { ref } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAJ7ieEe5CNNFGllIHtzy4MZYOYWy0quNw",
-  authDomain: "outfit-forecast-2.firebaseapp.com",
-  projectId: "outfit-forecast-2",
-  storageBucket: "outfit-forecast-2.appspot.com",
-  messagingSenderId: "1069861698773",
-  appId: "1:1069861698773:web:55128813e7f32a2a3bf65c"
+  apiKey: "AIzaSyD-Rej1SAv6YQZJVQKBFWtXMs5wMtdDO28",
+  authDomain: "outfit-forecast-final.firebaseapp.com",
+  projectId: "outfit-forecast-final",
+  storageBucket: "outfit-forecast-final.appspot.com",
+  messagingSenderId: "929567258241",
+  appId: "1:929567258241:web:3a2d82660f743bdac2bf80",
 };
 
 // Initialize Firebase
