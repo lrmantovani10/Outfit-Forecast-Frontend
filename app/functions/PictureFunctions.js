@@ -110,7 +110,7 @@ export default function ImagePickerFunction(test) {
         {!test && <Button title="Take Photo" onPress={takePicture} />}
         {!test && <Button title="Choose from Gallery" onPress={choosePicture} />}
         {test && <Button title="Test Choose from Gallery" onPress={choosePicture} />}
-        {picture && !test && <TempRanges uriInput={picture} url={url}/>} 
+        {picture && !test && url && <TempRanges uriInput={picture} url={url}/>} 
         {picture && test && <TempRangesTest uriInput={picture}/>} 
         
       </View>
