@@ -1,6 +1,6 @@
 
 import styles from './style';
-import { Text, View, Button, Image, Platform } from 'react-native';
+import { Text, View, Button, Image, Platform, ScrollView } from 'react-native';
 import { WEATHER_KEY } from "@env"
 import { useState, useEffect } from 'react';
 import * as Location from "expo-location"
@@ -257,7 +257,7 @@ export default function unitTesting() {
     }), [])
 
     return (
-        <View style={styles.screenContainer2}>
+        <ScrollView style={styles.screenContainer2}>
             <Text style={styles.unitText}>Weather Test 1: {weatherResult1.toString()}</Text>
             <Text style={styles.unitText}>Weather Test 2: {weatherResult2.toString()}</Text>
             <Text style={styles.unitText}>Weather Test 3: {weatherResult3.toString()}</Text>
@@ -275,7 +275,7 @@ export default function unitTesting() {
             {/* Test Image Functionality */}
             {ImagePickerFunction(true)}
             {PicGrid(true)}
-        </View>
+        </ScrollView>
     )
 
 }
