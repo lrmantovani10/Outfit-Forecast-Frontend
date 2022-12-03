@@ -60,6 +60,11 @@ phone Settings and enable camera access)
 ##### Desired End Outcome:
 * Recommended outfit should be a temperature appropriate outfit using clothes from your wardrobe
 
+## General Tips
+- If trying to identify shoes, try to take a photo of a pair of shoes instead of just one
+- Try not to be weaing the clothing you photograph
+- Try to take photos over a plain/white background to prevent other objects from interfering with classification
+
 ## Support
 If you run into any issues, feel free to message any of us on Messenger, or send an email!
 
