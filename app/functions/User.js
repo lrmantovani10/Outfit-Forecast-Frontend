@@ -91,7 +91,7 @@ export default function User(props) {
             let shareMessage = "Check out my outfit for the day: "
             props.outfit.forEach((clothing) => {
                 if (clothing) {
-                    shareMessage += (clothing + ", ")   
+                    shareMessage += (clothing.objectName + ", ")   
                 }
             })
             shareMessage = shareMessage.slice(0, -2)
@@ -103,18 +103,6 @@ export default function User(props) {
             props.setOutfit(["An error has occured while trying to share the outfit."])
         }
     };
-    /*
-    const classifyNew = async (lower, upper, imgu) => {
-        const img_URL = encodeURI(imgu);
-        let classifyEndpoint = `https://outfit-forecast.herokuapp.com/classifyNew/${props.username}/${img_URL}/${lower}/${upper}`
-        await axios.post(classifyEndpoint).then(function (response) {
-            console.log(response);
-          })
-        .catch(function (error) {
-            console.log(error);
-        });
-    }
-    */
 
     useEffect(() => {
         if (props.weather.length == 4) {
@@ -123,15 +111,16 @@ export default function User(props) {
         else {
             props.setOutfit(["Waiting for the weather to load before showing outfit recommendation..."])
         }
-    }, [ props.weather])
+    }, [, props.weather])
 
-    if (props.outfit.length <= 1) {
+    if (props.outfit.length < 1 || typeof props.outfit[0] == "string") {
         return (
             <View style={styles.userTextLower}>
             <Text>{props.outfit.toString()}</Text>
             </View>
         )
     }
+
     return (
         <View style={styles.outfitComponent}>
             <Text style={styles.userh1}>Today's Outfit</Text>    
@@ -173,5 +162,5 @@ export default function User(props) {
                 })
             }
         </View>
-    );
+    );   
 }

@@ -51,7 +51,7 @@ export class TempRanges extends Component {
   
   makePopupVisible = (visible) => {
     // console.log("Global username2: ", global.username_global);
-    classifyNew(this.state.PopupData.values[0], this.state.PopupData.values[1], this.props.url);
+    classifyNew(this.state.PopupData.values[0], this.state.PopupData.values[1], this.props.url); 
     this.setState({PopupData:{popupVisible: visible, values:this.state.PopupData.values, pictureURI: this.state.PopupData.pictureURI}});
   }
 
