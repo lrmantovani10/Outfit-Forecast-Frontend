@@ -21,6 +21,11 @@ At its core, Outfit Forecast is designed to take the guesswork out of what you s
  
 To begin using the app, go to your Wardrobe and take pictures of a variety of clothes from your wardrobe. Try to use pictures taken against a blank background with good lighting. We recommend uploading 8-10 articles of clothing to start—if you decline an outfit, the app will recommend a completely new outfit, so it's good to have multiples of clothing types (ie three shirts, two jackets, 3 pairs of pants, etc). From there, you can set temperature ranges for the clothes you have uploaded, and get recommendations! 
 
+## General Tips
+- If trying to identify shoes, try to take a photo of a pair of shoes instead of just one
+- Try not to be weaing the clothing you photograph
+- Try to take photos over a plain/white background to prevent other objects from interfering with classification
+
 ## Example Features
 Below are a few acceptance tests from our test suite to get started with. To see the rest of the features with acceptance tests, go to our [testing](/app/testing/acceptance_tests.md) file.
 
@@ -59,11 +64,6 @@ phone Settings and enable camera access)
 
 ##### Desired End Outcome:
 * Recommended outfit should be a temperature appropriate outfit using clothes from your wardrobe
-
-## General Tips
-- If trying to identify shoes, try to take a photo of a pair of shoes instead of just one
-- Try not to be weaing the clothing you photograph
-- Try to take photos over a plain/white background to prevent other objects from interfering with classification
 
 ## Support
 If you run into any issues, feel free to message any of us on Messenger, or send an email!
