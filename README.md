@@ -55,8 +55,10 @@ phone Settings and enable camera access)
 #
 #### Share Outfit
 ##### Steps to Execute:
-1. After adding clothing to the wardrobe, navigate to the HomeScreen
-2. Share outfit
+1. After adding clothing to the wardrobe, wait for a moment as your photo(s) are processed by our backend
+2. Then, to ensure that you will receive updated information on your current available outfits, reload Expo Go by pressing the 'r' key on your terminal
+3. Navigate to the HomeScreen
+4. Share outfit
 
 ##### Expected Result for Each Step:
 1. Should see "Home Page View" and suggested outfit.
