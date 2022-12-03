@@ -31,6 +31,15 @@ export default function ImagePickerFunction(test) {
       //  Save the picture if they successfully choose one
       if (!result.cancelled) {
         update_image(result.uri);
+        const filename = username + "/" + result.fileSize + ".jpeg";
+        uploadImage(result.uri, filename)
+            .then(() => {
+            })
+            .catch((error) => {
+                console.log("Image NOT Uploaded");
+                console.log(error);
+                //Alert.alert(error);
+            });
       }
     };
 
