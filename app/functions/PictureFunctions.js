@@ -87,20 +87,22 @@ export default function ImagePickerFunction(test) {
         uploadBytes(storageRef, blob).then((snapshot) => {
           //console.log("snapshot is", snapshot)
           console.log('Uploaded a blob or file!');
+          getDownloadURL(ref(storage, filename))
+          .then((url_test) => {
+            console.log("url_test", url_test)
+            update_url(url_test);
+          }).catch((error) => {
+            console.log("getDownloadURLError", error)
+          })
+          console.log(filename);
+          console.log("past this part");
+          setImages([...allImages, filename]);
+          console.log(allImages);
         })
         .catch((error) => {
           console.log("blob or file NOT Uploaded");
           console.log(error);
         });
-        getDownloadURL(ref(storage, filename))
-        .then((url_test) => {
-          console.log(url_test)
-          update_url(url_test);
-        })
-        console.log(filename);
-        console.log("past this part");
-        setImages([...allImages, filename]);
-        console.log(allImages);
     }
 
     return (

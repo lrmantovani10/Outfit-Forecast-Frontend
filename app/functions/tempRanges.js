@@ -15,7 +15,7 @@ import axios from 'axios';
 const classifyNew = async (lower, upper, img_URL) => {
   console.log("testing classify new...")
   //const img_URL = encodeURI(imgu);
-  console.log(img_URL);
+  console.log("imageURL", img_URL);
   let classifyEndpoint = `https://outfit-forecast.herokuapp.com/classifyNew`
   let requestBody = {
     "username": global.username_global,
