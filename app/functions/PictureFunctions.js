@@ -1,11 +1,25 @@
-import React, { useState} from 'react';
-import { Button,  View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, Image, View, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import * as firebase from "firebase/app";
-//import * as firebase2 from "firebase/storage"
 
-export default function ImagePickerFunction() {
+import * as firebase from 'firebase/app';
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+
+import { TempRanges, TempRangesTest } from './tempRanges';
+
+
+/*import firebase from 'firebase/compat/app';
+
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+//import * as firebase2 from "firebase/storage"
+*/
+
+export default function ImagePickerFunction(test) {
+    const username = global.username_global;
     const [picture, update_image] = useState(null);
+    const [allImages, setImages] = useState([]);
+    const [url, update_url] = useState(null);
 
     const choosePicture = async () => {
       //  Launches the image gallery. We allow cropping/other editing
@@ -14,25 +28,22 @@ export default function ImagePickerFunction() {
         allowsEditing: true,
         quality: 1,
       });
-
       //  Save the picture if they successfully choose one
       if (!result.cancelled) {
-            //upload to Firebase
-            update_image(result.uri)
-              uploadImage(result.uri, "IMAGE")
-                  .then(() => {
-                      console.log("Uploaded");
-                      //Alert.alert("Uploaded");
-                  })
-                  .catch((error) => {
-                      console.log(error);
-                      //Alert.alert(error);
-                  });
+        update_image(result.uri);
+        const filename = username + "/" + result.fileSize + ".jpeg";
+        uploadImage(result.uri, filename)
+            .then(() => {
+            })
+            .catch((error) => {
+                console.log("Image NOT Uploaded");
+                console.log(error);
+                //Alert.alert(error);
+            });
       }
     };
 
     const takePicture = async () => {
-      console.log("Successfully opened.");
       //  Asking the user for permission to use their camera
       const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
 
@@ -43,16 +54,12 @@ export default function ImagePickerFunction() {
       
       //  Waiting to see if user successfully takes picture. If they do, save it.
       const result = await ImagePicker.launchCameraAsync();
-      console.log("Successfully took picture");
       if (!result.cancelled) {
       //upload to Firebase
-        console.log("User didn't cancel");
         update_image(result.uri)
-        console.log("Image updated");
-        uploadImage(result.uri, "IMAGE")
+        const filename = username + "/" + result.fileSize + ".jpeg";
+        uploadImage(result.uri, filename)
             .then(() => {
-                console.log("Image Uploaded");
-                //Alert.alert("Uploaded");
             })
             .catch((error) => {
                 console.log("Image NOT Uploaded");
@@ -63,16 +70,37 @@ export default function ImagePickerFunction() {
     }
 
     const uploadImage = async (uri, filename) => {
+
         const response = await fetch(uri);
         const blob = await response.blob();
-        var ref = firebase.storage().ref().child("images/" + filename);
-        return ref.put(blob);
+
+        const storage = getStorage();
+        const storageRef = ref(storage, filename);
+
+        // 'file' comes from the Blob or File API
+        uploadBytes(storageRef, blob).then((snapshot) => {
+          getDownloadURL(ref(storage, filename))
+          .then((url_test) => {
+            update_url(url_test);
+          }).catch((error) => {
+            console.log("getDownloadURLError", error)
+          })
+          setImages([...allImages, filename]);
+        })
+        .catch((error) => {
+          console.log("blob or file NOT Uploaded");
+          console.log(error);
+        });
     }
 
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button title="Take Photo" onPress={takePicture} />
-        <Button title="Choose from Gallery" onPress={choosePicture} />
+      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+        {!test && <Button title="Take Photo" onPress={takePicture} />}
+        {!test && <Button title="Choose from Gallery" onPress={choosePicture} />}
+        {test && <Button title="Test Choose from Gallery" onPress={choosePicture} />}
+        {picture && !test && url && <TempRanges uriInput={picture} url={url}/>} 
+        {picture && test && <TempRangesTest uriInput={picture}/>} 
+        
       </View>
     );
     // You can access the currently chosen image at anytime by using the variable 'picture'.

@@ -1,41 +1,81 @@
-# Outfit-Forecast
+# Outfit Forecast
 
-An app to generate outfit predictions based on one's wardrobe and current weather.
+Outfit Forecast is an app designed to make choosing weather appropriate outfits easy. Using the user's location and images of their wardrobe, our app recommends outfits with the weather in mind.  
 
-Current class diagram
-![Class Diagram](class-diagrams/updatedClassDiagram4.png)
+## Running Outfit Forecast
 
-Testing file: testing/acceptance_tests.txt
+1. Clone the repo locally
 
-How to run code:
-- npm install (for dependencies)
-- npx expo start
+```git clone https://github.com/LukeKnutson9/Outfit-Forecast-Frontend.git ```
 
-How to run the test cases:
-- The majority of our testing is designed to be executed via acceptance testing. In the acceptance_tests.txt file, there are acceptance tests written for the features we have implemented in the frontend.
+2. Download ***Expo Go*** on your mobile device.
+3. In the root folder ```Outfit-Forecast-Frontend``` run:
+* ```npm install``` to install dependencies
+* ```npx expo start``` to start the server
+4. You can either scan the QR code that appears in the terminal window, or open Expo Go and select ```Outfit-Forecast-Frontend```
+5. With Expo Go running Outfit Forecast, you can start using the app. If you haven't used the app before, there will be no clothes associated with your userID. Take or upload some pictures of your clothes to build your wardrobe and get predictions!
 
-Notes on testing:
+## Functionality
 
-Code Directory Structure:
- * All of our code resides within /app. Within /app, App.js has the bulk of the code for navigation and overall app styling, and /functions contains the various components we have written to be displayed across the different pages.
-
-Implementation Description:
- * EnvironmentalData fetches the current weather and renders the view on the Home screen.
- * ApiKeys.demo.js -- testing the frontend's integration with Firebase (for image storage)
- * PictureFunctions encompasses all functions related to image processing, such as taking a picture and choosing one from the gallery. 
- * User contains the getRecommender function, which sends a request to the backend for an outfit prediction based on sensitivity and the user's wardrobe.
- * tempRanges provides the functionality for the user to set a temperature range in which they are comfortable wearing the item of clothing from their wardrobe.
- * wardrobeGallery provides a view of all the items of clothing in a user's wardrobe, through a gallery format with image thumbnails. 
-
-Milestone 4.A:
-
-For the second iteration, the main functionality we plan on implementing encompasses having a more comprehensive navigation UI that enables a user to navigate throughout the main functionality of the app (seeing recommended outfit, adding temp preferences for wardrobe, and uploading new clothes to the wardrobe). Within this, we will continue to refine the functionality, namely by building out the functionality to add temperature preferences for clothing, provide a view to see the clothing items of the user, and have functionality for a user to request and decline an outfit. To build off of functionality implemented in the first iteration, we will also restructure our functions to output views which we can render on the various screens of our app.
-For this milestone, what we originally had planned which we are no longer planning on implementing are adding logo and artwork, and when a user declines an outfit, recommending it less in the future. 
+At its core, Outfit Forecast is designed to take the guesswork out of what you should wear every day. Using the weather at your location and images of your wardrobe, Outfit Forecast will recommend temperature appropriate outfits for you to wear.
  
-Work Distribution for 4.A:
-* Lucas: EnvironmentalData and User functions
-* Luke Contreras: uploadPicture in PictureFunctions and Firebase testing
-* Allie: general navigation, HTML + CSS, UI direction, wardrobeGallery
-* Luke Knutson: tempRanges functionality
-* Everyone: Writing acceptance testing for their functionality
+To begin using the app, go to your Wardrobe and take pictures of a variety of clothes from your wardrobe. Try to use pictures taken against a blank background with good lighting. We recommend uploading 8-10 articles of clothing to start—if you decline an outfit, the app will recommend a completely new outfit, so it's good to have multiples of clothing types (ie three shirts, two jackets, 3 pairs of pants, etc). From there, you can set temperature ranges for the clothes you have uploaded, and get recommendations! 
 
+## General Tips
+- If trying to identify shoes, try to take a photo of a pair of shoes instead of just one
+- Try not to be wearing the clothing you photograph
+- Try to take photos over a plain/white background to prevent other objects from interfering with classification
+
+## Example Features
+Below are a few acceptance tests from our test suite to get started with. To see the rest of the features with acceptance tests, go to our [testing](/app/testing/acceptance_tests.md) file.
+
+#### Take Photo
+##### Steps to Execute:
+1. Open app to Home Screen
+2. Click "Go to Wardrobe"
+3. Click "Add Items"
+4. Click "Take Photo"
+5. Enable camera access
+6. Take a photo
+7. Click "Save"
+8. Set temperature range
+
+##### Expected Result for Each Step:
+2. Opens Wardrobe View 
+3. Opens Camera View 
+4. Popup asks for camera permissions (if the popup doesn't appear, you may need to go to your 
+phone Settings and enable camera access)
+5. Phone camera opens 
+6. An image is captured
+7. The image is saved to your wardrobe
+8. TempRange popup appears and asks you to set a min and max temp for the clothes
+
+##### Desired End Outcome:
+* When a photo is taken, the image should be added to the gallery in Wardrobe View
+#
+#### Share Outfit
+##### Steps to Execute:
+1. After adding clothing to the wardrobe, wait for a moment as your photo(s) are processed by our backend
+2. Then, to ensure that you will receive updated information on your current available outfits, reload Expo Go by pressing the 'r' key on your terminal
+3. Navigate to the HomeScreen
+4. Share outfit
+
+##### Expected Result for Each Step:
+1. Should see "Home Page View" and suggested outfit.
+2. Popup to share outfit should appear
+
+##### Desired End Outcome:
+* Recommended outfit should be a temperature appropriate outfit using clothes from your wardrobe
+
+## Support
+If you run into any issues, feel free to message any of us on Messenger, or send an email!
+
+### Team 
+- Lucas Mantovani 
+- Perene Wang
+- Luke Knutson
+- Leo Shestakov
+- Gautam Kapoor
+- Luke Contreras
+- Allie Chu
+- Daniel Gilbert

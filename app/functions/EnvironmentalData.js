@@ -3,6 +3,7 @@ import axios from 'axios';
 import { View, Text, Image } from 'react-native';
 import { WEATHER_KEY } from "@env"
 import * as Location from "expo-location"
+import styles from './style';
 
 export default function environmentalData(props) {
     const getWeather = async (lat, lon) => {
@@ -18,7 +19,7 @@ export default function environmentalData(props) {
             props.setWeatherIcon(outcome.data.weather[0].icon)
             
         }).catch((error) => {
-            props.setWeather(["Error fetching the weather from the API:", error])
+            props.setWeather(["Error fetching the weather from the API: " + error])
         })
     }
 
@@ -36,8 +37,8 @@ export default function environmentalData(props) {
         getLocation()
     }, [])
 
-    const weatherKeys = ["Minimum Temperature", "Maximum Temperature",
-        "Felt Temperature", "Atmosphere"]
+    const weatherKeys = ["Min Temp (F)", "Max Temp (F)",
+        "Feels Like (F)", "Atmosphere"]
     
     if (props.weather.length < 4) {
         return (
@@ -50,36 +51,27 @@ export default function environmentalData(props) {
     }
     else {
         return (
-            <View style={{
-                flexDirection: "row",
-                alignItems: 'flex-start',
-                justifyContent: 'center',
-                color: "grey",
-                width: "100%",
-                height:"30%"
-            }}>
-                <View style={{
-                    flexDirection: "column",
-                    alignItems: 'flex-start',
-                    justifyContent: 'left',
-                    width:"60%"
-                }}>
-                {
-                    props.weather.map((value, index) => {
-                        return(
-                            <Text key={"weatherText" + index.toString()} style={{
-                                fontSize: "15%", color: "deepskyblue", fontFamily: 'Verdana'
-                            }}>
-                            {weatherKeys[index]}: {value.toString()}
-                        </Text>
-                        )
-                    })
+            <View style={styles.weatherComponent}>
+                <View style={styles.weatherIcon}>
+                    <Text style={styles.h1}>{props.location}</Text>
+                    <View style={styles.five_separator}></View>
+                    {
+                        props.weather.map((value, index) => {
+                            return(
+                                <Text key={"weatherText" + index.toString()} style={styles.paragraph}>
+                                {weatherKeys[index]}: {value.toString()}
+                            </Text>
+                            )
+                        })
                     }
                 </View>
+                
+                <View style={styles.weatherImage}>
                     {
                         <Image source={{ uri: "http://openweathermap.org/img/w/" + props.weatherIcon + ".png" }}
-                            style={{width: "40%", height: "60%"} } />
+                            style={{height: 50} } />
                     }
+                </View>
             </View>
         )
     }
